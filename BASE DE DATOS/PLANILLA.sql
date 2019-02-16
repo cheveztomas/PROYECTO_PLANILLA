@@ -183,8 +183,28 @@ CREATE PROCEDURE SP_GUARDAR_EMPLEADO(@id_empleado int out,
 									 @msj varchar(150) out)
 AS
 BEGIN TRY
-	
-ENTRY
+	IF(EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+		BEGIN
+			UPDATE EMPLEADOS
+			SET CEDULA=@cedula,
+				NOMBRE=@nombre,
+				PRIMER_APELLIDO=@primer_apellido,
+				SEGUNDO_APELLIDO=@segundo_apellido,
+				TELEFONO=@telefono,
+				CORREO=@correo,
+				NUMERO_CUENTA=@numero_cuenta,
+				FECHA_CONTRATACION=@fecha_contratacion
+			WHERE ID_EMPLEADO=@id_empleado
+			SET @msj='Empleado actualizado de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			INSERT INTO EMPLEADOS(CEDULA,NOMBRE,PRIMER_APELLIDO,SEGUNDO_APELLIDO,TELEFONO,CORREO,NUMERO_CUENTA,FECHA_CONTRATACION)
+			VALUES(@cedula,@nombre,@primer_apellido,@segundo_apellido,@telefono,@correo,@numero_cuenta,@fecha_contratacion)
+			SELECT @id_empleado=IDENT_CURRENT('EMPLEADOS')
+			SET @msj='Empleado ingresadod de forma correcta.'
+		END
+ENd TRY
 BEGIN CATCH
-
+	RAISERROR('Error al tratar de ingresar o actualizar empleado.',16,1)
 END CATCH
