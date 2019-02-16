@@ -71,3 +71,120 @@ ID_DETALLE_PLANILLA INT NOT NULL,
 PORCENTAJE DECIMAL NULL,
 MONTO DECIMAL NOT NULL
 )
+
+--******************************************************************************
+--EMPLEADOS
+GO
+ALTER TABLE EMPLEADOS
+ADD CONSTRAINT DF_BORRADO_LOGICO
+DEFAULT 0 FOR BORRADO_LOGICO
+
+
+--******************************************************************************
+--INFORMACION_ACADEMICA
+GO
+ALTER TABLE INFORMACION_ACADEMICA
+ADD CONSTRAINT FK_INFORMACION_ACADEMICA
+FOREIGN KEY (ID_EMPLEADO) REFERENCES EMPLEADOS(ID_EMPLEADO)
+
+GO
+ALTER TABLE INFORMACION_ACADEMICA
+ADD CONSTRAINT CHK_INFORMACION_ACADEMICA
+CHECK (GRADO IN('BACHILLER', 'LICENCIADO', 'MAESTRIA', 'DOCTORADO', 'TECNICO', 'OTRO'))
+
+GO
+ALTER TABLE INFORMACION_ACADEMICA
+ADD CONSTRAINT DF_INFORMACION_ACADEMICA_BORRADO
+DEFAULT 0 FOR BORRADO_LOGICO
+
+--******************************************************************************
+--PUESTOS
+GO
+ALTER TABLE PUESTOS
+ADD CONSTRAINT DF_BORRADO_PUESTOS
+DEFAULT 0 FOR BORRADO_LOGICO
+
+--******************************************************************************
+--EMPLEADOS_PUESTOS
+GO 
+ALTER TABLE EMPLEADOS_PUESTOS
+ADD CONSTRAINT FK1_EMPLEADOS_PUESTOS
+FOREIGN KEY (ID_EMPLEADO) REFERENCES EMPLEADOS(ID_EMPLEADO)
+
+GO
+ALTER TABLE EMPLEADOS_PUESTOS
+ADD CONSTRAINT FK2_EMPLEADOS_PUESTOS
+FOREIGN KEY (ID_PUESTO) REFERENCES PUESTOS(ID_PUESTO)
+
+GO
+ALTER TABLE EMPLEADOS_PUESTOS
+ADD CONSTRAINT DF_EMPLADOS_PUESTOS_BORRRADO
+DEFAULT 0 FOR BORRADO_LOGICO
+
+--******************************************************************************
+--PLANILLAS
+
+GO
+ALTER TABLE PLANILLAS
+ADD CONSTRAINT DF_BORRADO_PLANILLAS
+DEFAULT 0 FOR BORRADO_LOGICO
+
+--******************************************************************************
+--DETALLES PLANILLAS
+
+GO
+ALTER TABLE DETALLES_PLANILLAS
+ADD CONSTRAINT FK1_DETALLES_PLANILLAS
+FOREIGN KEY (ID_PLANILLA) REFERENCES PLANILLAS(ID_PLANILLA)
+
+GO
+ALTER TABLE DETALLES_PLANILLAS
+ADD CONSTRAINT FK2_DETALLES_PLANILLAS
+FOREIGN KEY (ID_EMPLEADO) REFERENCES EMPLEADOS(ID_EMPLEADO)
+
+GO
+ALTER TABLE DETALLES_PLANILLAS
+ADD CONSTRAINT DF_DETALLES_PLANILLAS
+DEFAULT 0 FOR BORRADO_LOGICO
+
+--********************************************************************************
+--PAGOS
+
+GO
+ALTER TABLE PAGOS
+ADD CONSTRAINT FK_PAGOS
+FOREIGN KEY (ID_DETALLE_PLANILLA) REFERENCES DETALLES_PLANILLAS(ID_DETALLE_PLANILLA)
+
+--*********************************************************************************
+--DEDUCCIONES
+GO
+ALTER TABLE DEDUCCIONES
+ADD CONSTRAINT FK_DEDUCCIONES
+FOREIGN KEY (ID_DETALLE_PLANILLA) REFERENCES DETALLES_PLANILLAS(ID_DETALLE_PLANILLA)
+
+--DROP DATABASE PLANILLA
+
+--/********************************************************************************/
+--/                                                                                /
+--/                            PROCEDOMIENTOS ALMACENADOS                          /
+--/                                                                                /
+--/********************************************************************************/
+
+GO
+CREATE PROCEDURE SP_GUARDAR_EMPLEADO(@id_empleado int out,
+									 @cedula varchar(20),
+									 @nombre varchar(50),
+									 @primer_apellido varchar(50),
+									 @segundo_apellido varchar(50),
+									 @telefono varchar(20),
+									 @correo varchar(50),
+									 @numero_cuenta varchar(50),
+									 @fecha_contratacion date,
+									 @msj varchar(150) out)
+AS
+BEGIN TRY
+	
+ENTRY
+BEGIN CATCH
+
+END CATCH
