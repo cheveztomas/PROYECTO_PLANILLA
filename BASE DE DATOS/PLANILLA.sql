@@ -14,6 +14,8 @@ TELEFONO VARCHAR(20) NOT NULL,
 CORREO VARCHAR(50) NULL,
 NUMERO_CUENTA VARCHAR(50) NOT NULL,
 FECHA_CONTRATACION DATE NOT NULL,
+PRESTAMO DECIMAL(10,2) NULL,
+PENSION DECIMAL(10,2) NULL,
 BORRADO_LOGICO BIT NOT NULL
 )
 
@@ -81,6 +83,15 @@ ALTER TABLE EMPLEADOS
 ADD CONSTRAINT DF_BORRADO_LOGICO
 DEFAULT 0 FOR BORRADO_LOGICO
 
+GO
+ALTER TABLE EMPLEADOS
+ADD CONSTRAINT DF_PENSION
+DEFAULT 0 FOR PENSION
+
+GO
+ALTER TABLE EMPLEADOS
+ADD CONSTRAINT DF_PRESTAMO
+DEFAULT 0 FOR PRESTAMO
 
 --******************************************************************************
 --INFORMACION_ACADEMICA
@@ -168,7 +179,7 @@ FOREIGN KEY (ID_DETALLE_PLANILLA) REFERENCES DETALLES_PLANILLAS(ID_DETALLE_PLANI
 
 --/********************************************************************************/
 --/                                                                                /
---/                            PROCEDOMIENTOS ALMACENADOS                          /
+--/                            PROCEDIMIENTOS ALMACENADOS                          /
 --/                                                                                /
 --/********************************************************************************/
 
@@ -204,13 +215,13 @@ BEGIN TRY
 			INSERT INTO EMPLEADOS(CEDULA,NOMBRE,PRIMER_APELLIDO,SEGUNDO_APELLIDO,TELEFONO,CORREO,NUMERO_CUENTA,FECHA_CONTRATACION)
 			VALUES(@cedula,@nombre,@primer_apellido,@segundo_apellido,@telefono,@correo,@numero_cuenta,@fecha_contratacion)
 			SELECT @id_empleado=IDENT_CURRENT('EMPLEADOS')
-			SET @msj='Empleado ingresadod de forma correcta.'
+			SET @msj='Empleado ingresado de forma correcta.'
 		END
 ENd TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de ingresar o actualizar empleado.',16,1)
 END CATCH
-
+--select * from empleados
 
 GO
 CREATE PROCEDURE SP_ELIMINAR_EMPLEADO(@id_empleado int,
@@ -477,3 +488,49 @@ BEGIN CATCH
 END CATCH
 
 --DROP DATABASE PLANILLA
+
+GO
+CREATE PROCEDURE SP_AGREGAR_PENSION(@id_empleado int,
+									@pension decimal(10,2),
+									@msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+		BEGIN
+			UPDATE EMPLEADOS
+			SET PENSION=@pension
+			WHERE ID_EMPLEADO=@id_empleado
+
+			SET @msj='Monto de pensión agregado de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			SET @msj='No se puede agregar monto a pensión, no se encuentra el empleado.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de agregar una pensión al empleado',16,11)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_AGREGAR_PRESTAMO(@id_empleado int,
+									 @prestamo decimal(10,2),
+									 @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+		BEGIN
+			UPDATE EMPLEADOS
+			SET PRESTAMO=@prestamo
+			WHERE ID_EMPLEADO=@id_empleado
+
+			SET @msj='Monto de prestamo agregado de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			SET @msj='No se puede agregar monto a prestamo, no se encuentra el empleado.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de agregar una prestamo al empleado',16,11)
+END CATCH
