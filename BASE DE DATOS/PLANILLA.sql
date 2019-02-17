@@ -76,6 +76,22 @@ PORCENTAJE DECIMAL NULL,
 MONTO DECIMAL NOT NULL
 )
 
+CREATE TABLE INFORMACION(
+ID_INFORMACION INT PRIMARY KEY NOT NULL,
+ANUALIDAD DECIMAL(10,2) NOT NULL,
+ESCALAFON_1 DECIMAL(10,2) NOT NULL,
+ESCALAFON_2 DECIMAL(10,2) NOT NULL,
+DEDICACION_EXCLUSIVA DECIMAL(10,2) NOT NULL,
+MAGISTERIO DECIMAL(10,2) NOT NULL,
+BANCO_POPULAR DECIMAL(10,2) NOT NULL,
+CCSS DECIMAL(10,2) NOT NULL,
+POLIZA DECIMAL(10,2) NOT NULL,
+COLEGIO_PROFESIONAL DECIMAL(10,2) NOT NULL
+)
+
+INSERT INTO INFORMACION(ID_INFORMACION,ANUALIDAD,ESCALAFON_1,ESCALAFON_2,DEDICACION_EXCLUSIVA,MAGISTERIO,BANCO_POPULAR,CCSS,POLIZA,COLEGIO_PROFESIONAL)
+VALUES(1,2,3,1,30,8,1,3,13450,5000)
+
 --******************************************************************************
 --EMPLEADOS
 GO
@@ -533,4 +549,35 @@ BEGIN TRY
 END TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de agregar una prestamo al empleado',16,11)
+END CATCH
+
+CREATE PROCEDURE SP_ACTUALIZAR_INFORMACION(
+										   @anualidad decimal,
+										   @escalafon1 decimal,
+										   @escalafon2 decimal,
+										   @dedicacion_exclusiva decimal,
+										   @magisterio decimal,
+										   @banco_popular decimal,
+										   @ccss decimal,
+										   @poliza decimal,
+										   @colegio_profesional decimal,
+										   @msj varchar(150) out)
+AS
+BEGIN TRY
+	UPDATE INFORMACION
+	SET ANUALIDAD=@anualidad,
+		ESCALAFON_1=@escalafon1,
+		ESCALAFON_2=@escalafon2,
+		DEDICACION_EXCLUSIVA=@dedicacion_exclusiva,
+		MAGISTERIO=@magisterio,
+		BANCO_POPULAR=@banco_popular,
+		CCSS=@ccss,
+		POLIZA=@poliza,
+		COLEGIO_PROFESIONAL=@colegio_profesional
+	WHERE ID_INFORMACION=1
+
+	SET @msj='La información se actualizo de forma correcta.'
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al trarar de actualizar la información.',16,12)
 END CATCH
