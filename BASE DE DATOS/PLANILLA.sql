@@ -551,6 +551,7 @@ BEGIN CATCH
 	RAISERROR('Error al tratar de agregar una prestamo al empleado',16,11)
 END CATCH
 
+go
 CREATE PROCEDURE SP_ACTUALIZAR_INFORMACION(
 										   @anualidad decimal,
 										   @escalafon1 decimal,
@@ -580,4 +581,65 @@ BEGIN TRY
 END TRY
 BEGIN CATCH
 	RAISERROR('Error al trarar de actualizar la información.',16,12)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ASIGANAR_PUESTO_EMPLEADO(@id_emplado_puesto int,
+											 @id_empleado int,
+											 @id_puesto int,
+											 @id_informacion_a int,
+											 @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(NOT EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+		BEGIN
+			IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto AND CATEGORIA_PUESTO=2))
+				BEGIN
+					IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informacion_a AND NOT(GRADO='OTRO') AND NOT(GRADO='TECNICO')))
+						BEGIN
+							INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
+							VALUES (@id_empleado,@id_puesto)
+							set @msj='Se a asignado de forma correcta el puesto al empleado.'
+						END
+					ELSE
+						BEGIN
+							SET @msj='Error no se puede asignar un este puesto a al empleado ya que no cumple con el requesito.'
+						END
+				END
+			ELSE
+				BEGIN
+					INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
+					VALUES (@id_empleado,@id_puesto)
+					set @msj='Se a asignado de forma correcta el puesto al empleado.'
+				END
+		END
+
+	ELSE
+		BEGIN 
+			IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto AND CATEGORIA_PUESTO=2))
+				BEGIN
+					IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informacion_a AND NOT(GRADO='OTRO') AND NOT(GRADO='TECNICO')))
+						BEGIN
+							UPDATE EMPLEADOS_PUESTOS
+							SET ID_EMPLEADO=@id_empleado,
+								ID_PUESTO=@id_puesto
+								WHERE ID_EMPLEADO_PUESTO=@id_emplado_puesto
+							set @msj='Se a asignado de forma correcta el puesto al empleado.'
+						END
+					ELSE
+						BEGIN
+							SET @msj='Error no se puede asignar un este puesto a al empleado ya que no cumple con el requesito.'
+						END
+				END
+			ELSE
+				BEGIN
+					INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
+					VALUES (@id_empleado,@id_puesto)
+					set @msj='Se a asignado de forma correcta el puesto al empleado.'
+				END
+		END
+END TRY
+
+BEGIN CATCH
+	RAISERROR('Error al tratar de asignar un puesto al empleado.',16,13)
 END CATCH
