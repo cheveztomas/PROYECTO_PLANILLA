@@ -61,12 +61,14 @@ BORRADO_LOGICO BIT NOT NULL
 CREATE TABLE PAGOS(
 ID_PAGO INT IDENTITY CONSTRAINT PK_PAGOS PRIMARY KEY NOT NULL,
 ID_DETALLE_PLANILLA INT NOT NULL,
+CONCEPTO VARCHAR(75),
 PORCENTAJE DECIMAL NULL,
 MONTO DECIMAL NOT NULL
 )
 
 CREATE TABLE DEDUCCIONES(
 ID_DEDUCCION INT IDENTITY CONSTRAINT PK_DEDUCCIONES PRIMARY KEY NOT NULL,
+CONCEPTO VARCHAR(75),
 ID_DETALLE_PLANILLA INT NOT NULL,
 PORCENTAJE DECIMAL NULL,
 MONTO DECIMAL NOT NULL
@@ -362,3 +364,116 @@ END TRY
 BEGIN CATCH
 	RAISERROR('Error al eliminar el puesto.',16,6)
 END CATCH
+
+GO
+CREATE PROCEDURE SP_GUARDAR_PLANILLA(@id_planilla int OUT,
+									  @fecha date)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM PLANILLAS WHERE ID_PLANILLA=@id_planilla))
+		BEGIN
+			UPDATE PLANILLAS
+			SET FECHA=@fecha
+			WHERE ID_PLANILLA=@id_planilla
+		END
+	ELSE
+		BEGIN
+			INSERT INTO PLANILLAS(FECHA)
+			VALUES(@fecha)
+			SELECT @id_planilla=IDENT_CURRENT('PLANILLAS')
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de ingresar el refistro de planilla.',16,7)
+END CATCH
+
+--select * from planillas
+
+GO
+CREATE PROCEDURE SP_CUARDAR_DETALLES_PLANILLAS(@id_detalle_planilla int out,
+									   @id_planilla int,
+									   @id_empleado int,
+									   @salario_neto decimal(10,2),
+									   @salario_bruto decimal(10,2),
+									   @primer_adelanto_salario decimal(10,2),
+									   @adelanto_salarial_final decimal(10,2),
+									   @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM DETALLES_PLANILLAS WHERE ID_DETALLE_PLANILLA=@id_detalle_planilla))
+		BEGIN
+			UPDATE DETALLES_PLANILLAS
+			SET SALARIO_NETO=@salario_neto,
+				SALARIO_BRUTO=@salario_bruto,
+				PRIMER_ADELANTO=@primer_adelanto_salario,
+				ADELANTO_FINAL_SALARIAL=@adelanto_salarial_final
+			WHERE ID_DETALLE_PLANILLA=@id_detalle_planilla
+			SET @msj='Información del empleado actualizada a la planilla de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			INSERT INTO DETALLES_PLANILLAS(ID_PLANILLA,ID_EMPLEADO,SALARIO_BRUTO,SALARIO_NETO,PRIMER_ADELANTO,ADELANTO_FINAL_SALARIAL)
+			VALUES (@id_planilla,@id_empleado,@salario_bruto,@salario_neto,@primer_adelanto_salario,@adelanto_salarial_final)
+			SELECT @id_detalle_planilla=IDENT_CURRENT('DETALLES_PLANILLAS')
+			SET @msj='Información del empleado agragada a la planilla de forma correcta.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de agregar empleado a la planilla,',16,8)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_GUARDAR_PAGOS(@id_pago int out,
+								  @id_detalle_planilla int,
+								  @concepto varchar(75),
+								  @porcentaje decimal,
+								  @monto decimal)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM PAGOS WHERE ID_PAGO=@id_pago))
+		BEGIN
+			UPDATE PAGOS
+			SET PORCENTAJE=@porcentaje,
+				CONCEPTO=@concepto,
+				MONTO=@monto
+			WHERE ID_PAGO=@id_pago
+		END
+	ELSE
+		BEGIN
+			INSERT INTO PAGOS(ID_DETALLE_PLANILLA,CONCEPTO,PORCENTAJE,MONTO)
+			VALUES (@id_detalle_planilla,@concepto,@porcentaje,@monto)
+			SELECT @id_pago=IDENT_CURRENT('PAGOS')
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de insertar el pago.',16,9)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_GUARDAR_DEDUCCIONES(@id_deduccion int out,
+								  @id_detalle_planilla int,
+								  @concepto varchar(75),
+								  @porcentaje decimal,
+								  @monto decimal)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM DEDUCCIONES WHERE ID_DEDUCCION=@id_deduccion))
+		BEGIN
+			UPDATE DEDUCCIONES
+			SET PORCENTAJE=@porcentaje,
+				CONCEPTO=@concepto,
+				MONTO=@monto
+			WHERE ID_DEDUCCION=@id_deduccion
+		END
+	ELSE
+		BEGIN
+			INSERT INTO DEDUCCIONES(ID_DETALLE_PLANILLA,CONCEPTO,PORCENTAJE,MONTO)
+			VALUES (@id_detalle_planilla,@concepto,@porcentaje,@monto)
+			SELECT @id_deduccion=IDENT_CURRENT('DEDUCCIONES')
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de insertar el pago.',16,10)
+END CATCH
+
+--DROP DATABASE PLANILLA
