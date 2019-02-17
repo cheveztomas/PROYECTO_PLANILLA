@@ -18,7 +18,7 @@ BORRADO_LOGICO BIT NOT NULL
 )
 
 CREATE TABLE INFORMACION_ACADEMICA(
-ID_INFORMACION_A INT CONSTRAINT PK_INFORMACION_ACADEMICA PRIMARY KEY NOT NULL,
+ID_INFORMACION_A INT IDENTITY CONSTRAINT PK_INFORMACION_ACADEMICA PRIMARY KEY NOT NULL,
 ID_EMPLEADO INT NOT NULL,
 GRADO VARCHAR(25) NOT NULL,
 ESPECIALIDAD VARCHAR(100) NOT NULL,
@@ -207,4 +207,158 @@ BEGIN TRY
 ENd TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de ingresar o actualizar empleado.',16,1)
+END CATCH
+
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_EMPLEADO(@id_empleado int,
+									  @msj varchar(150) out)
+AS
+BEGIN TRY
+	BEGIN TRAN
+		IF(EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+			BEGIN
+				IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_EMPLEADO=@id_empleado))
+					BEGIN
+						DELETE INFORMACION_ACADEMICA WHERE ID_EMPLEADO=@id_empleado
+					END
+
+				IF(EXISTS(SELECT 1 FROM EMPLEADOS_PUESTOS WHERE ID_EMPLEADO=@id_empleado))
+					BEGIN
+						DELETE EMPLEADOS_PUESTOS WHERE ID_EMPLEADO=@id_empleado
+					END
+
+				IF(EXISTS(SELECT 1 FROM DETALLES_PLANILLAS WHERE ID_EMPLEADO=@id_empleado))
+					BEGIN
+						UPDATE EMPLEADOS
+						SET BORRADO_LOGICO=1
+						WHERE ID_EMPLEADO=@id_empleado
+						SET @msj='Empleado eliminado de forma satisfactoria.'
+					END
+				ELSE
+					BEGIN
+						DELETE EMPLEADOS WHERE ID_EMPLEADO=@id_empleado
+						set @msj='Empleado eliminado de forma satisfactoria.'
+					END
+			END
+		ELSE
+			BEGIN
+				SET @msj='Empleado especificado no encontrado.'
+			END
+	COMMIT TRAN
+END TRY
+BEGIN CATCH
+	ROLLBACK TRAN
+	RAISERROR('Error al tratar de eliminar empleado.',16,2)
+END CATCH
+
+--select * from empleados
+
+GO
+CREATE PROCEDURE SP_GUARDAR_INFORMACION_ACADEMICA(@id_informacion_a int out,
+												  @id_empleado int,
+												  @grado varchar(25),
+												  @especialidad varchar(100),
+												  @informacion varchar(1000),
+												  @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informacion_a))
+		BEGIN
+			UPDATE INFORMACION_ACADEMICA
+			SET GRADO=@grado,
+				ESPECIALIDAD=@especialidad,
+				INFORMACION=@informacion
+			WHERE ID_INFORMACION_A=@id_informacion_a
+			SET @msj='Información academica actualizada de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			INSERT INTO INFORMACION_ACADEMICA(ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION)
+			VALUES(@id_empleado,@grado,@especialidad,@informacion)
+			SET @msj='Información academica insertada de forma correcta.'
+			SELECT @id_informacion_a=IDENT_CURRENT('INFORMACION_ACADEMICA')
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de insertar o actualizar la información academica de este usuairo.',16,3)
+
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_INFORMACION_ACADEMICA(@id_informaciona_a int,
+												   @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informaciona_a))
+		BEGIN
+			DELETE INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informaciona_a
+			SET @msj='Información academica del empleado fue eliminada de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			set @msj='Información academica del empleado no encontrada.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de eliminar información academica de este empleado.',16,4)
+END CATCH
+
+--select * from informacion_academica
+
+GO
+CREATE PROCEDURE SP_GUARDAR_PUESTOS(@id_puesto int out,
+									@nombre_puesto varchar(100),
+									@categoria_puesto int,
+									@salario_base decimal,
+									@msj varchar(150)out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto))
+		BEGIN
+			UPDATE PUESTOS
+			SET NOMBRE_PUESTO=@nombre_puesto,
+				CATEGORIA_PUESTO=@categoria_puesto,
+				SALARIO_BASE=@salario_base
+			WHERE ID_PUESTO=@id_puesto
+
+			SET @msj='Puesto actualizado de forma correcta.'
+		END
+	ELSE
+		BEGIN
+			INSERT INTO PUESTOS(NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE)
+			VALUES(@nombre_puesto,@categoria_puesto,@salario_base)
+
+			SET @id_puesto=IDENT_CURRENT('PUESTOS')
+			set @msj='Puesto agregado de forma correcta.'
+		END
+END TRY
+
+BEGIN CATCH
+	RAISERROR('Error al tratar de actualizar o insertar el puesto.',16,5)
+END CATCH
+--select * from puestos
+GO
+CREATE PROCEDURE SP_ELIMINAR_PUESTO(@id_puesto int,
+									@msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM EMPLEADOS_PUESTOS WHERE ID_PUESTO=@id_puesto))
+		BEGIN
+			UPDATE PUESTOS
+			SET BORRADO_LOGICO=1
+			WHERE ID_PUESTO=@id_puesto
+			SET @msj='Puesto eliminado de forma satisfactoria.'
+		END
+	ELSE
+		BEGIN
+			IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto))
+				BEGIN
+					DELETE PUESTOS WHERE ID_PUESTO=@id_puesto
+					SET @msj='Puesto eliminado de forma correcta.'
+				END
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al eliminar el puesto.',16,6)
 END CATCH
