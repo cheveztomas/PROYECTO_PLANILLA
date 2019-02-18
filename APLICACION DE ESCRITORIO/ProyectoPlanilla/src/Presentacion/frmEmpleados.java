@@ -118,6 +118,20 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar la lista de empleados. (" + e.getMessage() + ").");
         }
     }
+    
+    private ClsEmpleados ObtenerEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsEmpleados vlo_Empleado = new ClsEmpleados();
+        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+
+        //Inicio
+        try {
+            vlo_Empleado = vlo_LogicaEmpleado.ObtenerEmpleado(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Empleado;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -339,6 +353,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_Empleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_EmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_Empleados);
 
         jLabel9.setText("Buscar:");
@@ -474,6 +493,30 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         CargarListaEmpledos(txtBuscar.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tbl_EmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_EmpleadosMouseClicked
+        //Variables
+        ClsEmpleados vlo_Empleado;
+
+        //Inicio
+        if (evt.getClickCount() == 2) {
+            try {
+                vlo_Empleado = new ClsEmpleados();
+                vlo_Empleado = ObtenerEmpleado(Integer.parseInt(tbl_Empleados.getValueAt(tbl_Empleados.getSelectedRow(), 0).toString()));
+                txtCedula.setText(vlo_Empleado.getVgc_cedula());
+                txtCorreo.setText(vlo_Empleado.getVgc_correo());
+                txtNombre.setText(vlo_Empleado.getVgc_nombre());
+                txtNumeroCuenta.setText(vlo_Empleado.getVgc_numeroCuenta());
+                txtPrimerApellido.setText(vlo_Empleado.getVgc_primerApellido());
+                txtSegundoApellidio.setText(vlo_Empleado.getVgc_segundoApellido());
+                txtTelefono.setText(vlo_Empleado.getVgc_telefono());
+                txt_idCliente.setText(Integer.toString(vlo_Empleado.getVgn_idEmpleado()));
+                cldFecha.setDateFormatString(vlo_Empleado.getVgf_fechaContratacion().toString());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al cargar al empleado. (" + e.getMessage() + ")");
+            }
+        }
+    }//GEN-LAST:event_tbl_EmpleadosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
