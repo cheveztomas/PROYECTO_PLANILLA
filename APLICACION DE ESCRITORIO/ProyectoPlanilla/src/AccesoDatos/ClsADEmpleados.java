@@ -55,6 +55,7 @@ public class ClsADEmpleados {
 
             //Se establece si un valor es de salida.
             vlo_CS.registerOutParameter(10, Types.VARCHAR);
+            //vlo_CS.registerOutParameter(1, Types.INTEGER);
 
             //Se ejecuta la sentencia con los parametros ingresados
             vlo_CS.executeUpdate();

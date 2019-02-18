@@ -92,11 +92,16 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         tbl_Empleados.setModel(Modelo);
 
         //Se agregan las columnas a la tabla.
-        Modelo.addColumn("ID");
+        Modelo.addColumn("");
         Modelo.addColumn("Cédula");
         Modelo.addColumn("Nombre");
         Modelo.addColumn("Teléfono");
         Modelo.addColumn("Correo");
+
+        tbl_Empleados.getColumnModel().getColumn(0).setMaxWidth(0);
+        //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tbl_Empleados.getColumnModel().getColumn(0).setMinWidth(0);
+        
 
         try {
             //Se invoca el metodo que retorna la lista de empelados.
@@ -110,12 +115,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 }
                 //Se agrega la fila a la tabla.
                 Modelo.addRow(fila);
-                tbl_Empleados.getColumnModel().getColumn(0).setMaxWidth(0);
-                //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
-                tbl_Empleados.getColumnModel().getColumn(0).setMinWidth(0);
-                //tbl_Empleados.getColumnModel().getColumn(0).setResizable(false);
+//                tbl_Empleados.getColumnModel().getColumn(0).setResizable(false);
+               tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
                 //tbl_Empleados.doLayout();
             }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la lista de empleados. (" + e.getMessage() + ").");
         }
