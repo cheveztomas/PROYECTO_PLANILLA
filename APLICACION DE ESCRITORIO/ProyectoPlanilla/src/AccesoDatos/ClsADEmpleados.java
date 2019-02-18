@@ -92,4 +92,9 @@ public class ClsADEmpleados {
         }
         return vlo_RS;
     }
+    
+    public ClsEmpleados RetornarEmpledo(int pvn_idEmpleado){
+        //Variables
+        
+    }
 }

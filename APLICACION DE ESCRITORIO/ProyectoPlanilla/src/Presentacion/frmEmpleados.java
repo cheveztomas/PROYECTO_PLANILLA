@@ -28,9 +28,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_idCliente.setVisible(false);
         this.closable = true;
         Limpiar();
+        //Se oculta la primer columna la cual tiene el id.
         CargarListaEmpledos("");
+        //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-    
+
     private void Limpiar() {
         txtBuscar.setText("");
         txtCedula.setText("");
@@ -42,7 +45,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_idCliente.setText("-1");
         //cldFecha.setEnabled(false);
     }
-    
+
     private ClsEmpleados LeerDatos() throws ParseException {
         //variables
         ClsEmpleados vlo_Empleados = new ClsEmpleados();
@@ -61,10 +64,10 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Date parsed = (Date) formato.parse(fechaString);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         vlo_Empleados.setVgf_fechaContratacion(sql);
-        
+
         return vlo_Empleados;
     }
-    
+
     private void CargarListaEmpledos(String pvc_ValorFiltrado) {
         //Variables
         //Se declara una varible tipo tabla por defecto.
@@ -77,7 +80,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        
+
         ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
         ResultSet vlo_RS;
         Object[] fila = new Object[5];
@@ -93,9 +96,6 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Modelo.addColumn("Teléfono");
         Modelo.addColumn("Correo");
 
-        //Se oculta la primer columna la cual tiene el id.
-        tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
-        
         try {
             //Se invoca el metodo que retorna la lista de empelados.
             vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(pvc_ValorFiltrado);
@@ -108,6 +108,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 }
                 //Se agrega la fila a la tabla.
                 Modelo.addRow(fila);
+                tbl_Empleados.getColumnModel().getColumn(0).setMaxWidth(0);
+                //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+                tbl_Empleados.getColumnModel().getColumn(0).setMinWidth(0);
+                //tbl_Empleados.getColumnModel().getColumn(0).setResizable(false);
+                //tbl_Empleados.doLayout();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la lista de empleados. (" + e.getMessage() + ").");
@@ -409,7 +414,6 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         String vlc_Mensaje = "";
 
         //inicio
-        
         //Se verifica que los cuadros de texto no se encuentren vacios.
         if (txtCedula.getText().equals("") || txtCorreo.getText().equals("") || txtNombre.getText().equals("") || txtNumeroCuenta.getText().equals("") || txtPrimerApellido.getText().equals("") || txtSegundoApellidio.getText().equals("") || txtTelefono.getText().equals("") || cldFecha.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Error algún valor requerido no esta seleccionado.");
