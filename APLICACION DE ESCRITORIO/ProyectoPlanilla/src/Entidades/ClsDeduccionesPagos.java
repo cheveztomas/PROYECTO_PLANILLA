@@ -35,4 +35,55 @@ public class ClsDeduccionesPagos {
         vgn_Monto = 0;
         vgn_idDeduccionPago = 0;
     }
+    
+    //Propiedades
+
+    public int getVgn_idDeduccionPago() {
+        return vgn_idDeduccionPago;
+    }
+
+    public void setVgn_idDeduccionPago(int vgn_idDeduccionPago) {
+        this.vgn_idDeduccionPago = vgn_idDeduccionPago;
+    }
+
+    public String getVgc_DeduccionGeneral() {
+        return vgc_DeduccionGeneral;
+    }
+
+    public void setVgc_DeduccionGeneral(String vgc_DeduccionGeneral) {
+        this.vgc_DeduccionGeneral = vgc_DeduccionGeneral;
+    }
+
+    public String getVgc_DeduccionDetallada() {
+        return vgc_DeduccionDetallada;
+    }
+
+    public void setVgc_DeduccionDetallada(String vgc_DeduccionDetallada) {
+        this.vgc_DeduccionDetallada = vgc_DeduccionDetallada;
+    }
+
+    public String getVgc_tipo() {
+        return vgc_tipo;
+    }
+
+    public void setVgc_tipo(String vgc_tipo) {
+        this.vgc_tipo = vgc_tipo;
+    }
+
+    public double getVgn_Monto() {
+        return vgn_Monto;
+    }
+
+    public void setVgn_Monto(double vgn_Monto) {
+        this.vgn_Monto = vgn_Monto;
+    }
+
+    public boolean isVgc_EsDeduccion() {
+        return vgc_EsDeduccion;
+    }
+
+    public void setVgc_EsDeduccion(boolean vgc_EsDeduccion) {
+        this.vgc_EsDeduccion = vgc_EsDeduccion;
+    }
+    
 }
