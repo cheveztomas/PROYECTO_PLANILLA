@@ -40,9 +40,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txtCorreo.setText("");
         txtNombre.setText("");
         txtNumeroCuenta.setText("");
+        txtSegundoApellidio.setText("");
         txtPrimerApellido.setText("");
         txtTelefono.setText("");
         txt_idCliente.setText("-1");
+        cldFecha.setDate(null);
         //cldFecha.setEnabled(false);
     }
     
@@ -511,7 +513,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 txtSegundoApellidio.setText(vlo_Empleado.getVgc_segundoApellido());
                 txtTelefono.setText(vlo_Empleado.getVgc_telefono());
                 txt_idCliente.setText(Integer.toString(vlo_Empleado.getVgn_idEmpleado()));
-                cldFecha.setDateFormatString(vlo_Empleado.getVgf_fechaContratacion().toString());
+                cldFecha.setDate(vlo_Empleado.getVgf_fechaContratacion());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error al cargar al empleado. (" + e.getMessage() + ")");
             }

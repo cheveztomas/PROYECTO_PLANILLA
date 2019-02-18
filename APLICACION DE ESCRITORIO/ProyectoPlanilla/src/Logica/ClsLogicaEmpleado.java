@@ -18,10 +18,11 @@ public class ClsLogicaEmpleado {
     public String GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
         //Variables
         String vlc_Mensaje = "";
-        ClsADEmpleados vlo_LogicaEmpleado = new ClsADEmpleados();
+        ClsADEmpleados vlo_LogicaEmpleado;
 
         //Inicio
         try {
+            vlo_LogicaEmpleado = new ClsADEmpleados();
             vlc_Mensaje = vlo_LogicaEmpleado.GuardarEmpleado(pvo_Empleado);
         } catch (Exception e) {
             throw e;
@@ -32,10 +33,11 @@ public class ClsLogicaEmpleado {
     public ResultSet ListaEmpleados(String pvc_ValorFiltrado) throws Exception {
         //Variables
         ResultSet vlo_RS = null;
-        ClsADEmpleados vlo_ADEmpleados = new ClsADEmpleados();
+        ClsADEmpleados vlo_ADEmpleados;
 
         //Inicio
         try {
+            vlo_ADEmpleados = new ClsADEmpleados();
             vlo_RS = vlo_ADEmpleados.ListaEmpledos(pvc_ValorFiltrado);
         } catch (Exception e) {
             throw e;
@@ -46,14 +48,30 @@ public class ClsLogicaEmpleado {
     public ClsEmpleados ObtenerEmpleado(int pvn_idEmpleado) throws Exception {
         //Variables
         ClsEmpleados vlo_Empleado = new ClsEmpleados();
-        ClsADEmpleados vlo_ADEmpleados = new ClsADEmpleados();
+        ClsADEmpleados vlo_ADEmpleados;
 
         //Inicio
         try {
+            vlo_ADEmpleados = new ClsADEmpleados();
             vlo_Empleado = vlo_ADEmpleados.RetornarEmpledo(pvn_idEmpleado);
         } catch (Exception e) {
             throw e;
         }
         return vlo_Empleado;
+    }
+
+    public String EliminarEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsADEmpleados vlo_ADEmpleados;
+        String vlc_Mensaje = "";
+        //Inicio
+        try {
+            vlo_ADEmpleados = new ClsADEmpleados();
+            vlc_Mensaje = vlo_ADEmpleados.EliminarEmpleado(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return vlc_Mensaje;
     }
 }

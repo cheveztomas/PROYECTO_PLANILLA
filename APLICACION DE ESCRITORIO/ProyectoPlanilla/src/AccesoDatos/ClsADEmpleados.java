@@ -124,4 +124,26 @@ public class ClsADEmpleados {
         }
         return vlo_Empleado;
     }
+
+    public String EliminarEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        String vlc_Mensaje = "";
+        CallableStatement vlo_CS;
+
+        //Inicio
+        try {
+            vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_EMPLEADO(?,?)}");
+            vlo_CS.setInt(1, pvn_idEmpleado);
+            vlo_CS.setString(2, vlc_Mensaje);
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+
+            vlo_CS.executeUpdate();
+            vlc_Mensaje = vlo_CS.getString(2);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlc_Mensaje;
+    }
 }
