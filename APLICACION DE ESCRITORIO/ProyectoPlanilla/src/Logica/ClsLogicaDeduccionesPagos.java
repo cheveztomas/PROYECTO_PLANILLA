@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import AccesoDatos.ClsADDeducionesPagos;
 import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsRetorno;
 
@@ -13,8 +14,19 @@ import Entidades.ClsRetorno;
  * @author Thomas Chevez
  */
 public class ClsLogicaDeduccionesPagos {
-    public ClsRetorno GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos){
+
+    public ClsRetorno GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) throws Exception {
         //Variables
-        
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        ClsADDeducionesPagos vlo_ADDeduccionesPagos;
+
+        //Inicio
+        try {
+            vlo_ADDeduccionesPagos = new ClsADDeducionesPagos();
+            vlo_Retorno = vlo_ADDeduccionesPagos.GuardarDeduccionesPagos(pvo_DeduccionesPagos);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Retorno;
     }
 }
