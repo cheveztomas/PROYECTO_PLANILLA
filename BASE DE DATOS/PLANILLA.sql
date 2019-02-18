@@ -657,3 +657,52 @@ END TRY
 BEGIN CATCH
 	RAISERROR('Error al tratar de asignar un puesto al empleado.',16,13)
 END CATCH
+
+GO
+CREATE PROCEDURE SP_GUARDAR_DEDUCCIONES_PAGOS(@id_deduccion_pago int out,
+										 @deduccion_general varchar(50),
+										 @deducciones_detallada varchar(500),
+										 @es_deduccion bit,
+										 @tipo varchar(3),
+										 @monto decimal(10,2),
+										 @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(NOT EXISTS(SELECT 1 FROM DEDUCCIONES_PAGOS WHERE ID_DEDUCCION_PAGO=@id_deduccion_pago))
+		BEGIN
+			INSERT INTO DEDUCCIONES_PAGOS(DEDUCCION_GENERAL,DEDUCCION_DETALLADA,ES_DEDUCCION,TIPO,MONTO)
+			VALUES(@deduccion_general,@deducciones_detallada,@es_deduccion,@tipo,@monto)
+
+			SET @msj='Se agregó de forma correcta el registro.'
+			SELECT @id_deduccion_pago=IDENT_CURRENT('DEDUCCIONES_PAGOS')
+		END
+	ELSE
+		BEGIN
+			UPDATE DEDUCCIONES_PAGOS
+			SET DEDUCCION_GENERAL=@deduccion_general,
+				DEDUCCION_DETALLADA=@deducciones_detallada,
+				ES_DEDUCCION=@es_deduccion,
+				TIPO=@tipo,
+				MONTO=@monto
+			WHERE ID_DEDUCCION_PAGO=@id_deduccion_pago
+			SET @msj='Se actualizó el registro de forma correcta.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al tratar de guardar registro.',16,14)
+END CATCH
+
+GO
+CREATE PROCEDURE SP_ELIMINAR_DEDDUCIONES_PAGOS(@id_deducciones_pago int,
+											   @msj varchar(150) out)
+AS
+BEGIN TRY
+	IF(EXISTS(SELECT 1 FROM DEDUCCIONES_PAGOS WHERE ID_DEDUCCION_PAGO=@id_deducciones_pago))
+		BEGIN
+			DELETE DEDUCCIONES_PAGOS WHERE ID_DEDUCCION_PAGO=@id_deducciones_pago
+			SET @msj='Se eliminó de forma correcta las deducciones.'
+		END
+END TRY
+BEGIN CATCH
+	RAISERROR('Error al eliminar el registro.',16,15)
+END CATCH
