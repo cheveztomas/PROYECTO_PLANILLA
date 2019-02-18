@@ -42,4 +42,18 @@ public class ClsLogicaEmpleado {
         }
         return vlo_RS;
     }
+
+    public ClsEmpleados ObtenerEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsEmpleados vlo_Empleado = new ClsEmpleados();
+        ClsADEmpleados vlo_ADEmpleados = new ClsADEmpleados();
+
+        //Inicio
+        try {
+            vlo_Empleado = vlo_ADEmpleados.RetornarEmpledo(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Empleado;
+    }
 }
