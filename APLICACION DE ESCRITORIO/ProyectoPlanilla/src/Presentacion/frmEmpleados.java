@@ -37,7 +37,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txtPrimerApellido.setText("");
         txtTelefono.setText("");
         txt_idCliente.setText("-1");
-        cldFecha.setEnabled(false);
+        //cldFecha.setEnabled(false);
     }
 
     private ClsEmpleados LeerDatos() throws ParseException {
@@ -357,11 +357,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         String vlc_Mensaje = "";
 
         //inicio
-        try {
-            vlc_Mensaje = vlo_LogicaEmpledo.GuardarEmpleado(LeerDatos());
-            JOptionPane.showMessageDialog(this, vlc_Mensaje);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error. " + e.getMessage());
+        if (txtCedula.getText().equals("") || txtCorreo.getText().equals("") || txtNombre.getText().equals("") || txtNumeroCuenta.getText().equals("") || txtPrimerApellido.getText().equals("") || txtSegundoApellidio.getText().equals("") || txtTelefono.getText().equals("") || cldFecha.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Error algún valor requerido no esta seleccionado.");
+        } else {
+            try {
+                vlc_Mensaje = vlo_LogicaEmpledo.GuardarEmpleado(LeerDatos());
+                JOptionPane.showMessageDialog(this, vlc_Mensaje);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error. " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
