@@ -33,7 +33,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-
+    
     private void Limpiar() {
         txtBuscar.setText("");
         txtCedula.setText("");
@@ -45,7 +45,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_idCliente.setText("-1");
         //cldFecha.setEnabled(false);
     }
-
+    
     private ClsEmpleados LeerDatos() throws ParseException {
         //variables
         ClsEmpleados vlo_Empleados = new ClsEmpleados();
@@ -64,10 +64,10 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Date parsed = (Date) formato.parse(fechaString);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         vlo_Empleados.setVgf_fechaContratacion(sql);
-
+        
         return vlo_Empleados;
     }
-
+    
     private void CargarListaEmpledos(String pvc_ValorFiltrado) {
         //Variables
         //Se declara una varible tipo tabla por defecto.
@@ -80,7 +80,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-
+        
         ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
         ResultSet vlo_RS;
         Object[] fila = new Object[5];
@@ -95,7 +95,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Modelo.addColumn("Nombre");
         Modelo.addColumn("Teléfono");
         Modelo.addColumn("Correo");
-
+        
         try {
             //Se invoca el metodo que retorna la lista de empelados.
             vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(pvc_ValorFiltrado);
@@ -160,6 +160,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         setTitle("Empleados");
 
+        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("info"));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Personal"));
 
         jLabel1.setText("Cédula");
@@ -343,6 +344,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         jLabel9.setText("Buscar:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -464,6 +470,10 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNumeroCuentaKeyTyped
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        CargarListaEmpledos(txtBuscar.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
