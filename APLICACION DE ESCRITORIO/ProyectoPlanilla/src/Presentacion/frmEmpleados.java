@@ -33,7 +33,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
         //tbl_Empleados.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
     }
-    
+
     private void Limpiar() {
         txtBuscar.setText("");
         txtCedula.setText("");
@@ -47,7 +47,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         cldFecha.setDate(null);
         //cldFecha.setEnabled(false);
     }
-    
+
     private ClsEmpleados LeerDatos() throws ParseException {
         //variables
         ClsEmpleados vlo_Empleados = new ClsEmpleados();
@@ -66,10 +66,10 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Date parsed = (Date) formato.parse(fechaString);
         java.sql.Date sql = new java.sql.Date(parsed.getTime());
         vlo_Empleados.setVgf_fechaContratacion(sql);
-        
+
         return vlo_Empleados;
     }
-    
+
     private void CargarListaEmpledos(String pvc_ValorFiltrado) {
         //Variables
         //Se declara una varible tipo tabla por defecto.
@@ -82,7 +82,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        
+
         ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
         ResultSet vlo_RS;
         Object[] fila = new Object[5];
@@ -97,7 +97,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         Modelo.addColumn("Nombre");
         Modelo.addColumn("Teléfono");
         Modelo.addColumn("Correo");
-        
+
         try {
             //Se invoca el metodo que retorna la lista de empelados.
             vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(pvc_ValorFiltrado);
@@ -120,7 +120,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar la lista de empleados. (" + e.getMessage() + ").");
         }
     }
-    
+
     private ClsEmpleados ObtenerEmpleado(int pvn_idEmpleado) throws Exception {
         //Variables
         ClsEmpleados vlo_Empleado = new ClsEmpleados();
@@ -133,6 +133,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             throw e;
         }
         return vlo_Empleado;
+    }
+
+    private String EliminarEmpleado(int pvn_idEmpleado) {
+        //Variables
+        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+        String vlc_Mensaje = "";
+
+        //Inicio
+        
     }
 
     /**
