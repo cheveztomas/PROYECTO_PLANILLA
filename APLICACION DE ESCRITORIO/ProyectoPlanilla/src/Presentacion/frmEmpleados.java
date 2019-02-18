@@ -135,13 +135,18 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         return vlo_Empleado;
     }
 
-    private String EliminarEmpleado(int pvn_idEmpleado) {
+    private String EliminarEmpleado(int pvn_idEmpleado) throws Exception {
         //Variables
         ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
         String vlc_Mensaje = "";
 
         //Inicio
-        
+        try {
+            vlc_Mensaje = vlo_LogicaEmpleado.EliminarEmpleado(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlc_Mensaje;
     }
 
     /**
@@ -256,8 +261,18 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -409,6 +424,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         );
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -528,6 +548,29 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tbl_EmpleadosMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //Variables
+        String vlc_Msj = "";
+
+        //Inicio
+        try {
+            vlc_Msj = EliminarEmpleado(Integer.parseInt(txt_idCliente.getText()));
+            JOptionPane.showMessageDialog(this, vlc_Msj);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        Limpiar();
+        CargarListaEmpledos("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
