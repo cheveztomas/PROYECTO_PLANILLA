@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import AccesoDatos.ClsADEmpleados;
 import Entidades.ClsEmpleados;
 
 /**
@@ -13,10 +14,10 @@ import Entidades.ClsEmpleados;
  */
 public class ClsLogicaEmpleado {
 
-    public String GuardarEmpleado(ClsEmpleados pvo_Empleado) {
+    public String GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
         //Variables
         String vlc_Mensaje = "";
-        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+        ClsADEmpleados vlo_LogicaEmpleado = new ClsADEmpleados();
 
         //Inicio
         try {

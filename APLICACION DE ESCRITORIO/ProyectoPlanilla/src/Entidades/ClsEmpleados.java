@@ -48,12 +48,12 @@ public class ClsEmpleados {
         vgc_primerApellido = "";
         vgc_segundoApellido = "";
         vgc_telefono = "";
-//        //Se guarda la fecha actual en la clase.
-//        java.util.Date fecha = new java.util.Date();
-//        String fechaString = new SimpleDateFormat("yyyyMMdd").format(fecha);
-//        SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
-//        Date parsed = (Date) formato.parse(fechaString);
-//        vgf_fechaContratacion = new java.sql.Date(parsed.getTime());
+        //Se guarda la fecha actual en la clase.
+        java.util.Date fecha = new java.util.Date();
+        String fechaString = new SimpleDateFormat("yyyyMMdd").format(fecha);
+        SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
+        Date parsed = (Date) formato.parse(fechaString);
+        vgf_fechaContratacion = new java.sql.Date(parsed.getTime());
         vgn_idEmpleado = 0;
         vgn_pension = 0;
         vgn_prestamo = 0;

@@ -48,7 +48,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         vlo_Empleados.setVgc_correo(txtCorreo.getText());
         vlo_Empleados.setVgc_nombre(txtNombre.getText());
         vlo_Empleados.setVgc_numeroCuenta(txtNumeroCuenta.getText());
-        vlo_Empleados.setVgc_primerApellido(txtBuscar.getText());
+        vlo_Empleados.setVgc_primerApellido(txtPrimerApellido.getText());
         vlo_Empleados.setVgc_segundoApellido(txtSegundoApellidio.getText());
         vlo_Empleados.setVgc_telefono(txtTelefono.getText());
         vlo_Empleados.setVgn_idEmpleado(Integer.parseInt(txt_idCliente.getText()));
@@ -116,13 +116,49 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Nombre");
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtPrimerApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrimerApellidoKeyTyped(evt);
+            }
+        });
+
+        txtSegundoApellidio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSegundoApellidioKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Primer Apellido");
 
         jLabel4.setText("Segundo Apellido");
 
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Correo");
 
         jLabel6.setText("Teléfono");
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
+        txtNumeroCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroCuentaKeyTyped(evt);
+            }
+        });
 
         jLabel7.setText("Número de cuenta");
 
@@ -327,6 +363,42 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error. " + e.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        if (txtCedula.getText().length() > 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtPrimerApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerApellidoKeyTyped
+        if (txtCedula.getText().length() > 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrimerApellidoKeyTyped
+
+    private void txtSegundoApellidioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoApellidioKeyTyped
+        if (txtCedula.getText().length() > 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSegundoApellidioKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        if (txtCedula.getText().length() > 20) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        if (txtCedula.getText().length() > 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtNumeroCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroCuentaKeyTyped
+        if (txtCedula.getText().length() > 20) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeroCuentaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
