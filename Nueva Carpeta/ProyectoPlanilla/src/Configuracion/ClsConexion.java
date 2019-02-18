@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  */
 public class ClsConexion {
 
-    public Connection ClsConexion() {
+    public Connection ClsConexionBD() {
         //Variables
         Connection vlo_Connection = null;
 
