@@ -365,37 +365,37 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        if (txtCedula.getText().length() > 50) {
+        if (txtNombre.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtPrimerApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerApellidoKeyTyped
-        if (txtCedula.getText().length() > 50) {
+        if (txtPrimerApellido.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtPrimerApellidoKeyTyped
 
     private void txtSegundoApellidioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoApellidioKeyTyped
-        if (txtCedula.getText().length() > 50) {
+        if (txtSegundoApellidio.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtSegundoApellidioKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-        if (txtCedula.getText().length() > 20) {
+        if (txtTelefono.getText().length() > 20) {
             evt.consume();
         }
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-        if (txtCedula.getText().length() > 50) {
+        if (txtCorreo.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtNumeroCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroCuentaKeyTyped
-        if (txtCedula.getText().length() > 20) {
+        if (txtNumeroCuenta.getText().length() > 20) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNumeroCuentaKeyTyped
