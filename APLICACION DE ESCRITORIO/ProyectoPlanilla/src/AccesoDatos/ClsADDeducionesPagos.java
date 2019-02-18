@@ -7,8 +7,10 @@ package AccesoDatos;
 
 import Configuracion.ClsConexion;
 import Entidades.ClsDeduccionesPagos;
+import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Types;
 
 /**
  *
@@ -32,13 +34,36 @@ public class ClsADDeducionesPagos {
         }
     }
 
-    public String GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) {
+    public ClsRetorno GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) throws Exception {
         //Variables
         String vlc_Mensaje = "";
         CallableStatement vlo_CS;
-        
+        ClsRetorno vlo_retorno = new ClsRetorno();
+
         //Inicio
-        
-        return vlc_Mensaje;
+        try {
+            vlo_CS = vgo_Conexion.prepareCall("{call SP_GUARDAR_DEDUCCIONES_PAGOS(?,?,?,?,?,?,?)}");
+            vlo_CS.setInt(1, pvo_DeduccionesPagos.getVgn_idDeduccionPago());
+            vlo_CS.setString(2, pvo_DeduccionesPagos.getVgc_DeduccionGeneral());
+            vlo_CS.setString(3, pvo_DeduccionesPagos.getVgc_DeduccionDetallada());
+            vlo_CS.setBoolean(4, pvo_DeduccionesPagos.isVgc_EsDeduccion());
+            vlo_CS.setString(5, pvo_DeduccionesPagos.getVgc_tipo());
+            vlo_CS.setDouble(6, pvo_DeduccionesPagos.getVgn_Monto());
+            vlo_CS.setString(7, vlo_retorno.getVgc_Mensaje());
+            vlo_CS.registerOutParameter(1, Types.INTEGER);
+            vlo_CS.registerOutParameter(7, Types.VARCHAR);
+
+            //Se ejecuta el procedimento almacenado
+            vlo_CS.executeUpdate();
+
+            //Se almacena los valores retornados en la entidad.
+            vlo_retorno.setVgc_ID(vlo_CS.getInt(1));
+            vlo_retorno.setVgc_Mensaje(vlo_CS.getString(7));
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Conexion = null;
+        }
+        return vlo_retorno;
     }
 }
