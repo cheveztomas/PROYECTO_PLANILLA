@@ -5,6 +5,8 @@
  */
 package AccesoDatos;
 
+import Configuracion.ClsConexion;
+import Entidades.ClsDeduccionesPagos;
 import java.sql.Connection;
 
 /**
@@ -12,9 +14,29 @@ import java.sql.Connection;
  * @author tomas
  */
 public class ClsADDeducionesPagos {
+
     //Atributos
     Connection vgo_Conexion;
-    
-    //Inicio
-    
+
+    //Metodos
+    public ClsADDeducionesPagos() {
+        //Variables
+        ClsConexion vlo_ClsConexion = new ClsConexion();
+
+        //Inicio
+        try {
+            vgo_Conexion = vlo_ClsConexion.ClsConexionBD();
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public String GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) {
+        //Variables
+        String vlc_Mensaje = "";
+        
+        //Inicio
+
+        return vlc_Mensaje;
+    }
 }
