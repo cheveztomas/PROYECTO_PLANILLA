@@ -37,6 +37,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txtPrimerApellido.setText("");
         txtTelefono.setText("");
         txt_idCliente.setText("-1");
+        cldFecha.setEnabled(false);
     }
 
     private ClsEmpleados LeerDatos() throws ParseException {
