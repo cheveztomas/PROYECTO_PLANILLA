@@ -641,5 +641,5 @@ BEGIN TRY
 END TRY
 
 BEGIN CATCH
-	RAISERROR('Error al tratar de asignar un puesto al empleado.',16,13)
+	RAISERROR('Error al tratar de asignar un puesto al empleado.')
 END CATCH

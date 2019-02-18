@@ -5,6 +5,9 @@
  */
 package Presentacion;
 
+import Entidades.ClsEmpleados;
+import java.text.ParseException;
+
 /**
  *
  * @author Thomas Chevez
@@ -18,6 +21,13 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         initComponents();
         txt_idCliente.setVisible(false);
         this.closable = true;
+    }
+
+    private ClsEmpleados LeerDatos() throws ParseException {
+        //variables
+        ClsEmpleados vlo_Empleados = new ClsEmpleados();
+        
+        return vlo_Empleados;
     }
 
     /**
@@ -64,6 +74,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Personal"));
 
         jLabel1.setText("Cédula");
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
 
         txt_idCliente.setText("jTextField1");
 
@@ -255,6 +271,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        if (txtCedula.getText().length() > 20) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
