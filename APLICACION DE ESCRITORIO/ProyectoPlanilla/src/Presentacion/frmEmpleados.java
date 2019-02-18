@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,6 +61,24 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         vlo_Empleados.setVgf_fechaContratacion(sql);
 
         return vlo_Empleados;
+    }
+
+    private void CargarListaEmpledos(String pvc_ValorFiltrado) {
+        //Variables
+        DefaultTableModel Modelo;
+        Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+        
+        
+        //Inicio
+        tbl_Empleados.setModel(Modelo);
+        Modelo.addColumn("ID");
+        
     }
 
     /**

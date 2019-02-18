@@ -7,6 +7,7 @@ package Logica;
 
 import AccesoDatos.ClsADEmpleados;
 import Entidades.ClsEmpleados;
+import java.sql.ResultSet;
 
 /**
  *
@@ -26,5 +27,19 @@ public class ClsLogicaEmpleado {
             throw e;
         }
         return vlc_Mensaje;
+    }
+
+    public ResultSet ListaEmpleados(String pvc_ValorFiltrado) throws Exception {
+        //Variables
+        ResultSet vlo_RS = null;
+        ClsADEmpleados vlo_ADEmpleados = new ClsADEmpleados();
+
+        //Inicio
+        try {
+            vlo_RS = vlo_ADEmpleados.ListaEmpledos(pvc_ValorFiltrado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
