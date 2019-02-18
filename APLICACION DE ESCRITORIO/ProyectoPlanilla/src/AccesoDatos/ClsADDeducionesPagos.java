@@ -7,6 +7,7 @@ package AccesoDatos;
 
 import Configuracion.ClsConexion;
 import Entidades.ClsDeduccionesPagos;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 
 /**
@@ -34,9 +35,10 @@ public class ClsADDeducionesPagos {
     public String GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) {
         //Variables
         String vlc_Mensaje = "";
+        CallableStatement vlo_CS;
         
         //Inicio
-
+        
         return vlc_Mensaje;
     }
 }
