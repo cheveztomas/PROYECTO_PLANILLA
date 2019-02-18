@@ -6,7 +6,11 @@
 package Presentacion;
 
 import Entidades.ClsEmpleados;
+import Logica.ClsLogicaEmpleado;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,12 +25,39 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         initComponents();
         txt_idCliente.setVisible(false);
         this.closable = true;
+        Limpiar();
+    }
+
+    private void Limpiar() {
+        txtBuscar.setText("");
+        txtCedula.setText("");
+        txtCorreo.setText("");
+        txtNombre.setText("");
+        txtNumeroCuenta.setText("");
+        txtPrimerApellido.setText("");
+        txtTelefono.setText("");
+        txt_idCliente.setText("-1");
     }
 
     private ClsEmpleados LeerDatos() throws ParseException {
         //variables
         ClsEmpleados vlo_Empleados = new ClsEmpleados();
-        
+
+        //inicio
+        vlo_Empleados.setVgc_cedula(txtCedula.getText());
+        vlo_Empleados.setVgc_correo(txtCorreo.getText());
+        vlo_Empleados.setVgc_nombre(txtNombre.getText());
+        vlo_Empleados.setVgc_numeroCuenta(txtNumeroCuenta.getText());
+        vlo_Empleados.setVgc_primerApellido(txtBuscar.getText());
+        vlo_Empleados.setVgc_segundoApellido(txtSegundoApellidio.getText());
+        vlo_Empleados.setVgc_telefono(txtTelefono.getText());
+        vlo_Empleados.setVgn_idEmpleado(Integer.parseInt(txt_idCliente.getText()));
+        String fechaString = new SimpleDateFormat("yyyyMMdd").format(cldFecha.getDate());
+        SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
+        Date parsed = (Date) formato.parse(fechaString);
+        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+        vlo_Empleados.setVgf_fechaContratacion(sql);
+
         return vlo_Empleados;
     }
 
@@ -98,6 +129,11 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         jLabel8.setText("Fecha de ingreso:");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Eliminar");
 
@@ -277,6 +313,20 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Variables
+        ClsLogicaEmpleado vlo_LogicaEmpledo = new ClsLogicaEmpleado();
+        String vlc_Mensaje = "";
+
+        //inicio
+        try {
+            vlc_Mensaje = vlo_LogicaEmpledo.GuardarEmpleado(LeerDatos());
+            JOptionPane.showMessageDialog(this, vlc_Mensaje);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error. " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
