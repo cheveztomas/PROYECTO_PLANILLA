@@ -95,29 +95,33 @@ public class ClsADEmpleados {
         return vlo_RS;
     }
 
-//    public ClsEmpleados RetornarEmpledo(int pvn_idEmpleado) throws ParseException {
-//        //Variables
-//        ClsEmpleados vlo_Empleado = new ClsEmpleados();
-//        Statement vlo_Statement;
-//        ResultSet vloRS;
-//        String vlc_Sentencia = "select ID_EMPLEADO,CEDULA,NOMBRE,PRIMER_APELLIDO,SEGUNDO_APELLIDO,TELEFONO,CORREO,NUMERO_CUENTA,FECHA_CONTRATACION from EMPLEADOS where ID_EMPLEADO like '" + pvn_idEmpleado + "'";
-//        //Inicio
-//        try {
-//            vlo_Statement = vgo_Connection.createStatement();
-//            vloRS = vlo_Statement.executeQuery(vlc_Sentencia);
-//
-//            if (vloRS.next()) {
-//                vlo_Empleado.setVgn_idEmpleado(vloRS.getInt(1));
-//                vlo_Empleado.setVgc_cedula(vloRS.getString(2));
-//                vlo_Empleado.setVgc_nombre(vloRS.getString(3));
-//                vlo_Empleado.setVgc_primerApellido(vloRS.getString(4));
-//                vlo_Empleado.setVgc_segundoApellido(vloRS.getString(5));
-//                vlo_Empleado.setVgc_telefono(vloRS.getString(6));
-//                vlo_Empleado.setVgc_correo(vloRS.getString(7));
-//                vlo_Empleado.setVgc_numeroCuenta(vloRS.getString(8));
-//                vlo_Empleado.setVgf_fechaContratacion(vloRS.getDate(9));
-//            }
-//        } catch (Exception e) {
-//        }
-//    }
+    public ClsEmpleados RetornarEmpledo(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsEmpleados vlo_Empleado = new ClsEmpleados();
+        Statement vlo_Statement;
+        ResultSet vloRS;
+        String vlc_Sentencia = "select ID_EMPLEADO,CEDULA,NOMBRE,PRIMER_APELLIDO,SEGUNDO_APELLIDO,TELEFONO,CORREO,NUMERO_CUENTA,FECHA_CONTRATACION from EMPLEADOS where ID_EMPLEADO like '" + pvn_idEmpleado + "'";
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vloRS = vlo_Statement.executeQuery(vlc_Sentencia);
+
+            if (vloRS.next()) {
+                vlo_Empleado.setVgn_idEmpleado(vloRS.getInt(1));
+                vlo_Empleado.setVgc_cedula(vloRS.getString(2));
+                vlo_Empleado.setVgc_nombre(vloRS.getString(3));
+                vlo_Empleado.setVgc_primerApellido(vloRS.getString(4));
+                vlo_Empleado.setVgc_segundoApellido(vloRS.getString(5));
+                vlo_Empleado.setVgc_telefono(vloRS.getString(6));
+                vlo_Empleado.setVgc_correo(vloRS.getString(7));
+                vlo_Empleado.setVgc_numeroCuenta(vloRS.getString(8));
+                vlo_Empleado.setVgf_fechaContratacion(vloRS.getDate(9));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlo_Empleado;
+    }
 }
