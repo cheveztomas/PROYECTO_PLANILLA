@@ -376,12 +376,13 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         //Variables
         int vln_id;
         ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+        
 
         //Inicio
         if (evt.getClickCount() == 2) {
             vln_id = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             try {
-
+                
             } catch (Exception e) {
             }
         }
