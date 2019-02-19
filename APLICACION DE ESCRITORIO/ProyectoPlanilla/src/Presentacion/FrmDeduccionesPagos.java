@@ -6,6 +6,9 @@
 package Presentacion;
 
 import Entidades.ClsDeduccionesPagos;
+import Entidades.ClsRetorno;
+import Logica.ClsLogicaDeduccionesPagos;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,8 +23,18 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         initComponents();
         this.closable = true;
         txtidDeduccionPago.setVisible(false);
+        Limpiar();
     }
-
+    
+    private void Limpiar() {
+        txtDetalleEspecifiico.setText("");
+        txtDetalleGeneral.setText("");
+        txtMonto.setText("");
+        txtTipoDeduccion.setSelectedIndex(0);
+        txtidDeduccionPago.setText("-1");
+        cmb_esDeduccion.setSelectedIndex(0);
+    }
+    
     private ClsDeduccionesPagos LeerDatos() {
         //Variables
         ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
@@ -45,7 +58,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         } else if (txtTipoDeduccion.getSelectedIndex() == 2) {
             vlo_DeduccionesPagos.setVgc_tipo("DEC");
         }
-
+        
         return vlo_DeduccionesPagos;
     }
 
@@ -119,6 +132,11 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnLimpiiar.setText("Limpiar");
 
@@ -276,6 +294,23 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
 //            evt.consume();
 //        }
     }//GEN-LAST:event_txtMontoKeyTyped
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Varaibles
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+        ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+
+        //Inicio
+        try {
+            vlo_DeduccionesPagos = LeerDatos();
+            vlo_Retorno = vlo_LogicaDeduccionesPagos.GuardarDeduccionesPagos(vlo_DeduccionesPagos);
+            JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        Limpiar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario
 //    public boolean esDecimal(String cad) {
