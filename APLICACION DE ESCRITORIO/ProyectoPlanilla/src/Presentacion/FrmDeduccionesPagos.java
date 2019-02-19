@@ -430,12 +430,16 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         //Variables
         ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
-        
+        ClsRetorno vlo_retorno = new ClsRetorno();
+
         //Inicio
         try {
-            
+            vlo_retorno = vlo_LogicaDeduccionesPagos.EliminarDP(Integer.parseInt(txtidDeduccionPago.getText()));
+            JOptionPane.showMessageDialog(this, vlo_retorno.getVgc_Mensaje());
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar registro. " + e.getMessage());
         }
+        CargarLista();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario

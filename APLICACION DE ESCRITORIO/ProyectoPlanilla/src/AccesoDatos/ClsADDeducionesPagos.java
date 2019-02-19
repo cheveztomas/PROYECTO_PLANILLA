@@ -95,12 +95,12 @@ public class ClsADDeducionesPagos {
 
         //Inicio
         try {
-            vlo_CS = vgo_Conexion.prepareCall("{call SP_ELIMINAR_DEDUCCIONES_PAGOS(?,?)}");
+            vlo_CS = vgo_Conexion.prepareCall("{call SP_ELIMINAR_DEDDUCIONES_PAGOS(?,?)}");
             vlo_CS.setInt(1, pvn_idDeduccionPago);
             vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
             vlo_CS.registerOutParameter(2, Types.VARCHAR);
             vlo_Retorno.setVgc_ID(vlo_CS.executeUpdate());
-            vlo_CS.getString(2);
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
             throw e;
         } finally {
