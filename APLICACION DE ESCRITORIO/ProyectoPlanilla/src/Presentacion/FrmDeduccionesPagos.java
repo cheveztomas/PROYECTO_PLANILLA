@@ -5,6 +5,8 @@
  */
 package Presentacion;
 
+import Entidades.ClsDeduccionesPagos;
+
 /**
  *
  * @author Thomas Chevez
@@ -17,6 +19,34 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
     public FrmDeduccionesPagos() {
         initComponents();
         this.closable = true;
+        txtidDeduccionPago.setVisible(false);
+    }
+
+    private ClsDeduccionesPagos LeerDatos() {
+        //Variables
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+
+        //Inicio
+        vlo_DeduccionesPagos.setVgc_DeduccionDetallada(txtDetalleEspecifiico.getText());
+        vlo_DeduccionesPagos.setVgc_DeduccionGeneral(txtDetalleGeneral.getText());
+        vlo_DeduccionesPagos.setVgn_Monto(Double.parseDouble(txtMonto.getText()));
+        vlo_DeduccionesPagos.setVgn_idDeduccionPago(Integer.parseInt(txtidDeduccionPago.getText()));
+
+        //Se verifica que tipo de transaccion se va hacer.
+        if (cmb_esDeduccion.getSelectedIndex() == 1) {
+            vlo_DeduccionesPagos.setVgc_EsDeduccion(true);
+        } else if (cmb_esDeduccion.getSelectedIndex() == 2) {
+            vlo_DeduccionesPagos.setVgc_EsDeduccion(false);
+        }
+
+        //Se verifica que tipo de monto se va utilizar si estatico o porcentaje
+        if (txtTipoDeduccion.getSelectedIndex() == 1) {
+            vlo_DeduccionesPagos.setVgc_tipo("POR");
+        } else if (txtTipoDeduccion.getSelectedIndex() == 2) {
+            vlo_DeduccionesPagos.setVgc_tipo("DEC");
+        }
+
+        return vlo_DeduccionesPagos;
     }
 
     /**
@@ -47,6 +77,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
+        txtidDeduccionPago = new javax.swing.JTextField();
 
         jButton1.setText("jButton1");
 
@@ -61,13 +92,31 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo de concepto:");
 
+        txtDetalleGeneral.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDetalleGeneralKeyTyped(evt);
+            }
+        });
+
+        txtDetalleEspecifiico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDetalleEspecifiicoKeyTyped(evt);
+            }
+        });
+
         cmb_esDeduccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Deducción", "Pago" }));
 
-        txtTipoDeduccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecconar", "Porcentaje", "Constante" }));
+        txtTipoDeduccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Porcentaje", "Constante" }));
 
         jLabel4.setText("Tipo de Monto:");
 
         jLabel5.setText("Monto:");
+
+        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoKeyTyped(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
 
@@ -181,26 +230,62 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtidDeduccionPago, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(txtidDeduccionPago, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtDetalleGeneralKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDetalleGeneralKeyTyped
+        if (txtDetalleGeneral.getText().length() > 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDetalleGeneralKeyTyped
 
+    private void txtDetalleEspecifiicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDetalleEspecifiicoKeyTyped
+        if (txtDetalleEspecifiico.getText().length() > 500) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDetalleEspecifiicoKeyTyped
+
+    private void txtMontoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoKeyTyped
+        char e = evt.getKeyChar();
+        if (!((e >= '0' && e <= '9') || e == '.')) {
+            evt.consume();
+        }
+        //boolean correcto = true;
+
+        //correcto = esDecimal(txtMonto.getText());
+//        if (correcto == true) {
+//            evt.consume();
+//        }
+    }//GEN-LAST:event_txtMontoKeyTyped
+
+//Devuelve true si la cadena que llega es un numero decimal, false en caso contrario
+//    public boolean esDecimal(String cad) {
+//        try {
+//            Double.parseDouble(cad);
+//            return true;
+//        } catch (NumberFormatException nfe) {
+//            return false;
+//        }
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
@@ -221,5 +306,6 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDetalleGeneral;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JComboBox<String> txtTipoDeduccion;
+    private javax.swing.JTextField txtidDeduccionPago;
     // End of variables declaration//GEN-END:variables
 }
