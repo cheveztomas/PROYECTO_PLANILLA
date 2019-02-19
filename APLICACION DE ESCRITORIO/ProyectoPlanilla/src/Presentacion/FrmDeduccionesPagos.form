@@ -53,10 +53,10 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtidDeduccionPago" alignment="3" min="-2" pref="0" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtidDeduccionPago" min="-2" pref="0" max="-2" attributes="0"/>
+                  <Component id="btnSalir" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>

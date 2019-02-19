@@ -332,10 +332,10 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(txtidDeduccionPago, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtidDeduccionPago, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir)))
         );
 
         pack();
@@ -383,6 +383,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
+            CargarLista();
             Limpiar();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -440,6 +441,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al eliminar registro. " + e.getMessage());
         }
         CargarLista();
+        Limpiar();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario
