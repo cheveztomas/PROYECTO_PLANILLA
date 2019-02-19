@@ -9,14 +9,13 @@ package Entidades;
  *
  * @author tomas
  */
-public class ClsPagos extends ClsDesglose{
-    
-    //Metodos
-    public ClsPagos(int vgn_id, int vgn_idDetallePLanilla, String vgc_Concepto, double vgn_Porcentaje, double vgn_Monto) {
+public class ClsDeducciones extends ClsDesglose{
+    //Constructores
+        public ClsDeducciones(int vgn_id, int vgn_idDetallePLanilla, String vgc_Concepto, double vgn_Porcentaje, double vgn_Monto) {
         super(vgn_id, vgn_idDetallePLanilla, vgc_Concepto, vgn_Porcentaje, vgn_Monto);
     }
 
-    public ClsPagos() {
+    public ClsDeducciones() {
         super();
     }
 }
