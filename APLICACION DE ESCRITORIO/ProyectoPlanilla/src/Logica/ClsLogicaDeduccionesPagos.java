@@ -60,4 +60,16 @@ public class ClsLogicaDeduccionesPagos {
         }
         return vlo_Retorno;
     }
+
+    public ClsDeduccionesPagos ObteDeduccionesPagos(int pvn_idDedducionesPagos) {
+        //Variables
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+        ClsADDeducionesPagos vlo_ADDeducionesPagos;
+
+        //Inicio
+        try {
+            vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+        } catch (Exception e) {
+        }
+    }
 }
