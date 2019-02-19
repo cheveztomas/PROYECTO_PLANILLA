@@ -36,7 +36,7 @@ public class ClsADDeducionesPagos {
         String vlc_Mensaje = "";
         
         //Inicio
-
+        
         return vlc_Mensaje;
     }
 }
