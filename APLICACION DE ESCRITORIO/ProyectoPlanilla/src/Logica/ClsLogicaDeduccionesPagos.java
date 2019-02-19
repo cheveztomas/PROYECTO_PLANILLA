@@ -45,4 +45,12 @@ public class ClsLogicaDeduccionesPagos {
         }
         return vlo_RS;
     }
+
+    public ClsRetorno EliminarDP(int pvn_idDedducionesPagos) {
+        //Variables
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        
+        //Inicio
+
+    }
 }
