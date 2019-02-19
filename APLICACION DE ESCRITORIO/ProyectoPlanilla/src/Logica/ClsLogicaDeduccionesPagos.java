@@ -46,11 +46,18 @@ public class ClsLogicaDeduccionesPagos {
         return vlo_RS;
     }
 
-    public ClsRetorno EliminarDP(int pvn_idDedducionesPagos) {
+    public ClsRetorno EliminarDP(int pvn_idDedducionesPagos) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
-        
-        //Inicio
+        ClsADDeducionesPagos vlo_ADDeducionesPagos;
 
+        //Inicio
+        try {
+            vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+            vlo_Retorno = vlo_ADDeducionesPagos.Eliminar(pvn_idDedducionesPagos);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Retorno;
     }
 }
