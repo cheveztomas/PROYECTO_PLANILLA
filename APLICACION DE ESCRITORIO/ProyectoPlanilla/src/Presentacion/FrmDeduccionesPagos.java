@@ -190,8 +190,18 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         });
 
         btnLimpiiar.setText("Limpiar");
+        btnLimpiiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiiarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -293,6 +303,11 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         );
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -376,17 +391,52 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         //Variables
         int vln_id;
         ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
-        
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
 
         //Inicio
         if (evt.getClickCount() == 2) {
             vln_id = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             try {
-                
+                vlo_DeduccionesPagos = vlo_LogicaDeduccionesPagos.ObteDeduccionesPagos(vln_id);
+                txtDetalleGeneral.setText(vlo_DeduccionesPagos.getVgc_DeduccionGeneral());
+                txtDetalleEspecifiico.setText(vlo_DeduccionesPagos.getVgc_DeduccionDetallada());
+                txtMonto.setText(Double.toString(vlo_DeduccionesPagos.getVgn_Monto()));
+                txtidDeduccionPago.setText(Integer.toString(vlo_DeduccionesPagos.getVgn_idDeduccionPago()));
+                if (vlo_DeduccionesPagos.isVgc_EsDeduccion()) {
+                    txtTipoDeduccion.setSelectedIndex(1);
+                } else {
+                    txtTipoDeduccion.setSelectedIndex(2);
+                }
+
+                if (vlo_DeduccionesPagos.getVgc_tipo().equals("POR")) {
+                    cmb_esDeduccion.setSelectedIndex(1);
+                } else {
+                    cmb_esDeduccion.setSelectedIndex(2);
+                }
             } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al tratar de cargar el valor seleccionado. " + e.getMessage());
             }
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnLimpiiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiiarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //Variables
+        ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+        
+        //Inicio
+        try {
+            
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario
 //    public boolean esDecimal(String cad) {
