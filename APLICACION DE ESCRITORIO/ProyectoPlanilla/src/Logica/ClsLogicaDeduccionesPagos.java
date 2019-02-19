@@ -61,7 +61,7 @@ public class ClsLogicaDeduccionesPagos {
         return vlo_Retorno;
     }
 
-    public ClsDeduccionesPagos ObteDeduccionesPagos(int pvn_idDedducionesPagos) {
+    public ClsDeduccionesPagos ObteDeduccionesPagos(int pvn_idDedducionesPagos) throws Exception {
         //Variables
         ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
         ClsADDeducionesPagos vlo_ADDeducionesPagos;
@@ -69,7 +69,10 @@ public class ClsLogicaDeduccionesPagos {
         //Inicio
         try {
             vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+            vlo_DeduccionesPagos = vlo_ADDeducionesPagos.ObtenerDeduccionesPagos(pvn_idDedducionesPagos);
         } catch (Exception e) {
+            throw e;
         }
+        return vlo_DeduccionesPagos;
     }
 }

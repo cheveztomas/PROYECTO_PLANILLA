@@ -35,7 +35,7 @@ public class ClsADDeducionesPagos {
             throw e;
         }
     }
-    
+
     public ClsRetorno GuardarDeduccionesPagos(ClsDeduccionesPagos pvo_DeduccionesPagos) throws Exception {
         //Variables
         String vlc_Mensaje = "";
@@ -68,7 +68,7 @@ public class ClsADDeducionesPagos {
         }
         return vlo_retorno;
     }
-    
+
     public ResultSet ListaDeduccionesPagos() throws Exception {
         //Variables
         ResultSet vlo_RS;
@@ -86,7 +86,7 @@ public class ClsADDeducionesPagos {
         }
         return vlo_RS;
     }
-    
+
     public ClsRetorno Eliminar(int pvn_idDeduccionPago) throws Exception {
         //Variables
         ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
@@ -103,10 +103,12 @@ public class ClsADDeducionesPagos {
             vlo_CS.getString(2);
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Conexion = null;
         }
         return vlo_Retorno;
     }
-    
+
     public ClsDeduccionesPagos ObtenerDeduccionesPagos(int pvn_idDeduccionesPagos) throws Exception {
         //Variables
         ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
@@ -129,6 +131,8 @@ public class ClsADDeducionesPagos {
             }
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Conexion = null;
         }
         return vlo_DeduccionesPagos;
     }

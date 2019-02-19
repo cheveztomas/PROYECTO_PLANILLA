@@ -268,6 +268,11 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -366,6 +371,21 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
             Limpiar();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //Variables
+        int vln_id;
+        ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+
+        //Inicio
+        if (evt.getClickCount() == 2) {
+            vln_id = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            try {
+
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario
 //    public boolean esDecimal(String cad) {
