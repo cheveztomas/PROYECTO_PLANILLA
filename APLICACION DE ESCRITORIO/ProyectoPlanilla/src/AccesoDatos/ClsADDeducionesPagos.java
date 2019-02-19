@@ -86,4 +86,37 @@ public class ClsADDeducionesPagos {
         }
         return vlo_RS;
     }
+
+    public ClsRetorno Eliminar(int id_DeduccionPago) throws Exception {
+        //Variables
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+        CallableStatement vlo_CS;
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+
+        //Inicio
+        try {
+            vlo_CS = vgo_Conexion.prepareCall("{call SP_ELIMINAR_DEDUCCIONES_PAGOS(?,?)}");
+            vlo_CS.setInt(1, id_DeduccionPago);
+            vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+            vlo_Retorno.setVgc_ID(vlo_CS.executeUpdate());
+            vlo_CS.getString(2);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Retorno;
+    }
+
+    public ClsDeduccionesPagos ObtenerDeduccionesPagos(int id_DeduccionesPagos) {
+        //Variables
+        ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        
+        //Inicio
+        try {
+            
+        } catch (Exception e) {
+        }
+    }
 }

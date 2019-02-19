@@ -8,7 +8,9 @@ package Presentacion;
 import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsRetorno;
 import Logica.ClsLogicaDeduccionesPagos;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +26,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         this.closable = true;
         txtidDeduccionPago.setVisible(false);
         Limpiar();
+        CargarLista();
     }
 
     private void Limpiar() {
@@ -60,6 +63,54 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         }
 
         return vlo_DeduccionesPagos;
+    }
+
+    private void CargarLista() {
+        //Variables
+        ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+        ResultSet vlo_RS;
+        DefaultTableModel Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+
+        //Inicio
+        jTable1.setModel(Modelo);
+        Modelo.addColumn("");
+        Modelo.addColumn("Concepto");
+        Modelo.addColumn("Deducción");
+        Modelo.addColumn("Pago");
+        Modelo.addColumn("Tipo");
+        Modelo.addColumn("Monto");
+
+        try {
+            vlo_RS = vlo_LogicaDeduccionesPagos.ListaPagosDeducciones();
+            Object[] fila = new Object[6];
+            while (vlo_RS.next()) {
+                fila[0] = vlo_RS.getObject(1);
+                fila[1] = vlo_RS.getObject(2);
+                if (vlo_RS.getBoolean(4)) {
+                    fila[2] = "Si";
+                    fila[3] = "No";
+                } else {
+                    fila[2] = "No";
+                    fila[3] = "Si";
+                }
+                if (vlo_RS.getString(5).equals("POR")) {
+                    fila[4] = "%";
+                } else {
+                    fila[4] = "₡";
+                }
+                fila[5] = vlo_RS.getObject(6);
+
+                Modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la lista de elementos. " + e.getMessage());
+        }
     }
 
     /**
