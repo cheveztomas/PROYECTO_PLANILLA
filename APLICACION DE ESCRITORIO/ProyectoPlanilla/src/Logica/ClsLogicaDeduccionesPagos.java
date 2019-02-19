@@ -8,6 +8,7 @@ package Logica;
 import AccesoDatos.ClsADDeducionesPagos;
 import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsRetorno;
+import java.sql.ResultSet;
 
 /**
  *
@@ -28,5 +29,20 @@ public class ClsLogicaDeduccionesPagos {
             throw e;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaPagosDeducciones() throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        ClsADDeducionesPagos vlo_ADDeducionesPagos;
+
+        //Inicio
+        try {
+            vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+            vlo_RS = vlo_ADDeducionesPagos.ListaDeduccionesPagos();
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }

@@ -25,7 +25,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         txtidDeduccionPago.setVisible(false);
         Limpiar();
     }
-    
+
     private void Limpiar() {
         txtDetalleEspecifiico.setText("");
         txtDetalleGeneral.setText("");
@@ -34,7 +34,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         txtidDeduccionPago.setText("-1");
         cmb_esDeduccion.setSelectedIndex(0);
     }
-    
+
     private ClsDeduccionesPagos LeerDatos() {
         //Variables
         ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
@@ -58,7 +58,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         } else if (txtTipoDeduccion.getSelectedIndex() == 2) {
             vlo_DeduccionesPagos.setVgc_tipo("DEC");
         }
-        
+
         return vlo_DeduccionesPagos;
     }
 
@@ -302,14 +302,18 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
 
         //Inicio
-        try {
-            vlo_DeduccionesPagos = LeerDatos();
-            vlo_Retorno = vlo_LogicaDeduccionesPagos.GuardarDeduccionesPagos(vlo_DeduccionesPagos);
-            JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        if (txtDetalleEspecifiico.getText().equals("") || txtDetalleGeneral.getText().equals("") || txtMonto.getText().equals("") || txtTipoDeduccion.getSelectedIndex() == 0 || cmb_esDeduccion.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son requeridos.");
+        } else {
+            try {
+                vlo_DeduccionesPagos = LeerDatos();
+                vlo_Retorno = vlo_LogicaDeduccionesPagos.GuardarDeduccionesPagos(vlo_DeduccionesPagos);
+                JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            Limpiar();
         }
-        Limpiar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 //Devuelve true si la cadena que llega es un numero decimal, false en caso contrario

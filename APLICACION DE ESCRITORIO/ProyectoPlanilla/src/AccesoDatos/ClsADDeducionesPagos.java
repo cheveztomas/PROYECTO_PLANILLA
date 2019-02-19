@@ -10,6 +10,8 @@ import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -65,5 +67,23 @@ public class ClsADDeducionesPagos {
             vgo_Conexion = null;
         }
         return vlo_retorno;
+    }
+
+    public ResultSet ListaDeduccionesPagos() throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlc_Sentencia = "SELECT ID_DEDUCCION_PAGO, DEDUCCION_GENERAL,DEDUCCION_DETALLADA, ES_DEDUCCION, TIPO, MONTO FROM DEDUCCIONES_PAGOS";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Conexion.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Conexion = null;
+        }
+        return vlo_RS;
     }
 }
