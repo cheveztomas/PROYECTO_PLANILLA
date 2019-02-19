@@ -95,7 +95,7 @@ MONTO DECIMAL NOT NULL
 CREATE TABLE DEDUCCIONES_PAGOS(
 	ID_DEDUCCION_PAGO INT IDENTITY CONSTRAINT PK_DEDUCCIONES_PAGOS PRIMARY KEY NOT NULL,
 	DEDUCCION_GENERAL VARCHAR(50) NOT NULL,
-	DEDUCCION_DETALLADA VARCHAR(500) NOT NULL,
+	DEDUCCION_DETALLADA VARCHAR(500) NULL,
 	ES_DEDUCCION BIT NOT NULL DEFAULT 1,
 	TIPO VARCHAR(3) DEFAULT 'POR',
 	MONTO DECIMAL(10,2) NOT NULL
@@ -565,37 +565,37 @@ BEGIN CATCH
 	RAISERROR('Error al tratar de agregar una prestamo al empleado',16,11)
 END CATCH
 
-go
-CREATE PROCEDURE SP_ACTUALIZAR_INFORMACION(
-										   @anualidad decimal,
-										   @escalafon1 decimal,
-										   @escalafon2 decimal,
-										   @dedicacion_exclusiva decimal,
-										   @magisterio decimal,
-										   @banco_popular decimal,
-										   @ccss decimal,
-										   @poliza decimal,
-										   @colegio_profesional decimal,
-										   @msj varchar(150) out)
-AS
-BEGIN TRY
-	UPDATE INFORMACION
-	SET ANUALIDAD=@anualidad,
-		ESCALAFON_1=@escalafon1,
-		ESCALAFON_2=@escalafon2,
-		DEDICACION_EXCLUSIVA=@dedicacion_exclusiva,
-		MAGISTERIO=@magisterio,
-		BANCO_POPULAR=@banco_popular,
-		CCSS=@ccss,
-		POLIZA=@poliza,
-		COLEGIO_PROFESIONAL=@colegio_profesional
-	WHERE ID_INFORMACION=1
+--go
+--CREATE PROCEDURE SP_ACTUALIZAR_INFORMACION(
+--										   @anualidad decimal,
+--										   @escalafon1 decimal,
+--										   @escalafon2 decimal,
+--										   @dedicacion_exclusiva decimal,
+--										   @magisterio decimal,
+--										   @banco_popular decimal,
+--										   @ccss decimal,
+--										   @poliza decimal,
+--										   @colegio_profesional decimal,
+--										   @msj varchar(150) out)
+--AS
+--BEGIN TRY
+--	UPDATE INFORMACION
+--	SET ANUALIDAD=@anualidad,
+--		ESCALAFON_1=@escalafon1,
+--		ESCALAFON_2=@escalafon2,
+--		DEDICACION_EXCLUSIVA=@dedicacion_exclusiva,
+--		MAGISTERIO=@magisterio,
+--		BANCO_POPULAR=@banco_popular,
+--		CCSS=@ccss,
+--		POLIZA=@poliza,
+--		COLEGIO_PROFESIONAL=@colegio_profesional
+--	WHERE ID_INFORMACION=1
 
-	SET @msj='La información se actualizo de forma correcta.'
-END TRY
-BEGIN CATCH
-	RAISERROR('Error al trarar de actualizar la información.',16,12)
-END CATCH
+--	SET @msj='La información se actualizo de forma correcta.'
+--END TRY
+--BEGIN CATCH
+--	RAISERROR('Error al trarar de actualizar la información.',16,12)
+--END CATCH
 
 GO
 CREATE PROCEDURE SP_ASIGANAR_PUESTO_EMPLEADO(@id_emplado_puesto int,

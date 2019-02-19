@@ -71,6 +71,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu2.setText("Editar");
 
         btnConfiguracion.setText("Configuración");
+        btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfiguracionActionPerformed(evt);
+            }
+        });
         jMenu2.add(btnConfiguracion);
 
         btnSalir.setText("Salir");
@@ -100,6 +105,12 @@ public class FrmMenu extends javax.swing.JFrame {
         jDesktopPane1.add(Form);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+        FrmDeduccionesPagos Form = new FrmDeduccionesPagos();
+        Form.setVisible(true);
+        jDesktopPane1.add(Form);
+    }//GEN-LAST:event_btnConfiguracionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -111,7 +122,7 @@ public class FrmMenu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
