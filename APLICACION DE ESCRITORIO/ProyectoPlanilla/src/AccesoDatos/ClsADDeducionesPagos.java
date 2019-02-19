@@ -45,7 +45,7 @@ public class ClsADDeducionesPagos {
         //Inicio
 
         
-        return vlc_Mensaje;
+        //return vlc_Mensaje;
         try {
             vlo_CS = vgo_Conexion.prepareCall("{call SP_GUARDAR_DEDUCCIONES_PAGOS(?,?,?,?,?,?,?)}");
             vlo_CS.setInt(1, pvo_DeduccionesPagos.getVgn_idDeduccionPago());
