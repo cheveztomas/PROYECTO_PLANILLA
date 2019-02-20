@@ -67,10 +67,10 @@ public class ClsADPlanilla {
             vlo_CS.setInt(1, pvo_Planilla.getVgn_idPlanilla());
             vlo_CS.setDate(2, pvo_Planilla.getVgf_Fecha());
             vlo_CS.registerOutParameter(1, Types.INTEGER);
-            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+            //vlo_CS.registerOutParameter(2, Types.VARCHAR);
             vlo_CS.executeUpdate();
             vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
-            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
+            //vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
 
             //Se estable la sentencia sql
             vlc_SentenciaSQL = "SELECT EMPLEADOS.ID_EMPLEADO,SALARIO_BASE,PRESTAMO,PENSION,CATEGORIA_PUESTO FROM EMPLEADOS INNER JOIN EMPLEADOS_PUESTOS ON EMPLEADOS.ID_EMPLEADO = EMPLEADOS_PUESTOS.ID_EMPLEADO INNER JOIN PUESTOS ON EMPLEADOS_PUESTOS.ID_PUESTO=PUESTOS.ID_PUESTO WHERE EMPLEADOS.BORRADO_LOGICO=0";
@@ -79,20 +79,6 @@ public class ClsADPlanilla {
             vlo_Statement = vgo_Connection.createStatement();
             vlo_RSEmpladosInf = vlo_Statement.executeQuery(vlc_SentenciaSQL);
 
-            //Se establese la nueva sentencia sql
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
-
-            //Se obtinen todas las deducciones existentes.
-            vlo_Statement = vgo_Connection.createStatement();
-            vlo_RSDeducciones = vlo_Statement.executeQuery(vlc_SentenciaSQL);
-
-            //Se establese la nueva sentencia sql
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
-
-            //Se obtiene la lista de pagos.
-            vlo_Statement = vgo_Connection.createStatement();
-            vlo_RSPagos = vlo_Statement.executeQuery(vlc_SentenciaSQL);
-
             //Este ciclo recorre la tabla que contiene la incformación del empleado.
             while (vlo_RSEmpladosInf.next()) {
                 //Variables Auxiliares
@@ -100,7 +86,7 @@ public class ClsADPlanilla {
                 double vln_salarioBase = vlo_RSEmpladosInf.getDouble(2);
                 double vln_prestamo = vlo_RSEmpladosInf.getDouble(3);
                 double vln_pension = vlo_RSEmpladosInf.getDouble(4);
-                int vln_categoriaPuesto = vlo_RSPagos.getInt(5);
+                int vln_categoriaPuesto = vlo_RSEmpladosInf.getInt(5);
                 double vln_Desglose = 0;
                 vlo_Pagos = new ClsPagos();
                 vlo_Deduciones = new ClsDeducciones();
@@ -109,10 +95,31 @@ public class ClsADPlanilla {
                 //Se guarda como valor principal el salario base.
                 vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_salarioBase);
 
+                //Se establese la nueva sentencia sql
+                vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
+
+                //Se obtiene la lista de pagos.
+                vlo_Statement = vgo_Connection.createStatement();
+                vlo_RSPagos = vlo_Statement.executeQuery(vlc_SentenciaSQL);
+
                 //Se recorre la tabla de pagos.
                 while (vlo_RSPagos.next()) {
                     //Se verifica que el puesto y la deduccion tengan la misma categoria.
-                    if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSPagos.getString(5))) {
+                    if (Integer.parseInt(vlo_RSPagos.getString(5)) == 0) {
+                        //Se verifica si es un porcentaje lo que se debe calcular.
+                        if (vlo_RSPagos.getString(3).equals("POR")) {
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + (vln_salarioBase * (vlo_RSPagos.getDouble(4) / 100));
+                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                            vlo_Pagos.setVgn_Porcentaje(vlo_RSPagos.getDouble(4));
+                        } else {
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + vlo_RSPagos.getDouble(4);
+                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                        }
+                        vlo_Pagos.setVgc_Concepto(vlo_RSPagos.getString(2));
+                        vlo_Pagos.setVgn_Monto(vln_Desglose);
+                        vlo_Pagos.setVgn_id(-1);
+                        ListaPagos.add(vlo_Pagos);
+                    } else if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSPagos.getString(5))) {
                         //Se verifica si es un porcentaje lo que se debe calcular.
                         if (vlo_RSPagos.getString(3).equals("POR")) {
                             vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + (vln_salarioBase * (vlo_RSPagos.getDouble(4) / 100));
@@ -132,9 +139,16 @@ public class ClsADPlanilla {
                 //Se resta la pensión al usuario
                 vlo_DetallesPlanilla.setVgn_SararioNeto(vlo_DetallesPlanilla.getVgn_SalarioBruto() - vlo_RSEmpladosInf.getDouble(4));
                 vln_Desglose = 0;
+
+                //Se establese la nueva sentencia sql
+                vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
+
+                //Se obtinen todas las deducciones existentes.
+                vlo_Statement = vgo_Connection.createStatement();
+                vlo_RSDeducciones = vlo_Statement.executeQuery(vlc_SentenciaSQL);
                 while (vlo_RSDeducciones.next()) {
                     //Se verifica que el puesto y la deduccion tengan la misma categoria.
-                    if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSDeducciones.getString(5))) {
+                    if (Integer.parseInt(vlo_RSDeducciones.getString(5)) == 0) {
                         //Se verifica si es un porcentaje lo que se debe calcular.
                         if (vlo_RSDeducciones.getString(3).equals("POR")) {
                             vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - (vlo_DetallesPlanilla.getVgn_SalarioBruto() * (vlo_RSDeducciones.getDouble(4) / 100));
@@ -148,6 +162,22 @@ public class ClsADPlanilla {
                         vlo_Deduciones.setVgn_Monto(vln_Desglose);
                         vlo_Deduciones.setVgn_id(-1);
                         ListaDeducciones.add(vlo_Deduciones);
+                    } else {
+                        if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSDeducciones.getString(5))) {
+                            //Se verifica si es un porcentaje lo que se debe calcular.
+                            if (vlo_RSDeducciones.getString(3).equals("POR")) {
+                                vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - (vlo_DetallesPlanilla.getVgn_SalarioBruto() * (vlo_RSDeducciones.getDouble(4) / 100));
+                                vlo_DetallesPlanilla.setVgn_SararioNeto(vln_Desglose);
+                                vlo_Deduciones.setVgn_Porcentaje(vlo_RSDeducciones.getDouble(4));
+                            } else {
+                                vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - vlo_RSDeducciones.getDouble(4);
+                                vlo_DetallesPlanilla.setVgn_SararioNeto(vln_Desglose);
+                            }
+                            vlo_Deduciones.setVgc_Concepto(vlo_RSDeducciones.getString(2));
+                            vlo_Deduciones.setVgn_Monto(vln_Desglose);
+                            vlo_Deduciones.setVgn_id(-1);
+                            ListaDeducciones.add(vlo_Deduciones);
+                        }
                     }
                 }
 
@@ -185,8 +215,9 @@ public class ClsADPlanilla {
                 //Recorro el arreglo con los pagos y los incerto.
                 Iterator<ClsPagos> IteradorPagos = ListaPagos.iterator();
                 while (IteradorPagos.hasNext()) {
+                    vlo_Pagos = new ClsPagos();
                     vlo_Pagos = IteradorPagos.next();
-                    vlo_CS = vgo_Connection.prepareCall("{SP_GUARDAR_PAGOS(?,?,?,?,?)}");
+                    vlo_CS = vgo_Connection.prepareCall("{call SP_GUARDAR_PAGOS(?,?,?,?,?)}");
                     vlo_CS.setInt(1, -1);
                     vlo_CS.setInt(2, vlo_RetornoDP.getVgc_ID());
                     vlo_CS.setString(3, vlo_Pagos.getVgc_Concepto());
@@ -195,12 +226,12 @@ public class ClsADPlanilla {
 
                     vlo_CS.executeUpdate();
                 }
-
                 //Recorro el arreglo con los pagos y los incerto.
                 Iterator<ClsDeducciones> IteradorDeducciones = ListaDeducciones.iterator();
                 while (IteradorDeducciones.hasNext()) {
+                    vlo_Deduciones = new ClsDeducciones();
                     vlo_Deduciones = IteradorDeducciones.next();
-                    vlo_CS = vgo_Connection.prepareCall("{SP_GUARDAR_DEDUCCIONES(?,?,?,?,?)}");
+                    vlo_CS = vgo_Connection.prepareCall("{call SP_GUARDAR_DEDUCCIONES(?,?,?,?,?)}");
                     vlo_CS.setInt(1, -1);
                     vlo_CS.setInt(2, vlo_RetornoDP.getVgc_ID());
                     vlo_CS.setString(3, vlo_Deduciones.getVgc_Concepto());
