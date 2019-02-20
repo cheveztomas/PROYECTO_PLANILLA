@@ -213,6 +213,7 @@ public class ClsADPlanilla {
             vgo_Connection.commit();
         } catch (Exception e) {
             vgo_Connection.rollback();
+            throw e;
         }
         return vlo_Retorno;
     }
