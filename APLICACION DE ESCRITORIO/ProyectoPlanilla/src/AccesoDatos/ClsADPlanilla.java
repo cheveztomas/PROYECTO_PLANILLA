@@ -40,7 +40,7 @@ public class ClsADPlanilla {
             throw e;
         }
     }
-
+    
     public ClsRetorno GenerarPlanilla(ClsPlanilla pvo_Planilla) throws SQLException {
         //Variables
         ResultSet vlo_RSEmpladosInf;
@@ -50,12 +50,12 @@ public class ClsADPlanilla {
         ClsRetorno vlo_Retorno = new ClsRetorno();
         String vlc_SentenciaSQL;
         Statement vlo_Statement;
-        ClsDetallePlanillas vlo_DetallesPlanilla = new ClsDetallePlanillas();
+        ClsDetallePlanillas vlo_DetallesPlanilla;
         ClsRetorno vlo_RetornoDP = new ClsRetorno();
         ArrayList<ClsPagos> ListaPagos = new ArrayList<>();
-        ArrayList<ClsDeducciones> ListaDeducciones=new ArrayList<>();
-        ClsPagos vlo_Pagos = new ClsPagos();
-        ClsDeducciones vlo_Deduciones = new ClsDeducciones();
+        ArrayList<ClsDeducciones> ListaDeducciones = new ArrayList<>();
+        ClsPagos vlo_Pagos;
+        ClsDeducciones vlo_Deduciones;
 
         //Inicio
         try {
@@ -79,14 +79,14 @@ public class ClsADPlanilla {
             vlo_RSEmpladosInf = vlo_Statement.executeQuery(vlc_SentenciaSQL);
 
             //Se establese la nueva sentencia sql
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
+            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
 
             //Se obtinen todas las deducciones existentes.
             vlo_Statement = vgo_Connection.createStatement();
             vlo_RSDeducciones = vlo_Statement.executeQuery(vlc_SentenciaSQL);
 
             //Se establese la nueva sentencia sql
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
+            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO,DEDUCCION_DETALLADA FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
 
             //Se obtiene la lista de pagos.
             vlo_Statement = vgo_Connection.createStatement();
@@ -100,8 +100,38 @@ public class ClsADPlanilla {
                 double vln_prestamo = vlo_RSEmpladosInf.getDouble(3);
                 double vln_pension = vlo_RSEmpladosInf.getDouble(4);
                 int vln_categoriaPuesto = vlo_RSPagos.getInt(5);
+                double vln_Desglose = 0;
+                vlo_Pagos = new ClsPagos();
+                vlo_Deduciones = new ClsDeducciones();
+                vlo_DetallesPlanilla = new ClsDetallePlanillas();
 
+                //Se guarda como valor principal el salario base.
+                vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_salarioBase);
+
+                //Se recorre la tabla de pagos.
                 while (vlo_RSPagos.next()) {
+                    //Se verifica que el puesto y la deduccion tengan la misma categoria.
+                    if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSPagos.getString(5))) {
+                        //Se verifica si es un porcentaje lo que se debe calcular.
+                        if (vlo_RSPagos.getString(3).equals("POR")) {
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + (vln_salarioBase * vlo_RSPagos.getDouble(4) / 100);
+                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                            vlo_Pagos.setVgn_Porcentaje(vlo_RSPagos.getDouble(4));
+                        } else {
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + vlo_RSPagos.getDouble(4);
+                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                        }
+                        vlo_Pagos.setVgc_Concepto(vlo_RSPagos.getString(2));
+                        vlo_Pagos.setVgn_Monto(vln_Desglose);
+                        vlo_Pagos.setVgn_id(-1);
+                        ListaPagos.add(vlo_Pagos);
+                    }
+                }
+                
+                //Se resta la pensión al usuario
+                vlo_DetallesPlanilla.setVgn_SararioNeto(vlo_DetallesPlanilla.getVgn_SalarioBruto() - vlo_RSEmpladosInf.getDouble(4));
+                
+                while (vlo_RSDeducciones.next()) {                    
                     
                 }
             }
