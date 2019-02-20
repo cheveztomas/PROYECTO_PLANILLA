@@ -86,6 +86,7 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
             vlo_Planilla.setVgf_Fecha(sql);
 
             vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
+            JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
