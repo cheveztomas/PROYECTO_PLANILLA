@@ -8,9 +8,11 @@ package Presentacion;
 import Entidades.ClsPlanilla;
 import Entidades.ClsRetorno;
 import Logica.ClsLogicaPlanilla;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +26,41 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
     public frmPlanilla() {
         initComponents();
         this.closable = true;
+        txt_idPlanillas.setVisible(false);
+    }
+
+    private void CargarListaDetallesPlanillas() {
+        //Variables
+        ClsLogicaPlanilla vlo_LogicaPlanilla = new ClsLogicaPlanilla();
+        ResultSet vlo_RS;
+        DefaultTableModel Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+
+        //Inicio
+        jTable1.setModel(Modelo);
+        Modelo.addColumn("");
+        Modelo.addColumn("Nombre");
+        Modelo.addColumn("Salario Neto");
+        Modelo.addColumn("Salario Bruto");
+
+        Object[] fila = new Object[4];
+
+        try {
+            vlo_RS = vlo_LogicaPlanilla.ListaDetallesPLanilla(Integer.parseInt(txt_idPlanillas.getText()));
+            while (vlo_RS.next()) {
+                for (int i = 0; i < 4; i++) {
+                    fila[i] = vlo_RS.getObject(i + 1);
+                }
+                Modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No se pudo cargar los empleados de la planilla.");
+        }
     }
 
     /**
@@ -42,6 +79,7 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
+        txt_idPlanillas = new javax.swing.JTextField();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Generar Planilla"));
 
@@ -97,7 +135,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txt_idPlanillas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir)))
                 .addContainerGap())
         );
@@ -108,7 +147,9 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalir))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalir)
+                    .addComponent(txt_idPlanillas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
@@ -132,6 +173,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
 
             vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
             JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
+            txt_idPlanillas.setText(Integer.toString(vlo_Retorno.getVgc_ID()));
+            CargarListaDetallesPlanillas();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
@@ -146,5 +189,6 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txt_idPlanillas;
     // End of variables declaration//GEN-END:variables
 }
