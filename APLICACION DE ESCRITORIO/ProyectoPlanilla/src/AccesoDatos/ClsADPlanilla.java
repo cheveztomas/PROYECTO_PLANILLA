@@ -340,4 +340,20 @@ public class ClsADPlanilla {
         vlo_Retorno.setVgc_Mensaje("Se generó la planilla de forma correcta.");
         return vlo_Retorno;
     }
+
+    public ResultSet ListaDetallesPlanilla(int pvn_idPlanilla) throws Exception {
+        //Variable
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlo_Senetncia = "SELECT EMPLEADOS.ID_EMPLEADO,CONCAT(NOMBRE,' ',PRIMER_APELLIDO,' ',SEGUNDO_APELLIDO)AS NOMBRE_COMPLETO,SALARIO_NETO,SALARIO_BRUTO,PRIMER_ADELANTO,ADELANTO_FINAL_SALARIAL FROM PLANILLAS INNER JOIN DETALLES_PLANILLAS ON PLANILLAS.ID_PLANILLA=DETALLES_PLANILLAS.ID_PLANILLA INNER JOIN EMPLEADOS ON DETALLES_PLANILLAS.ID_EMPLEADO=EMPLEADOS.ID_EMPLEADO WHERE PLANILLAS.ID_PLANILLA='" + pvn_idPlanilla + "'";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlo_Senetncia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
+    }
 }

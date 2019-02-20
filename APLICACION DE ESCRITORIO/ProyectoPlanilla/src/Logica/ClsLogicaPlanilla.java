@@ -8,6 +8,7 @@ package Logica;
 import AccesoDatos.ClsADPlanilla;
 import Entidades.ClsPlanilla;
 import Entidades.ClsRetorno;
+import java.sql.ResultSet;
 
 /**
  *
@@ -28,5 +29,19 @@ public class ClsLogicaPlanilla {
             throw e;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaDetallesPLanilla(int pvn_idPlanilla) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        ClsADPlanilla vloADPlanilla = new ClsADPlanilla();
+
+        //Inicio
+        try {
+            vlo_RS = vloADPlanilla.ListaDetallesPlanilla(pvn_idPlanilla);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
