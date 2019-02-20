@@ -150,9 +150,29 @@ public class ClsADPlanilla {
                     }
                 }
 
-                if (vlo_DetallesPlanilla.getVgn_SalarioBruto()) {
-
+                double restante;
+                if (vlo_DetallesPlanilla.getVgn_SalarioBruto() > 817000 && vlo_DetallesPlanilla.getVgn_SalarioBruto() <= 1226000) {
+                    vlo_DetallesPlanilla.setVgn_SararioNeto((vlo_DetallesPlanilla.getVgn_SararioNeto() - (vlo_DetallesPlanilla.getVgn_SalarioBruto() * 0.10)));
+                } else if (vlo_DetallesPlanilla.getVgn_SalarioBruto() > 1226000) {
+                    vlo_DetallesPlanilla.setVgn_SararioNeto(((vlo_DetallesPlanilla.getVgn_SararioNeto() - (817000 * 0.10)) - ((vlo_DetallesPlanilla.getVgn_SalarioBruto() - 817000) * 0.15)));
                 }
+                vlo_DetallesPlanilla.setVgn_SararioNeto(vlo_DetallesPlanilla.getVgn_SararioNeto() - vln_prestamo);
+                vlo_DetallesPlanilla.setVgn_idPlanilla(vlo_Retorno.getVgc_ID());
+                vlo_DetallesPlanilla.setVgnIdEmpleado(vln_idEmpleado);
+                vlo_DetallesPlanilla.setVgn_AdelantoFinal(vlo_DetallesPlanilla.getVgn_SararioNeto() * 0.60);
+                vlo_DetallesPlanilla.setVgn_PrimerAdelanto(vlo_DetallesPlanilla.getVgn_SararioNeto() * 0.40);
+                vlo_DetallesPlanilla.setVgn_idDetallePlanilla(-1);
+
+                //Se invoca el procedimiento almacenado que guarda el detalle de planilla.
+                vlo_CS = vgo_Connection.prepareCall("{call SP_CUARDAR_DETALLES_PLANILLAS(?,?,?,?,?,?,?,?)}");
+                vlo_CS.setInt(1, vlo_DetallesPlanilla.getVgn_idDetallePlanilla());
+                vlo_CS.setInt(2, vlo_DetallesPlanilla.getVgn_idPlanilla());
+                vlo_CS.setInt(3, vlo_DetallesPlanilla.getVgnIdEmpleado());
+                vlo_CS.setDouble(4, vlo_DetallesPlanilla.getVgn_SararioNeto());
+                vlo_CS.setDouble(5, vlo_DetallesPlanilla.getVgn_SalarioBruto());
+                vlo_CS.setDouble(6, vlo_DetallesPlanilla.getVgn_PrimerAdelanto());
+                vlo_CS.setDouble(7, vlo_DetallesPlanilla.getVgn_AdelantoFinal());
+                vlo_CS.setString(8, vlo_RetornoDP.getVgc_Mensaje());
             }
             vgo_Connection.commit();
         } catch (Exception e) {
