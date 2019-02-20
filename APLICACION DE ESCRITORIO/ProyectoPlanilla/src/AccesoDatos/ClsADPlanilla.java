@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -52,8 +53,8 @@ public class ClsADPlanilla {
         Statement vlo_Statement;
         ClsDetallePlanillas vlo_DetallesPlanilla;
         ClsRetorno vlo_RetornoDP = new ClsRetorno();
-        ArrayList<ClsPagos> ListaPagos = new ArrayList<>();
-        ArrayList<ClsDeducciones> ListaDeducciones = new ArrayList<>();
+        ArrayList<ClsPagos> ListaPagos = new ArrayList<ClsPagos>();
+        ArrayList<ClsDeducciones> ListaDeducciones = new ArrayList<ClsDeducciones>();
         ClsPagos vlo_Pagos;
         ClsDeducciones vlo_Deduciones;
 
@@ -173,6 +174,41 @@ public class ClsADPlanilla {
                 vlo_CS.setDouble(6, vlo_DetallesPlanilla.getVgn_PrimerAdelanto());
                 vlo_CS.setDouble(7, vlo_DetallesPlanilla.getVgn_AdelantoFinal());
                 vlo_CS.setString(8, vlo_RetornoDP.getVgc_Mensaje());
+                vlo_CS.registerOutParameter(1, Types.INTEGER);
+                vlo_CS.registerOutParameter(8, Types.VARCHAR);
+
+                vlo_CS.executeUpdate();
+
+                vlo_RetornoDP.setVgc_ID(vlo_CS.getInt(1));
+                vlo_RetornoDP.setVgc_Mensaje(vlo_CS.getString(8));
+
+                //Recorro el arreglo con los pagos y los incerto.
+                Iterator<ClsPagos> IteradorPagos = ListaPagos.iterator();
+                while (IteradorPagos.hasNext()) {
+                    vlo_Pagos = IteradorPagos.next();
+                    vlo_CS = vgo_Connection.prepareCall("{SP_GUARDAR_PAGOS(?,?,?,?,?)}");
+                    vlo_CS.setInt(1, -1);
+                    vlo_CS.setInt(2, vlo_RetornoDP.getVgc_ID());
+                    vlo_CS.setString(3, vlo_Pagos.getVgc_Concepto());
+                    vlo_CS.setDouble(4, vlo_Pagos.getVgn_Porcentaje());
+                    vlo_CS.setDouble(5, vlo_Pagos.getVgn_Monto());
+
+                    vlo_CS.executeUpdate();
+                }
+
+                //Recorro el arreglo con los pagos y los incerto.
+                Iterator<ClsDeducciones> IteradorDeducciones = ListaDeducciones.iterator();
+                while (IteradorDeducciones.hasNext()) {
+                    vlo_Deduciones = IteradorDeducciones.next();
+                    vlo_CS = vgo_Connection.prepareCall("{SP_GUARDAR_DEDUCCIONES(?,?,?,?,?)}");
+                    vlo_CS.setInt(1, -1);
+                    vlo_CS.setInt(2, vlo_RetornoDP.getVgc_ID());
+                    vlo_CS.setString(3, vlo_Deduciones.getVgc_Concepto());
+                    vlo_CS.setDouble(4, vlo_Deduciones.getVgn_Porcentaje());
+                    vlo_CS.setDouble(5, vlo_Deduciones.getVgn_Monto());
+
+                    vlo_CS.executeUpdate();
+                }
             }
             vgo_Connection.commit();
         } catch (Exception e) {
