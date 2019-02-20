@@ -114,7 +114,7 @@ public class ClsADPlanilla {
                     if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSPagos.getString(5))) {
                         //Se verifica si es un porcentaje lo que se debe calcular.
                         if (vlo_RSPagos.getString(3).equals("POR")) {
-                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + (vln_salarioBase * vlo_RSPagos.getDouble(4) / 100);
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() + (vln_salarioBase * (vlo_RSPagos.getDouble(4) / 100));
                             vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
                             vlo_Pagos.setVgn_Porcentaje(vlo_RSPagos.getDouble(4));
                         } else {
@@ -127,7 +127,7 @@ public class ClsADPlanilla {
                         ListaPagos.add(vlo_Pagos);
                     }
                 }
-                
+
                 //Se resta la pensión al usuario
                 vlo_DetallesPlanilla.setVgn_SararioNeto(vlo_DetallesPlanilla.getVgn_SalarioBruto() - vlo_RSEmpladosInf.getDouble(4));
                 
@@ -136,12 +136,12 @@ public class ClsADPlanilla {
                     if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSDeducciones.getString(5))) {
                         //Se verifica si es un porcentaje lo que se debe calcular.
                         if (vlo_RSDeducciones.getString(3).equals("POR")) {
-                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() - (vln_salarioBase * vlo_RSDeducciones.getDouble(4) / 100);
-                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - (vln_salarioBase * (vlo_RSDeducciones.getDouble(4) / 100));
+                            vlo_DetallesPlanilla.setVgn_SararioNeto(vln_Desglose);
                             vlo_Deduciones.setVgn_Porcentaje(vlo_RSDeducciones.getDouble(4));
                         } else {
-                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SalarioBruto() - vlo_RSDeducciones.getDouble(4);
-                            vlo_DetallesPlanilla.setVgn_SalarioBruto(vln_Desglose);
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - vlo_RSDeducciones.getDouble(4);
+                            vlo_DetallesPlanilla.setVgn_SararioNeto(vln_Desglose);
                         }
                         vlo_Deduciones.setVgc_Concepto(vlo_RSDeducciones.getString(2));
                         vlo_Deduciones.setVgn_Monto(vln_Desglose);
@@ -149,6 +149,7 @@ public class ClsADPlanilla {
                         ListaDeducciones.add(vlo_Deduciones);
                     }
                 }
+                
             }
             vgo_Connection.commit();
         } catch (Exception e) {
