@@ -6,14 +6,19 @@
 package AccesoDatos;
 
 import Configuracion.ClsConexion;
+import Entidades.ClsDeducciones;
+import Entidades.ClsDetallePlanillas;
+import Entidades.ClsPagos;
 import Entidades.ClsPlanilla;
 import Entidades.ClsRetorno;
+import java.awt.List;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,6 +50,12 @@ public class ClsADPlanilla {
         ClsRetorno vlo_Retorno = new ClsRetorno();
         String vlc_SentenciaSQL;
         Statement vlo_Statement;
+        ClsDetallePlanillas vlo_DetallesPlanilla = new ClsDetallePlanillas();
+        ClsRetorno vlo_RetornoDP = new ClsRetorno();
+        ArrayList<ClsPagos> ListaPagos = new ArrayList<>();
+        ArrayList<ClsDeducciones> ListaDeducciones=new ArrayList<>();
+        ClsPagos vlo_Pagos = new ClsPagos();
+        ClsDeducciones vlo_Deduciones = new ClsDeducciones();
 
         //Inicio
         try {
@@ -68,7 +79,7 @@ public class ClsADPlanilla {
             vlo_RSEmpladosInf = vlo_Statement.executeQuery(vlc_SentenciaSQL);
 
             //Se establese la nueva sentencia sql
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,ES_DEDUCCION,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
+            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=1";
 
             //Se obtinen todas las deducciones existentes.
             vlo_Statement = vgo_Connection.createStatement();
@@ -77,9 +88,23 @@ public class ClsADPlanilla {
             //Se establese la nueva sentencia sql
             vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
 
-            //Se obtiene la lista de pagos existentes
-            vlc_SentenciaSQL = "SELECT ID_DEDUCCION_PAGO,DEDUCCION_GENERAL,TIPO,MONTO FROM DEDUCCIONES_PAGOS WHERE ES_DEDUCCION=0";
+            //Se obtiene la lista de pagos.
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RSPagos = vlo_Statement.executeQuery(vlc_SentenciaSQL);
 
+            //Este ciclo recorre la tabla que contiene la incformación del empleado.
+            while (vlo_RSEmpladosInf.next()) {
+                //Variables Auxiliares
+                int vln_idEmpleado = vlo_RSEmpladosInf.getInt(1);
+                double vln_salarioBase = vlo_RSEmpladosInf.getDouble(2);
+                double vln_prestamo = vlo_RSEmpladosInf.getDouble(3);
+                double vln_pension = vlo_RSEmpladosInf.getDouble(4);
+                int vln_categoriaPuesto = vlo_RSPagos.getInt(5);
+
+                while (vlo_RSPagos.next()) {
+                    
+                }
+            }
             vgo_Connection.commit();
         } catch (Exception e) {
             vgo_Connection.rollback();
