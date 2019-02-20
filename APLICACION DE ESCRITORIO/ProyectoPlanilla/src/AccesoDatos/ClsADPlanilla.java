@@ -40,7 +40,7 @@ public class ClsADPlanilla {
             throw e;
         }
     }
-    
+
     public ClsRetorno GenerarPlanilla(ClsPlanilla pvo_Planilla) throws SQLException {
         //Variables
         ResultSet vlo_RSEmpladosInf;
@@ -130,13 +130,13 @@ public class ClsADPlanilla {
 
                 //Se resta la pensión al usuario
                 vlo_DetallesPlanilla.setVgn_SararioNeto(vlo_DetallesPlanilla.getVgn_SalarioBruto() - vlo_RSEmpladosInf.getDouble(4));
-                
+                vln_Desglose = 0;
                 while (vlo_RSDeducciones.next()) {
                     //Se verifica que el puesto y la deduccion tengan la misma categoria.
                     if (vlo_RSEmpladosInf.getInt(5) == Integer.parseInt(vlo_RSDeducciones.getString(5))) {
                         //Se verifica si es un porcentaje lo que se debe calcular.
                         if (vlo_RSDeducciones.getString(3).equals("POR")) {
-                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - (vln_salarioBase * (vlo_RSDeducciones.getDouble(4) / 100));
+                            vln_Desglose = vlo_DetallesPlanilla.getVgn_SararioNeto() - (vlo_DetallesPlanilla.getVgn_SalarioBruto() * (vlo_RSDeducciones.getDouble(4) / 100));
                             vlo_DetallesPlanilla.setVgn_SararioNeto(vln_Desglose);
                             vlo_Deduciones.setVgn_Porcentaje(vlo_RSDeducciones.getDouble(4));
                         } else {
@@ -149,7 +149,10 @@ public class ClsADPlanilla {
                         ListaDeducciones.add(vlo_Deduciones);
                     }
                 }
-                
+
+                if (vlo_DetallesPlanilla.getVgn_SalarioBruto()) {
+
+                }
             }
             vgo_Connection.commit();
         } catch (Exception e) {
