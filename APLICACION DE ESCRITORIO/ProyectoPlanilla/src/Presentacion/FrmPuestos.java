@@ -17,6 +17,16 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
     public FrmPuestos() {
         initComponents();
         this.closable = true;
+        Limpiar();
+    }
+    
+    private void Limpiar(){
+        txt_BuscarPuesto.setText("");
+        txt_CategoriaPuesto.setText("");
+        txt_NombrePuesto.setText("");
+        txt_SalarioBase.setText("");
+        txt_idPuesto.setText("-1");
+        txt_idPuesto.setVisible(false);
     }
 
     /**
@@ -45,6 +55,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         btn_Buscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btn_Salir = new javax.swing.JButton();
+        txt_idPuesto = new javax.swing.JTextField();
 
         setTitle("Puestos");
 
@@ -68,11 +79,22 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Salario Base:");
 
+        txt_SalarioBase.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_SalarioBaseKeyTyped(evt);
+            }
+        });
+
         btn_Guardar.setText("Guardar");
 
         btn_Eliminar.setText("Eliminar");
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,7 +174,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
                         .addComponent(txt_BuscarPuesto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_Buscar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -169,6 +191,11 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         );
 
         btn_Salir.setText("Salir");
+        btn_Salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_SalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +207,8 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txt_idPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 542, Short.MAX_VALUE)
                         .addComponent(btn_Salir)))
                 .addContainerGap())
         );
@@ -192,22 +220,47 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Salir))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_Salir)
+                    .addComponent(txt_idPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_NombrePuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NombrePuestoKeyTyped
-        
+        if (txt_NombrePuesto.getText().length() == 100) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txt_NombrePuestoKeyTyped
 
     private void txt_CategoriaPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_CategoriaPuestoKeyTyped
         char e = evt.getKeyChar();
-        if (!(e >= 0 && e <= 9)) {
+        if (!(e >= '0' && e <= '9')) {
+            evt.consume();
+        }
+        if (txt_CategoriaPuesto.getText().length() == 2) {
             evt.consume();
         }
     }//GEN-LAST:event_txt_CategoriaPuestoKeyTyped
+
+    private void txt_SalarioBaseKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_SalarioBaseKeyTyped
+        char e = evt.getKeyChar();
+        if (!(e >= '0' && e <= '9')) {
+            evt.consume();
+        }
+        if (txt_SalarioBase.getText().length() == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_SalarioBaseKeyTyped
+
+    private void btn_SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_SalirActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -228,5 +281,6 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_CategoriaPuesto;
     private javax.swing.JTextField txt_NombrePuesto;
     private javax.swing.JTextField txt_SalarioBase;
+    private javax.swing.JTextField txt_idPuesto;
     // End of variables declaration//GEN-END:variables
 }
