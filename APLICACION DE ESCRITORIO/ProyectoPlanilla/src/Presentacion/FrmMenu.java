@@ -73,6 +73,11 @@ public class FrmMenu extends javax.swing.JFrame {
         btn_Empleados.add(btnPlanilla);
 
         btn_Puestos.setText("Puestos");
+        btn_Puestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_PuestosActionPerformed(evt);
+            }
+        });
         btn_Empleados.add(btn_Puestos);
 
         jMenuBar1.add(btn_Empleados);
@@ -125,6 +130,12 @@ public class FrmMenu extends javax.swing.JFrame {
         form.setVisible(true);
         jDesktopPane1.add(form);
     }//GEN-LAST:event_btnPlanillaActionPerformed
+
+    private void btn_PuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PuestosActionPerformed
+        FrmPuestos Form = new FrmPuestos();
+        Form.setVisible(true);
+        jDesktopPane1.add(Form);
+    }//GEN-LAST:event_btn_PuestosActionPerformed
 
     /**
      * @param args the command line arguments
