@@ -32,8 +32,8 @@ public class ClsADInformacionAcademica {
             throw e;
         }
     }
-
-    public ClsRetorno GuardarInformacionAcademica(ClsInformacionAcademica pvo_inInformacionAcademica) {
+    
+    public ClsRetorno GuardarInformacionAcademica(ClsInformacionAcademica pvo_inInformacionAcademica) throws Exception {
         //variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
@@ -42,20 +42,28 @@ public class ClsADInformacionAcademica {
         try {
             //Se invoca el procedimiento almacenado de la base de datos.
             vlo_CS = vgo_Connection.prepareCall("{call SP_GUARDAR_INFORMACION_ACADEMICA(?,?,?,?,?,?)}");
-            
+
             //Se setean los valores al procedimiento.
             vlo_CS.setInt(1, pvo_inInformacionAcademica.getVgn_idInformacionA());
             vlo_CS.setInt(2, pvo_inInformacionAcademica.getVgn_idEmpleado());
             vlo_CS.setString(3, pvo_inInformacionAcademica.getVgc_especialidad());
             vlo_CS.setString(4, pvo_inInformacionAcademica.getVgc_informacion());
             vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
-            
+
             //Se establecen los valroes de salida.
             vlo_CS.registerOutParameter(1, Types.INTEGER);
             vlo_CS.registerOutParameter(5, Types.VARCHAR);
-        } catch (Exception e) {
-        }
 
+            //Se ejecuta el procedimiento alamacenado
+            vlo_CS.executeUpdate();
+
+            //Leer los parametros de salida.
+            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
+        } catch (Exception e) {
+            throw e;
+        }
+        
         return vlo_Retorno;
     }
 }
