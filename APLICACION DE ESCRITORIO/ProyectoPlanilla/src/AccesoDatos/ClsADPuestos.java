@@ -85,12 +85,42 @@ public class ClsADPuestos {
         return vlo_RS;
     }
 
-    public ClsPuestos ObtenerPuesto(int pvn_idPuesto) {
+    public ClsPuestos ObtenerPuesto(int pvn_idPuesto) throws Exception {
         //Varaibles
         ClsPuestos vlo_Puestos = new ClsPuestos();
         ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlc_Sentencia = "SELECT ID_PUESTO,NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE FROM PUESTOS WHERE ID_PUESTO LIKE '" + pvn_idPuesto + "'";
+
+        //Inicio
+        try {
+            //Se hace la conexion con base de datos
+            vlo_Statement = vgo_Connection.createStatement();
+
+            //Se ejecuta la sentencia y se obtiene el valor deseado
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+
+            //Se almacena el valor deseado en la entidad instanciada.
+            if (vlo_RS.next()) {
+                vlo_Puestos.setVgn_iPuesto(vlo_RS.getInt(1));
+                vlo_Puestos.setVgc_NombrePuesto(vlo_RS.getString(2));
+                vlo_Puestos.setVgn_CategoriaPuesto(vlo_RS.getInt(3));
+                vlo_Puestos.setVgn_SalarioBase(vlo_RS.getDouble(4));
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Puestos;
+    }
+
+    public ClsRetorno EliminarPuesto(int pvn_idPuesto) {
+        //Variables
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        CallableStatement vlo_CS;
         
         
         //Inicio
+        
+        return vlo_Retorno;
     }
 }
