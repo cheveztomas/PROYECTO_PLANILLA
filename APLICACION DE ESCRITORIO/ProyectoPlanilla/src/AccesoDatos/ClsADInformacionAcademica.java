@@ -10,6 +10,7 @@ import Entidades.ClsInformacionAcademica;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -32,7 +33,7 @@ public class ClsADInformacionAcademica {
             throw e;
         }
     }
-    
+
     public ClsRetorno GuardarInformacionAcademica(ClsInformacionAcademica pvo_inInformacionAcademica) throws Exception {
         //variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -63,7 +64,25 @@ public class ClsADInformacionAcademica {
         } catch (Exception e) {
             throw e;
         }
-        
+
+        return vlo_Retorno;
+    }
+
+    public ClsRetorno EliminarInformacionAcademica(int pvn_idInformacionA) {
+        //Varaibles
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        CallableStatement vlo_CS;
+
+        //Inicio
+        try {
+            vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_INFORMACION_ACADEMICA(?,?)}");
+            vlo_CS.setInt(1, pvn_idInformacionA);
+            vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+            
+            
+        } catch (Exception e) {
+        }
         return vlo_Retorno;
     }
 }
