@@ -85,6 +85,10 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
         Modelo.addColumn("Pago");
         Modelo.addColumn("Tipo");
         Modelo.addColumn("Monto");
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        
 
         try {
             vlo_RS = vlo_LogicaDeduccionesPagos.ListaPagosDeducciones();
@@ -107,6 +111,7 @@ public class FrmDeduccionesPagos extends javax.swing.JInternalFrame {
                 fila[5] = vlo_RS.getObject(6);
 
                 Modelo.addRow(fila);
+                jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar la lista de elementos. " + e.getMessage());
