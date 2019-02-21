@@ -10,6 +10,8 @@ import Entidades.ClsPuestos;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Types;
 
 /**
@@ -54,12 +56,41 @@ public class ClsADPuestos {
 
             //Se ejecuta el procedimento.
             vlo_CS.executeUpdate();
-            
+
             //Se almacenan los datos valores de salida en el objeto de retorno
-            
+            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(5));
         } catch (Exception e) {
             throw e;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaProductos(String pvc_Condicion) throws Exception {
+        //Varaibles
+        ResultSet vlo_RS;
+        Statement vlo_CS;
+        String vlc_Sentencia = "SELECT ID_PUESTO,NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE FROM PUESTOS WHERE NOMBRE_PUESTO LIKE '%" + pvc_Condicion + "%'";
+
+        //Inicio
+        try {
+            //Se crea la conexion de la base de datos.
+            vlo_CS = vgo_Connection.createStatement();
+
+            //Sejecuta la sentencia sql
+            vlo_RS = vlo_CS.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
+    }
+
+    public ClsPuestos ObtenerPuesto(int pvn_idPuesto) {
+        //Varaibles
+        ClsPuestos vlo_Puestos = new ClsPuestos();
+        ResultSet vlo_RS;
+        
+        
+        //Inicio
     }
 }
