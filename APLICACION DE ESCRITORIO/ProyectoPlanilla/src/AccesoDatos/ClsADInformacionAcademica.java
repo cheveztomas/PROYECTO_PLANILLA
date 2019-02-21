@@ -10,6 +10,7 @@ import Entidades.ClsInformacionAcademica;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Types;
 
@@ -68,21 +69,46 @@ public class ClsADInformacionAcademica {
         return vlo_Retorno;
     }
 
-    public ClsRetorno EliminarInformacionAcademica(int pvn_idInformacionA) {
+    public ClsRetorno EliminarInformacionAcademica(int pvn_idInformacionA) throws Exception {
         //Varaibles
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
 
         //Inicio
         try {
+            //se establese la conexión con la base de datos.
             vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_INFORMACION_ACADEMICA(?,?)}");
+
+            //Se setean los valores de para el procedimeinto alamacenado.
             vlo_CS.setInt(1, pvn_idInformacionA);
             vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
             vlo_CS.registerOutParameter(2, Types.VARCHAR);
-            
-            
+
+            //Se invoca el procedimiento almacenado de eliminar información academica
+            vlo_CS.executeUpdate();
+
+            //Se guardan los valores de retorno en el objeto de retorno.
+            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
+            throw e;
         }
         return vlo_Retorno;
+    }
+
+    public ResultSet ListaInformacionAcademica(String pvc_Condicion) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlc_Sentencia = "SELECT ID_EMPLEADO,ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION FROM INFORMACION_ACADEMICA WHERE ESPECIALIDAD LIKE '%" + pvc_Condicion + "%'";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
