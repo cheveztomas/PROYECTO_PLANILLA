@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsPagos.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsPuestos.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsEmpleados.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsPlanilla.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsDeducciones.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsDetallePlanillas.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsInformacionAcademica.java</file>
+            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Presentacion/frmPlanilla.java</file>
             <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/AccesoDatos/ClsADPlanilla.java</file>
-            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Entidades/ClsDesglose.java</file>
+            <file>file:/C:/Users/tomas/Documents/GitHub/PROYECTO_PLANILLA/APLICACION%20DE%20ESCRITORIO/ProyectoPlanilla/src/Logica/ClsLogicaPlanilla.java</file>
         </group>
     </open-files>
 </project-private>
