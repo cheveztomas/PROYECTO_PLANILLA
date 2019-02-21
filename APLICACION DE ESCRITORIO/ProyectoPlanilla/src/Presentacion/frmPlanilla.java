@@ -28,8 +28,22 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         initComponents();
         this.closable = true;
         txt_idPlanillas.setVisible(false);
-        jTable1.setVisible(false);
+        //jTable1.setVisible(false);
         //jTable1.setTableHeader(null);
+        DefaultTableModel Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        TableColumnModelListener CModel;
+
+        //Inicio
+        jTable1.setModel(Modelo);
+        Modelo.addColumn("");
+        Modelo.addColumn("Nombre");
+        Modelo.addColumn("Salario Neto");
+        Modelo.addColumn("Salario Bruto");
     }
 
     private void CargarListaDetallesPlanillas() {
