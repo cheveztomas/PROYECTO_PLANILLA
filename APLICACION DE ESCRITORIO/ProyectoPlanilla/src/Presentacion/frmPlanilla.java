@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,6 +28,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         initComponents();
         this.closable = true;
         txt_idPlanillas.setVisible(false);
+        jTable1.setVisible(false);
+        //jTable1.setTableHeader(null);
     }
 
     private void CargarListaDetallesPlanillas() {
@@ -38,8 +41,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
-
         };
+        TableColumnModelListener CModel;
 
         //Inicio
         jTable1.setModel(Modelo);
@@ -49,7 +52,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         Modelo.addColumn("Salario Bruto");
 
         Object[] fila = new Object[4];
-
+        
+       //jTable1.settabl;
         try {
             vlo_RS = vlo_LogicaPlanilla.ListaDetallesPLanilla(Integer.parseInt(txt_idPlanillas.getText()));
             while (vlo_RS.next()) {
@@ -80,6 +84,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
         txt_idPlanillas = new javax.swing.JTextField();
+
+        setTitle("Generar Planilla");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Generar Planilla"));
 
@@ -124,6 +130,11 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,23 +173,33 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         ClsPlanilla vlo_Planilla;
 
         //Inicio
-        try {
-            vlo_Planilla = new ClsPlanilla();
-            vlo_Planilla.setVgn_idPlanilla(-1);
-            String fechaString = new SimpleDateFormat("yyyyMMdd").format(jDateChooser2.getDate());
-            SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
-            Date parsed = (Date) formato.parse(fechaString);
-            java.sql.Date sql = new java.sql.Date(parsed.getTime());
-            vlo_Planilla.setVgf_Fecha(sql);
+        if (jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione la fecha para la planilla.");
+        } else {
+            try {
+                vlo_Planilla = new ClsPlanilla();
+                vlo_Planilla.setVgn_idPlanilla(-1);
+                String fechaString = new SimpleDateFormat("yyyyMMdd").format(jDateChooser2.getDate());
+                SimpleDateFormat formato = new SimpleDateFormat("yyyyMMdd");
+                Date parsed = (Date) formato.parse(fechaString);
+                java.sql.Date sql = new java.sql.Date(parsed.getTime());
+                vlo_Planilla.setVgf_Fecha(sql);
 
-            vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
-            JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
-            txt_idPlanillas.setText(Integer.toString(vlo_Retorno.getVgc_ID()));
-            CargarListaDetallesPlanillas();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+                vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
+                JOptionPane.showMessageDialog(this, vlo_Retorno.getVgc_Mensaje());
+                txt_idPlanillas.setText(Integer.toString(vlo_Retorno.getVgc_ID()));
+                jTable1.setVisible(true);
+                //jTable1.setTableHeader(null);
+                CargarListaDetallesPlanillas();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
