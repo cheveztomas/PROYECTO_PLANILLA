@@ -117,10 +117,16 @@ public class ClsADPuestos {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
-        
-        
+
         //Inicio
-        
+        try {
+            vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_PUESTO(?,?)}");
+            vlo_CS.setInt(1, pvn_idPuesto);
+            vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
+            vlo_Retorno.setVgc_ID(vlo_CS.executeUpdate());
+        } catch (Exception e) {
+            throw e;
+        }
         return vlo_Retorno;
     }
 }
