@@ -19,9 +19,9 @@ import java.sql.Types;
  * @author Thomas Chevez
  */
 public class ClsADPuestos {
-
+    
     private Connection vgo_Connection;
-
+    
     public ClsADPuestos() {
         //Se instancia la conexion
         ClsConexion vlo_ClsConexion = new ClsConexion();
@@ -32,7 +32,7 @@ public class ClsADPuestos {
             throw e;
         }
     }
-
+    
     public ClsRetorno GuardarPuesto(ClsPuestos pvo_Puestos) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
@@ -65,7 +65,7 @@ public class ClsADPuestos {
         }
         return vlo_Retorno;
     }
-
+    
     public ResultSet ListaProductos(String pvc_Condicion) throws Exception {
         //Varaibles
         ResultSet vlo_RS;
@@ -84,7 +84,7 @@ public class ClsADPuestos {
         }
         return vlo_RS;
     }
-
+    
     public ClsPuestos ObtenerPuesto(int pvn_idPuesto) throws Exception {
         //Varaibles
         ClsPuestos vlo_Puestos = new ClsPuestos();
@@ -112,18 +112,25 @@ public class ClsADPuestos {
         }
         return vlo_Puestos;
     }
-
-    public ClsRetorno EliminarPuesto(int pvn_idPuesto) {
+    
+    public ClsRetorno EliminarPuesto(int pvn_idPuesto) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
 
         //Inicio
         try {
+            //Se hace la conxión
             vlo_CS = vgo_Connection.prepareCall("{call SP_ELIMINAR_PUESTO(?,?)}");
+
+            //Se setean los valores al procedimiento almacenado.
             vlo_CS.setInt(1, pvn_idPuesto);
             vlo_CS.setString(2, vlo_Retorno.getVgc_Mensaje());
+            vlo_CS.registerOutParameter(2, Types.VARCHAR);
+
+            //Se ejecuta el procedimento almacenado
             vlo_Retorno.setVgc_ID(vlo_CS.executeUpdate());
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
             throw e;
         }
