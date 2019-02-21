@@ -6,6 +6,9 @@
 package AccesoDatos;
 
 import Configuracion.ClsConexion;
+import Entidades.ClsPuestos;
+import Entidades.ClsRetorno;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 
 /**
@@ -13,6 +16,7 @@ import java.sql.Connection;
  * @author Thomas Chevez
  */
 public class ClsADPuestos {
+
     private Connection vgo_Connection;
 
     public ClsADPuestos() {
@@ -25,6 +29,18 @@ public class ClsADPuestos {
             throw e;
         }
     }
-    
-    public 
+
+    public ClsRetorno GuardarPuesto(ClsPuestos pvo_Puestos) {
+        //Variables
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+        CallableStatement vlo_CS;
+
+        //Inicio
+        try {
+            vlo_CS = vgo_Connection.prepareCall("{call }");
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Retorno;
+    }
 }
