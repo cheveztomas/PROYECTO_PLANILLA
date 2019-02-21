@@ -5,6 +5,8 @@
  */
 package Presentacion;
 
+import Entidades.ClsPuestos;
+
 /**
  *
  * @author Thomas Chevez
@@ -19,14 +21,31 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         this.closable = true;
         Limpiar();
     }
-    
-    private void Limpiar(){
+
+    private void Limpiar() {
         txt_BuscarPuesto.setText("");
         txt_CategoriaPuesto.setText("");
         txt_NombrePuesto.setText("");
         txt_SalarioBase.setText("");
         txt_idPuesto.setText("-1");
         txt_idPuesto.setVisible(false);
+    }
+
+    private ClsPuestos LeerPuestos() {
+        //Variables
+        ClsPuestos vlo_Puestos = new ClsPuestos();
+
+        //Inicio
+        vlo_Puestos.setVgc_NombrePuesto(txt_NombrePuesto.getText());
+        vlo_Puestos.setVgn_CategoriaPuesto(Integer.parseInt(txt_CategoriaPuesto.getText()));
+        vlo_Puestos.setVgn_SalarioBase(Double.parseDouble(txt_SalarioBase.getText()));
+        vlo_Puestos.setVgn_iPuesto(Integer.parseInt(txt_idPuesto.getText()));
+
+        return vlo_Puestos;
+    }
+    
+    private void GuardarPuesto(){
+        
     }
 
     /**
