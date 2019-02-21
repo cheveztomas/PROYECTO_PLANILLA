@@ -10,6 +10,7 @@ import Entidades.ClsPuestos;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Types;
 
 /**
  *
@@ -30,14 +31,32 @@ public class ClsADPuestos {
         }
     }
 
-    public ClsRetorno GuardarPuesto(ClsPuestos pvo_Puestos) {
+    public ClsRetorno GuardarPuesto(ClsPuestos pvo_Puestos) throws Exception {
         //Variables
         ClsRetorno vlo_Retorno = new ClsRetorno();
         CallableStatement vlo_CS;
 
         //Inicio
         try {
-            vlo_CS = vgo_Connection.prepareCall("{call }");
+            //Preparo el llamado del procedimiento almacenado.
+            vlo_CS = vgo_Connection.prepareCall("{call SP_GUARDAR_PUESTOS(?,?,?,?,?)}");
+
+            //Se setean los valores de la entidad.
+            vlo_CS.setInt(1, pvo_Puestos.getVgn_iPuesto());
+            vlo_CS.setString(2, pvo_Puestos.getVgc_NombrePuesto());
+            vlo_CS.setInt(3, pvo_Puestos.getVgn_CategoriaPuesto());
+            vlo_CS.setDouble(4, pvo_Puestos.getVgn_SalarioBase());
+            vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
+
+            //Se establese los parametros de salida.
+            vlo_CS.registerOutParameter(1, Types.INTEGER);
+            vlo_CS.registerOutParameter(5, Types.VARCHAR);
+
+            //Se ejecuta el procedimento.
+            vlo_CS.executeUpdate();
+            
+            //Se almacenan los datos valores de salida en el objeto de retorno
+            
         } catch (Exception e) {
             throw e;
         }
