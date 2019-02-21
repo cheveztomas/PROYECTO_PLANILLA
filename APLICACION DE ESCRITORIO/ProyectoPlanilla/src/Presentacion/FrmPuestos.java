@@ -6,6 +6,8 @@
 package Presentacion;
 
 import Entidades.ClsPuestos;
+import Entidades.ClsRetorno;
+import Logica.ClsLogicaPuestos;
 
 /**
  *
@@ -43,9 +45,20 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
 
         return vlo_Puestos;
     }
-    
-    private void GuardarPuesto(){
-        
+
+    private ClsRetorno GuardarPuesto() throws Exception {
+        //Variables
+        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+        ClsRetorno vlo_Retorno = new ClsRetorno();
+
+        //Inicio
+        try {
+            vlo_Retorno = vlo_LogicaPuestos.GuardarPuesto(LeerPuestos());
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return vlo_Retorno;
     }
 
     /**
