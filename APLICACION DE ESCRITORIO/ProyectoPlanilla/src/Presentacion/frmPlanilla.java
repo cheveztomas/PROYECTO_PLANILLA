@@ -44,6 +44,10 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         Modelo.addColumn("Nombre");
         Modelo.addColumn("Salario Neto");
         Modelo.addColumn("Salario Bruto");
+         jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
     private void CargarListaDetallesPlanillas() {
@@ -64,6 +68,10 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         Modelo.addColumn("Nombre");
         Modelo.addColumn("Salario Neto");
         Modelo.addColumn("Salario Bruto");
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+        //tbl_Empleados.getColumnModel().getColumn(0).setPreferredWidth(0);
+        jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+        
 
         Object[] fila = new Object[4];
         
@@ -75,6 +83,7 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
                     fila[i] = vlo_RS.getObject(i + 1);
                 }
                 Modelo.addRow(fila);
+                jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar los empleados de la planilla.");
