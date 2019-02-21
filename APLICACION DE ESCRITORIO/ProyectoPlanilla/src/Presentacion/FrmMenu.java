@@ -93,6 +93,14 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu2.add(btnConfiguracion);
 
         btnSalir.setText("Salir");
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSalirMousePressed(evt);
+            }
+        });
         jMenu2.add(btnSalir);
 
         jMenuBar1.add(jMenu2);
@@ -136,6 +144,14 @@ public class FrmMenu extends javax.swing.JFrame {
         Form.setVisible(true);
         jDesktopPane1.add(Form);
     }//GEN-LAST:event_btn_PuestosActionPerformed
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnSalirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMousePressed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirMousePressed
 
     /**
      * @param args the command line arguments
