@@ -8,6 +8,9 @@ package Presentacion;
 import Entidades.ClsPuestos;
 import Entidades.ClsRetorno;
 import Logica.ClsLogicaPuestos;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,8 +25,12 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         initComponents();
         this.closable = true;
         Limpiar();
+        try {
+            CargarListaRegistros();
+        } catch (Exception e) {
+        }
     }
-
+    
     private void Limpiar() {
         txt_BuscarPuesto.setText("");
         txt_CategoriaPuesto.setText("");
@@ -32,7 +39,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         txt_idPuesto.setText("-1");
         txt_idPuesto.setVisible(false);
     }
-
+    
     private ClsPuestos LeerPuestos() {
         //Variables
         ClsPuestos vlo_Puestos = new ClsPuestos();
@@ -42,10 +49,42 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         vlo_Puestos.setVgn_CategoriaPuesto(Integer.parseInt(txt_CategoriaPuesto.getText()));
         vlo_Puestos.setVgn_SalarioBase(Double.parseDouble(txt_SalarioBase.getText()));
         vlo_Puestos.setVgn_iPuesto(Integer.parseInt(txt_idPuesto.getText()));
-
+        
         return vlo_Puestos;
     }
+    
+    private void CargarListaRegistros() throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+        DefaultTableModel Modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
+        //Inicio
+        tbl_Puestos.setModel(Modelo);
+        Modelo.addColumn("Código");
+        Modelo.addColumn("Puesto");
+        Modelo.addColumn("Categoria");
+        Modelo.addColumn("Salario Base");
+        try {
+            vlo_RS = vlo_LogicaPuestos.ListaPuestos(txt_BuscarPuesto.getText());
+            Object[] fila = new Object[4];
+            while (vlo_RS.next()) {
+                for (int i = 0; i < 4; i++) {
+                    fila[i] = vlo_RS.getObject(i + 1);
+                }
+                Modelo.addRow(fila);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la lista de registros.");
+            throw e;
+        }
+    }
+    
     private ClsRetorno GuardarPuesto() throws Exception {
         //Variables
         ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
@@ -57,7 +96,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             throw e;
         }
-
+        Limpiar();
         return vlo_Retorno;
     }
 
@@ -118,8 +157,18 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         });
 
         btn_Guardar.setText("Guardar");
+        btn_Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_GuardarActionPerformed(evt);
+            }
+        });
 
         btn_Eliminar.setText("Eliminar");
+        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_EliminarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,9 +236,19 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_Puestos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_PuestosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_Puestos);
 
         btn_Buscar.setText("Buscar");
+        btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BuscarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Nombre del puesto:");
 
@@ -293,6 +352,65 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         Limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btn_GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GuardarActionPerformed
+        //Varaibles
+        ClsRetorno vlo_returno = new ClsRetorno();
+
+        //Inicio
+        if (txt_CategoriaPuesto.getText().equals("") || txt_NombrePuesto.getText().equals("") || txt_SalarioBase.getText().equals("") || txt_idPuesto.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Error no se puede ingresar puesto falta un campo requerido.");
+        } else {
+            try {
+                vlo_returno = GuardarPuesto();
+                JOptionPane.showMessageDialog(this, vlo_returno.getVgc_Mensaje());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btn_GuardarActionPerformed
+
+    private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
+        try {
+            CargarListaRegistros();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_BuscarActionPerformed
+
+    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
+        //Variables
+        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+        ClsRetorno vloRetorno = new ClsRetorno();
+
+        //Inicio
+        try {
+            vloRetorno = vlo_LogicaPuestos.EliminarPuesto(Integer.parseInt(txt_idPuesto.getText()));
+            JOptionPane.showMessageDialog(this, vloRetorno.getVgc_Mensaje());
+            CargarListaRegistros();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        Limpiar();
+    }//GEN-LAST:event_btn_EliminarActionPerformed
+
+    private void tbl_PuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_PuestosMouseClicked
+        //Variables
+        ClsPuestos vlo_Puestos = new ClsPuestos();
+        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+
+        //Inicio
+        if (evt.getClickCount() == 2) {
+            try {
+                vlo_Puestos = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(tbl_Puestos.getValueAt(tbl_Puestos.getSelectedRow(), 0).toString()));
+                txt_CategoriaPuesto.setText(Integer.toString(vlo_Puestos.getVgn_CategoriaPuesto()));
+                txt_NombrePuesto.setText(vlo_Puestos.getVgc_NombrePuesto());
+                txt_SalarioBase.setText(Double.toString(vlo_Puestos.getVgn_SalarioBase()));
+                txt_idPuesto.setText(Integer.toString(vlo_Puestos.getVgn_iPuesto()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al cargar el puesto seleccionado.");
+            }
+        }
+    }//GEN-LAST:event_tbl_PuestosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
