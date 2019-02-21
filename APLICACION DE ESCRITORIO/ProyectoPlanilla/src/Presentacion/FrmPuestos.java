@@ -30,7 +30,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
         }
     }
-    
+
     private void Limpiar() {
         txt_BuscarPuesto.setText("");
         txt_CategoriaPuesto.setText("");
@@ -39,7 +39,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         txt_idPuesto.setText("-1");
         txt_idPuesto.setVisible(false);
     }
-    
+
     private ClsPuestos LeerPuestos() {
         //Variables
         ClsPuestos vlo_Puestos = new ClsPuestos();
@@ -49,10 +49,10 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
         vlo_Puestos.setVgn_CategoriaPuesto(Integer.parseInt(txt_CategoriaPuesto.getText()));
         vlo_Puestos.setVgn_SalarioBase(Double.parseDouble(txt_SalarioBase.getText()));
         vlo_Puestos.setVgn_iPuesto(Integer.parseInt(txt_idPuesto.getText()));
-        
+
         return vlo_Puestos;
     }
-    
+
     private void CargarListaRegistros() throws Exception {
         //Variables
         ResultSet vlo_RS;
@@ -84,7 +84,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
             throw e;
         }
     }
-    
+
     private ClsRetorno GuardarPuesto() throws Exception {
         //Variables
         ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
@@ -364,6 +364,7 @@ public class FrmPuestos extends javax.swing.JInternalFrame {
             try {
                 vlo_returno = GuardarPuesto();
                 JOptionPane.showMessageDialog(this, vlo_returno.getVgc_Mensaje());
+                CargarListaRegistros();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
