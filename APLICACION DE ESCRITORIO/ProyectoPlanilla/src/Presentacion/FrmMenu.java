@@ -35,6 +35,7 @@ public class FrmMenu extends javax.swing.JFrame {
         btn_Empleados = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         btnPlanilla = new javax.swing.JMenuItem();
+        btn_Puestos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnConfiguracion = new javax.swing.JMenuItem();
         btnSalir = new javax.swing.JMenuItem();
@@ -70,6 +71,9 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         btn_Empleados.add(btnPlanilla);
+
+        btn_Puestos.setText("Puestos");
+        btn_Empleados.add(btn_Puestos);
 
         jMenuBar1.add(btn_Empleados);
 
@@ -162,6 +166,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnPlanilla;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JMenu btn_Empleados;
+    private javax.swing.JMenuItem btn_Puestos;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
