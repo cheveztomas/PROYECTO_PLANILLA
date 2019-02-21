@@ -85,6 +85,8 @@ public class frmPlanilla extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         txt_idPlanillas = new javax.swing.JTextField();
 
+        setTitle("Generar Planilla");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Generar Planilla"));
 
         jButton1.setText("Generar Planila");
