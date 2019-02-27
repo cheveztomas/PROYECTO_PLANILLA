@@ -64,6 +64,8 @@ public class ClsADInformacionAcademica {
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Connection = null;
         }
 
         return vlo_Retorno;
@@ -92,6 +94,8 @@ public class ClsADInformacionAcademica {
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Connection = null;
         }
         return vlo_Retorno;
     }
@@ -100,7 +104,7 @@ public class ClsADInformacionAcademica {
         //Variables
         ResultSet vlo_RS;
         Statement vlo_Statement;
-        String vlc_Sentencia = "SELECT ID_EMPLEADO,ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION FROM INFORMACION_ACADEMICA WHERE ESPECIALIDAD LIKE '%" + pvc_Condicion + "%'";
+        String vlc_Sentencia = "SELECT ID_INFORMACION_A,ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION FROM INFORMACION_ACADEMICA WHERE ESPECIALIDAD LIKE '%" + pvc_Condicion + "%'";
 
         //Inicio
         try {
@@ -108,7 +112,37 @@ public class ClsADInformacionAcademica {
             vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
         } catch (Exception e) {
             throw e;
+        } finally {
+            vgo_Connection = null;
         }
         return vlo_RS;
+    }
+
+    public ClsInformacionAcademica ObtenerInformacionAcademica(int pvn_idInformacionAcademica) throws Exception {
+        //Variables
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
+        String vlc_SEnetencia = "SELECT ID_EMPLEADO,ID_INFORMACION_A, GRADO, ESPECIALIDAD, INFORMACION, BORRADO_LOGICO FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A='" + pvn_idInformacionAcademica + "' AND BORRADO_LOGICO=0";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_SEnetencia);
+
+            if (vlo_RS.next()) {
+                vlo_InformacionAcademica.setVgn_idEmpleado(vlo_RS.getInt(1));
+                vlo_InformacionAcademica.setVgn_idInformacionA(vlo_RS.getInt(2));
+                vlo_InformacionAcademica.setVgc_Grado(vlo_RS.getString(3));
+                vlo_InformacionAcademica.setVgc_especialidad(vlo_RS.getString(4));
+                vlo_InformacionAcademica.setVgc_informacion(vlo_RS.getString(5));
+                vlo_InformacionAcademica.setVgb_borradoLogico(vlo_RS.getBoolean(6));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            vgo_Connection = null;
+        }
+        return vlo_InformacionAcademica;
     }
 }
