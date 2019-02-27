@@ -605,7 +605,7 @@ CREATE PROCEDURE SP_ASIGANAR_PUESTO_EMPLEADO(@id_emplado_puesto int,
 											 @msj varchar(150) out)
 AS
 BEGIN TRY
-	IF(NOT EXISTS(SELECT 1 FROM EMPLEADOS WHERE ID_EMPLEADO=@id_empleado))
+	IF(NOT EXISTS(SELECT 1 FROM EMPLEADOS_PUESTOS WHERE ID_EMPLEADO=@id_empleado))
 		BEGIN
 			IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto AND CATEGORIA_PUESTO=2))
 				BEGIN
@@ -613,7 +613,7 @@ BEGIN TRY
 						BEGIN
 							INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
 							VALUES (@id_empleado,@id_puesto)
-							set @msj='Se a asignado de forma correcta el puesto al empleado.'
+							set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 						END
 					ELSE
 						BEGIN
@@ -624,7 +624,7 @@ BEGIN TRY
 				BEGIN
 					INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
 					VALUES (@id_empleado,@id_puesto)
-					set @msj='Se a asignado de forma correcta el puesto al empleado.'
+					set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 				END
 		END
 
@@ -638,7 +638,7 @@ BEGIN TRY
 							SET ID_EMPLEADO=@id_empleado,
 								ID_PUESTO=@id_puesto
 								WHERE ID_EMPLEADO_PUESTO=@id_emplado_puesto
-							set @msj='Se a asignado de forma correcta el puesto al empleado.'
+							set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 						END
 					ELSE
 						BEGIN
@@ -647,9 +647,11 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-					INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
-					VALUES (@id_empleado,@id_puesto)
-					set @msj='Se a asignado de forma correcta el puesto al empleado.'
+						UPDATE EMPLEADOS_PUESTOS
+						SET ID_EMPLEADO=@id_empleado,
+							ID_PUESTO=@id_puesto
+							WHERE ID_EMPLEADO_PUESTO=@id_emplado_puesto
+						set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 				END
 		END
 END TRY
