@@ -21,7 +21,7 @@ import java.sql.Types;
 public class ClsADInformacionAcademica {
 
     //Atributos
-    Connection vgo_Connection;
+    private Connection vgo_Connection;
 
     //Metodos
     public ClsADInformacionAcademica() {
