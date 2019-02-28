@@ -19,4 +19,5 @@ public class ClsPagos extends ClsDesglose{
     public ClsPagos() {
         super();
     }
+    
 }
