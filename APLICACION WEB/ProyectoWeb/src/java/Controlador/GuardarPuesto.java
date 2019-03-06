@@ -5,6 +5,9 @@
  */
 package Controlador;
 
+import Entidades.ClsPuestos;
+import Entidades.ClsRetorno;
+import Logica.ClsLogicaPuestos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,7 +35,16 @@ public class GuardarPuesto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             //Variables
+            ClsRetorno vlo_Retorno;
+            ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+            ClsPuestos vlo_Puesto = new ClsPuestos();
             
+
+            //Inicio
+            try {
+                
+            } catch (Exception e) {
+            }
         }
     }
 
