@@ -103,6 +103,12 @@
                         <td>
                             <%=vlo_RS.getString(2)%>
                         </td>
+                        <td>
+                            <%=vlo_RS.getInt(3)%>
+                        </td>
+                        <td>
+                            <%=vlo_RS.getDouble(4)%>
+                        </td>
                     </tr>
                     <%}
                         } catch (Exception e) {
@@ -132,7 +138,7 @@
 
                     </div>
                     <div class="modal-body">
-                        <%                    
+                        <%
                             vlc_Mensaje = request.getParameter("msj");
                             vlc_Mensaje = URLDecoder.decode(vlc_Mensaje, "ISO-8859-1");
                             out.print(vlc_Mensaje);
