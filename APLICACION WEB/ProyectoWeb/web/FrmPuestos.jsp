@@ -4,6 +4,9 @@
     Author     : tomas
 --%>
 
+<%@page import="Logica.ClsLogicaPuestos"%>
+<%@page import="Entidades.ClsPuestos"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -49,5 +52,69 @@
                 </div>
             </nav>
         </header>
+        <section>
+            <%
+                //Variables
+                String vlc_Mensaje = "";
+                ClsPuestos vlo_Puesto;
+                ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+
+                if (request.getParameter("idPuesto") != null) {
+                    vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
+                } else {
+                    vlo_Puesto = new ClsPuestos();
+
+                }
+            %>
+            <form action="GuardarPuesto" method="post" class="container table-bordered" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">...</label>
+                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
+                    <input type="hidden" id="txtidPuesto" name="txtidPuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
+                </div>
+                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+            </form>
+
+        </section>
+        <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2019 Copyright:
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+        <%            if (request.getParameter("msj") != null) {
+        %>
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <%
+                            vlc_Mensaje = request.getParameter("msj");
+                            vlc_Mensaje = URLDecoder.decode(vlc_Mensaje, "ISO-8859-1");
+                            out.print(vlc_Mensaje);
+                        %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#miModal').modal('toggle')
+            });
+        </script>
+        <%
+            }
+        %>
     </body>
 </html>
