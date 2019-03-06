@@ -48,7 +48,16 @@
                 </div>
             </nav>
         </header>
-         <%            if (request.getParameter("msj") != null) {
+        <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2019 Copyright:
+                <a class="text-light nav-link" href="https://tomaschevez.com"> Tomás Chévez Elizondo</a>
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+        <%            if (request.getParameter("msj") != null) {
         %>
         <script type="text/javascript">
             $(document).ready(function () {
