@@ -10,6 +10,7 @@ import Entidades.ClsRetorno;
 import Logica.ClsLogicaPuestos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +39,21 @@ public class GuardarPuesto extends HttpServlet {
             ClsRetorno vlo_Retorno;
             ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
             ClsPuestos vlo_Puesto = new ClsPuestos();
-            
+            String vlc_Mensaje = "";
 
             //Inicio
             try {
-                
+                vlo_Puesto.setVgn_iPuesto(Integer.parseInt(request.getParameter("txtidPuesto")));
+                vlo_Puesto.setVgc_NombrePuesto(request.getParameter("txtpuesto"));
+                vlo_Puesto.setVgn_CategoriaPuesto(Integer.parseInt(request.getParameter("txtcategoria")));
+                vlo_Puesto.setVgn_SalarioBase(Double.parseDouble(request.getParameter("txtsalario")));
+                vlo_Retorno = vlo_LogicaPuestos.GuardarPuesto(vlo_Puesto);
+                vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
             } catch (Exception e) {
+                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
+            }
+            finally{
+                response.sendRedirect(vlc_Mensaje);
             }
         }
     }
