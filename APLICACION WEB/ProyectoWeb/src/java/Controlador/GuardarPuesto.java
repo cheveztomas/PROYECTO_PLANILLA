@@ -51,9 +51,8 @@ public class GuardarPuesto extends HttpServlet {
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
-            }
-            finally{
-                response.sendRedirect(vlc_Mensaje);
+            } finally {
+                response.sendRedirect("FrmPuestos.jsp?msj=" + vlc_Mensaje);
             }
         }
     }
