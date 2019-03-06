@@ -4,6 +4,11 @@
     Author     : tomas
 --%>
 
+<%@page import="java.net.URLDecoder"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URL"%>
+<%@page import="Logica.ClsLogicaPuestos"%>
+<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -48,6 +53,66 @@
                 </div>
             </nav>
         </header>
+        <section>
+            <header>
+                <h3 style="margin-top: 50px" class="container text-center">
+                    Lista de Puestos
+                </h3>
+            </header>
+            <form action="FrmListaPuestos.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            <form action="FrmListaPuestos.jsp" method="post">
+                <table class="container table-bordered">
+                    <tr>
+                        <th>
+                            Puesto
+                        </th>
+                        <th>
+                            Categoría
+                        </th>
+                        <th>
+                            Salario Base
+                        </th>
+                        <th>
+                            Editar
+                        </th>
+                        <th>
+                            Eliminar
+                        </th>
+                    </tr>
+                    <%
+                        //Variables
+                        ResultSet vlo_RS;
+                        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+                        String vlo_Condicion = "";
+                        String vlc_Mensaje = "";
+
+                        //Inicio
+                        try {
+                            if (request.getParameter("txtBuscar") != null) {
+                                vlo_Condicion = request.getParameter("txtBuscar");
+                            }
+                            vlo_RS = vlo_LogicaPuestos.ListaPuestos(vlo_Condicion);
+                            while (vlo_RS.next()) {%>
+                    <tr>
+                        <td>
+                            <%=vlo_RS.getString(2)%>
+                        </td>
+                    </tr>
+                    <%}
+                        } catch (Exception e) {
+                            vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al cargar la lista de registros.", "ISO-8859-1");
+                            response.sendRedirect("FrmListaPuestos.jsp?msj=" + vlc_Mensaje);
+                        }
+                    %>
+                </table>
+            </form>
+        </section>
 
         <%            if (request.getParameter("msj") != null) {
         %>
@@ -67,7 +132,11 @@
 
                     </div>
                     <div class="modal-body">
-                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                        <%                    
+                            vlc_Mensaje = request.getParameter("msj");
+                            vlc_Mensaje = URLDecoder.decode(vlc_Mensaje, "ISO-8859-1");
+                            out.print(vlc_Mensaje);
+                        %>
                     </div>
                 </div>
             </div>
