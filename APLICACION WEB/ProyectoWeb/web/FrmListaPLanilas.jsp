@@ -48,5 +48,31 @@
                 </div>
             </nav>
         </header>
+         <%            if (request.getParameter("msj") != null) {
+        %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#miModal').modal('toggle')
+            });
+        </script>
+        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%
+            }
+        %>
     </body>
 </html>
