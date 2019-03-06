@@ -56,16 +56,15 @@
             </nav>
         </header>
         <section>
-            <header>
-                <h3 style="margin-top: 50px" class="container text-center">
-                    Lista de Puestos
-                </h3>
-            </header>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista de Puestos
+            </h3>
             <form action="FrmListaPuestos.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Buscar:</label>&nbsp;
                     <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
-                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>&nbsp;&nbsp;
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPuestos.jsp'">Nuevo</button>
                 </div>
             </form>
             <form action="FrmListaPuestos.jsp" method="post">
@@ -135,7 +134,7 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo <i class="fas fa-glasses"></i></a>
             </div>
             <!-- Copyright -->
 

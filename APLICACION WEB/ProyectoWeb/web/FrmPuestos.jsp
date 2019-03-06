@@ -16,6 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="js/jquery-ui.min.js" type="text/javascript"></script>
@@ -66,14 +67,21 @@
 
                 }
             %>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista de Puestos
+            </h3>
             <form action="GuardarPuesto" method="post" class="container table-bordered" style="padding: 20px">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">...</label>
-                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
+                    <label for="Puesto">Puesto</label>
+                    <input type="text" class="form-control" id="txtpuesto" name="txtpuesto" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
+                    <label for="Puesto">Categoría</label>
+                    <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_Puesto.getVgn_CategoriaPuesto()%>" maxlength="50" required>
+                    <label for="Puesto">Salario Base</label>
+                    <input type="number" class="form-control" id="txtsalario" name="txtsalario" value="<%=vlo_Puesto.getVgn_SalarioBase()%>" maxlength="50" required>
                     <input type="hidden" id="txtidPuesto" name="txtidPuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPuestos.jsp'">Limpiar</button>
             </form>
 
         </section>
@@ -81,7 +89,7 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo <i class="fas fa-glasses"></i> <i class="fas fa-coffee"></i></a>
             </div>
             <!-- Copyright -->
 
