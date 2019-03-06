@@ -10,11 +10,12 @@
     <head>
         <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Planilla</title>
-
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link rel="icon" type="image/png" href="image/analitica (2).png" />
-
+        <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
     </head>
     <body>
         <header>
@@ -73,9 +74,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#miModal').modal('toggle')
