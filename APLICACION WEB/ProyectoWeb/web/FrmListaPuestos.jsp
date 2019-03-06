@@ -18,10 +18,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <link rel="icon" type="image/png" href="image/analitica (2).png" />
         <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
         <script src="js/jquery-ui.min.js" type="text/javascript"></script>
-        <link rel="icon" type="image/png" href="image/analitica (2).png" />
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+
+
     </head>
     <body>
         <header>
@@ -109,6 +111,16 @@
                         <td>
                             <%=vlo_RS.getDouble(4)%>
                         </td>
+                        <td>
+                            <a href="FrmPuestos.jsp?idPuesto=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/editar.png" alt=""/>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="EliminarPuesto?idPuesto=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/basura.png" alt=""/>
+                            </a>
+                        </td>
                     </tr>
                     <%}
                         } catch (Exception e) {
@@ -123,19 +135,13 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com"> Tomás Chévez Elizondo</a>
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
             </div>
             <!-- Copyright -->
 
         </footer>
-
         <%            if (request.getParameter("msj") != null) {
         %>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#miModal').modal('toggle')
-            });
-        </script>
         <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -156,6 +162,11 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#miModal').modal('toggle')
+            });
+        </script>
         <%
             }
         %>

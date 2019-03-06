@@ -52,7 +52,7 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com"> Tomás Chévez Elizondo</a>
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
             </div>
             <!-- Copyright -->
 
