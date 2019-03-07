@@ -48,6 +48,43 @@
                 </div>
             </nav>
         </header>
+        <section>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista deducciones y pagos
+            </h3>
+            <form action="FrmListaDeduccionesPagos.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>&nbsp;&nbsp;
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmDeduccionesPagos.jsp'">Nuevo</button>
+                </div>
+            </form>
+            <form action="FrmListaDeduccionesPagos.jsp" method="post">
+                <table class="container table-bordered tab-content">
+                    <tr>
+                        <th>
+                            Concepto
+                        </th>
+                        <th>
+                            Categoría
+                        </th>
+                        <th>
+                            Tipo Concepto
+                        </th>
+                        <th>
+                            Tipo monto
+                        </th>
+                        <th>
+                            Monto
+                        </th>
+                    </tr>
+                    <%
+                        
+                    %>
+                </table>
+            </form>
+        </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
             <!-- Copyright -->
