@@ -119,13 +119,28 @@
                         </td>
                         <td>
                             <%
+                                if (vlo_RS.getString(5).equals("POR")) {
+                                    out.print("%");
+                                } else {
+                                    out.print("₡");
+                                }
                                 //out.print(obj);
                             %>
                         </td>
                         <td>
                             <%
-                                //out.print(obj);
+                                out.print(vlo_RS.getDouble(6));
                             %>
+                        </td>
+                        <td>
+                            <a href="FrmDeduccionesPagos.jsp?idDeduccionPago=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/editar.png" alt=""/>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="EliminarDeduccionesPagos??idDeduccionPago=<%=vlo_RS.getInt(1)%>">
+                                <img src="image/basura.png" alt=""/>
+                            </a>
                         </td>
                     </tr>
                     <%}
