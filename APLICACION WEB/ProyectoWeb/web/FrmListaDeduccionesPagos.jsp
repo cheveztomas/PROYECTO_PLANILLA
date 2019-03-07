@@ -138,7 +138,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="EliminarDeduccionesPagos??idDeduccionPago=<%=vlo_RS.getInt(1)%>">
+                            <a href="EliminarDeduccionesPagos?idDeduccionPago=<%=vlo_RS.getInt(1)%>">
                                 <img src="image/basura.png" alt=""/>
                             </a>
                         </td>
