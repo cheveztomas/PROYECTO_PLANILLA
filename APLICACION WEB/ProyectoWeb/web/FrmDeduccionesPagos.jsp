@@ -53,6 +53,15 @@
             <h3 style="margin-top: 50px" class="container text-center">
                 Deducciones y pagos
             </h3>
+            <form action="GuardarDeduccionesPagos" method="post" class="container table-bordered" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">...</label>
+                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
+                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                </div>
+                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+            </form>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
