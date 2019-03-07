@@ -4,6 +4,7 @@
     Author     : tomas
 --%>
 
+<%@page import="java.net.URLDecoder"%>
 <%@page import="Logica.ClsLogicaDeduccionesPagos"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -104,12 +105,12 @@
                             %>
                         </td>
                         <td>
-                            <%
+                            <%    
                                 out.print(vlo_RS.getString(3));
                             %>
                         </td>
                         <td>
-                            <%
+                            <%    
                                 if (vlo_RS.getBoolean(4)) {
                                     out.print("Deducción");
                                 } else {
@@ -118,7 +119,7 @@
                             %>
                         </td>
                         <td>
-                            <%
+                            <%    
                                 if (vlo_RS.getString(5).equals("POR")) {
                                     out.print("%");
                                 } else {
@@ -128,7 +129,7 @@
                             %>
                         </td>
                         <td>
-                            <%
+                            <%    
                                 out.print(vlo_RS.getDouble(6));
                             %>
                         </td>
@@ -145,7 +146,7 @@
                     </tr>
                     <%}
                         } catch (Exception e) {
-
+                            
                         }
                     %>
                 </table>
@@ -178,7 +179,14 @@
 
                     </div>
                     <div class="modal-body">
-                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                        <%
+                            //Variables
+                            String vlc_Mensaje = "";
+                            
+                            //Inicio
+                            vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
+                            out.print(vlc_Mensaje);
+                        %>
                     </div>
                 </div>
             </div>

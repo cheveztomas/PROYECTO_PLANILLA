@@ -8,6 +8,10 @@
         <servlet-name>GuardarPuesto</servlet-name>
         <servlet-class>Controlador.GuardarPuesto</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarDeduccionesPagos</servlet-name>
+        <servlet-class>Controlador.EliminarDeduccionesPagos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EliminarPuesto</servlet-name>
         <url-pattern>/EliminarPuesto</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>GuardarPuesto</servlet-name>
         <url-pattern>/GuardarPuesto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarDeduccionesPagos</servlet-name>
+        <url-pattern>/EliminarDeduccionesPagos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
