@@ -43,8 +43,6 @@ public class ClsADDeducionesPagos {
         ClsRetorno vlo_retorno = new ClsRetorno();
 
         //Inicio
-
-        
         //return vlc_Mensaje;
         try {
             vlo_CS = vgo_Conexion.prepareCall("{call SP_GUARDAR_DEDUCCIONES_PAGOS(?,?,?,?,?,?,?)}");
@@ -72,11 +70,11 @@ public class ClsADDeducionesPagos {
         return vlo_retorno;
     }
 
-    public ResultSet ListaDeduccionesPagos() throws Exception {
+    public ResultSet ListaDeduccionesPagos(String pvc_Condicion) throws Exception {
         //Variables
         ResultSet vlo_RS;
         Statement vlo_Statement;
-        String vlc_Sentencia = "SELECT ID_DEDUCCION_PAGO, DEDUCCION_GENERAL,DEDUCCION_DETALLADA, ES_DEDUCCION, TIPO, MONTO FROM DEDUCCIONES_PAGOS";
+        String vlc_Sentencia = "SELECT ID_DEDUCCION_PAGO, DEDUCCION_GENERAL,DEDUCCION_DETALLADA, ES_DEDUCCION, TIPO, MONTO FROM DEDUCCIONES_PAGOS WHERE DEDUCCION_GENERAL LIKE '%" + pvc_Condicion + "%'";
 
         //Inicio
         try {

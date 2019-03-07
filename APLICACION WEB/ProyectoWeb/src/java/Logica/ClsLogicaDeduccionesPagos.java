@@ -31,7 +31,7 @@ public class ClsLogicaDeduccionesPagos {
         return vlo_Retorno;
     }
 
-    public ResultSet ListaPagosDeducciones() throws Exception {
+    public ResultSet ListaPagosDeducciones(String pvc_Condicion) throws Exception {
         //Variables
         ResultSet vlo_RS;
         ClsADDeducionesPagos vlo_ADDeducionesPagos;
@@ -39,7 +39,7 @@ public class ClsLogicaDeduccionesPagos {
         //Inicio
         try {
             vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
-            vlo_RS = vlo_ADDeducionesPagos.ListaDeduccionesPagos();
+            vlo_RS = vlo_ADDeducionesPagos.ListaDeduccionesPagos(pvc_Condicion);
         } catch (Exception e) {
             throw e;
         }

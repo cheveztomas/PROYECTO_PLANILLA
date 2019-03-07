@@ -4,6 +4,8 @@
     Author     : tomas
 --%>
 
+<%@page import="Logica.ClsLogicaDeduccionesPagos"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -78,9 +80,58 @@
                         <th>
                             Monto
                         </th>
+                        <th>
+                            Editar
+                        </th>
+                        <th>
+                            Eliminar
+                        </th>
                     </tr>
                     <%
-                        
+                        //Variables
+                        ResultSet vlo_RS;
+                        ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+                        String vlc_Condicion = "";
+
+                        //Inicio
+                        try {
+                            vlo_RS = vlo_LogicaDeduccionesPagos.ListaPagosDeducciones(vlc_Condicion);
+                            while (vlo_RS.next()) {%>                                
+                    <tr>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(2));
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(3));
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                if (vlo_RS.getBoolean(4)) {
+                                    out.print("Deducción");
+                                } else {
+                                    out.print("Pago");
+                                }
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                //out.print(obj);
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                //out.print(obj);
+                            %>
+                        </td>
+                    </tr>
+                    <%}
+                        } catch (Exception e) {
+
+                        }
                     %>
                 </table>
             </form>
