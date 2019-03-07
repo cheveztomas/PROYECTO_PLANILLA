@@ -7,7 +7,7 @@
 <%@page import="java.net.URLDecoder"%>
 <%@page import="Logica.ClsLogicaDeduccionesPagos"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +39,7 @@
                             <a class="nav-link" href="FrmListaEmpleados.jsp">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="FrmInfromacionAcademicasEmpleados.jsp">InformaciÃ³n AcadÃ©mica</a>
+                            <a class="nav-link" href="FrmInfromacionAcademicasEmpleados.jsp">Información Académica</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="FrmListaDeduccionesPagos.jsp">Deducciones y Pagos</a>
@@ -70,7 +70,7 @@
                             Concepto
                         </th>
                         <th>
-                            CategorÃ­a
+                            Categoría
                         </th>
                         <th>
                             Tipo Concepto
@@ -105,31 +105,31 @@
                             %>
                         </td>
                         <td>
-                            <%    
+                            <%
                                 out.print(vlo_RS.getString(3));
                             %>
                         </td>
                         <td>
-                            <%    
+                            <%
                                 if (vlo_RS.getBoolean(4)) {
-                                    out.print("DeducciÃ³n");
+                                    out.print("Deducción");
                                 } else {
                                     out.print("Pago");
                                 }
                             %>
                         </td>
                         <td>
-                            <%    
+                            <%
                                 if (vlo_RS.getString(5).equals("POR")) {
                                     out.print("%");
                                 } else {
-                                    out.print("â‚¡");
+                                    out.print("?");
                                 }
                                 //out.print(obj);
                             %>
                         </td>
                         <td>
-                            <%    
+                            <%
                                 out.print(vlo_RS.getDouble(6));
                             %>
                         </td>
@@ -146,7 +146,7 @@
                     </tr>
                     <%}
                         } catch (Exception e) {
-                            
+
                         }
                     %>
                 </table>
@@ -155,8 +155,8 @@
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">Â© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> TomÃ¡s ChÃ©vez Elizondo</a>
+            <div class="footer-copyright text-center py-3">© 2019 Copyright:
+                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
             </div>
             <!-- Copyright -->
 
@@ -172,7 +172,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">InformaciÃ³n</h4>
+                        <h4 class="modal-title" id="myModalLabel">Información</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -182,7 +182,7 @@
                         <%
                             //Variables
                             String vlc_Mensaje = "";
-                            
+
                             //Inicio
                             vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
                             out.print(vlc_Mensaje);
