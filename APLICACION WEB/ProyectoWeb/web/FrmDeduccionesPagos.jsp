@@ -4,6 +4,8 @@
     Author     : tomas
 --%>
 
+<%@page import="Logica.ClsLogicaDeduccionesPagos"%>
+<%@page import="Entidades.ClsDeduccionesPagos"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -53,11 +55,48 @@
             <h3 style="margin-top: 50px" class="container text-center">
                 Deducciones y pagos
             </h3>
+            <%
+                //Variables
+                ClsDeduccionesPagos vlo_DeduccionesPagos;
+                ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
+
+                //inicio
+                if (request.getParameter("idDeduccionPago") != null) {
+                    vlo_DeduccionesPagos = vlo_LogicaDeduccionesPagos.ObteDeduccionesPagos(Integer.parseInt(request.getParameter("idDeduccionPago")));
+                } else {
+                    vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+                    vlo_DeduccionesPagos.setVgn_idDeduccionPago(-1);
+                }
+                vlo_DeduccionesPagos.getVgc_tipo();
+
+            %>
             <form action="GuardarDeduccionesPagos" method="post" class="container table-bordered" style="padding: 20px">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">...</label>
-                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
-                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                    <label for="Concepto">Concepto</label>
+                    <input type="text" class="form-control" id="txtconcepto" name="txtconcepto" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionGeneral()%>" maxlength="50" required>
+                    <label for="Concepto">Categoría</label>
+                    <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionDetallada()%>" maxlength="2" required>
+                    <label for="Concepto">Concepto</label>
+                    <%
+                        if (vlo_DeduccionesPagos.isVgc_EsDeduccion()) {
+                    %>
+                    <select name="cmbtipoconcepto" id="cmbtipoconcepto" class="form-control" required>
+                        <option value="true" >Deducción</option>
+                        <option value="false">Pago</option>
+                    </select>
+                    <%
+                    } else {
+                    %>
+                    <select name="cmbtipoconcepto" id="cmbtipoconcepto" class="form-control" required>
+                        <option value="false">Pago</option>
+                        <option value="true" >Deducción</option>
+                    </select>
+                    <%
+                        }
+                    %>
+                    <label for="Concepto">Concepto</label>
+                    <input type="number" class="form-control" id="txtmonto" name="txtmonto" value="<%=vlo_DeduccionesPagos.getVgn_Monto()%>" maxlength="10" required>
+                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=vlo_DeduccionesPagos.getVgn_idDeduccionPago()%>">
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
