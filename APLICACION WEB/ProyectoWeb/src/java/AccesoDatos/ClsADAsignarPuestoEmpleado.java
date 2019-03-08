@@ -45,7 +45,7 @@ public class ClsADAsignarPuestoEmpleado {
             vlo_CS = vgo_Connection.prepareCall("{call SP_ASIGANAR_PUESTO_EMPLEADO(?,?,?,?,?)}");
             vlo_CS.setInt(1, pvo_AsignarPuestoEmpleado.getVgn_idEmpleadoPuesto());
             vlo_CS.setInt(2, pvo_AsignarPuestoEmpleado.getVgn_idEmpleado());
-            vlo_CS.setInt(3, pvo_AsignarPuestoEmpleado.getVgn_idInformacion());
+            vlo_CS.setInt(3, pvo_AsignarPuestoEmpleado.getVgn_idPuesto());
             vlo_CS.setInt(4, pvo_AsignarPuestoEmpleado.getVgn_idInformacion());
             vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
             vlo_CS.registerOutParameter(1, Types.INTEGER);
