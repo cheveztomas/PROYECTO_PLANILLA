@@ -65,7 +65,7 @@
                     vlo_DeduccionesPagos = vlo_LogicaDeduccionesPagos.ObteDeduccionesPagos(Integer.parseInt(request.getParameter("idDeduccionPago")));
                 } else {
                     vlo_DeduccionesPagos = new ClsDeduccionesPagos();
-                    vlo_DeduccionesPagos.setVgn_idDeduccionPago(-1);
+                    vlo_DeduccionesPagos.setVgc_DeduccionDetallada("0");
                 }
                 vlo_DeduccionesPagos.getVgc_tipo();
 
@@ -76,6 +76,9 @@
                     <input type="text" class="form-control" id="txtconcepto" name="txtconcepto" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionGeneral()%>" maxlength="50" required>
                     <label for="Concepto">Categoría</label>
                     <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionDetallada()%>" maxlength="2" required>
+                    <div class="alert alert-info">
+                        <strong>Información!</strong> Si se ingresa categoría 0, a todos los empleados se le va calcular este concepto sin importar la categoría.
+                    </div>
                     <label for="Concepto">Tipo de concepto</label>
                     <%
                         if (vlo_DeduccionesPagos.isVgc_EsDeduccion()) {
@@ -99,7 +102,7 @@
                     <%
                         if (vlo_DeduccionesPagos.getVgc_tipo().equals("POR")) {
                     %>
-                    <select name="cmbtipomonto" id="cmbtipoconcepto" class="form-control" required>
+                    <select name="cmbtipomonto" id="cmbtipomonto" class="form-control" required>
                         <option value="POR" >Porcentaje</option>
                         <option value="DEC">Fijo</option>
                     </select>
@@ -107,7 +110,7 @@
                     } else {
                     %>
 
-                    <select name="cmbtipomonto" id="cmbtipoconcepto" class="form-control" required>
+                    <select name="cmbtipomonto" id="cmbtipomonto" class="form-control" required>
                         <option value="DEC">Fijo</option>
                         <option value="POR" >Porcentaje</option>
                     </select>
@@ -116,7 +119,7 @@
                     %>
                     <label for="Monto">Monto</label>
                     <input type="number" class="form-control" id="txtmonto" name="txtmonto" value="<%=vlo_DeduccionesPagos.getVgn_Monto()%>" maxlength="10" required>
-                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=vlo_DeduccionesPagos.getVgn_idDeduccionPago()%>">
+                    <input type="hidden" id="txtidDediccionPago" name="txtidDediccionPago" value="<%=vlo_DeduccionesPagos.getVgn_idDeduccionPago()%>">
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmDeduccionesPagos.jsp'">Limpiar</button>

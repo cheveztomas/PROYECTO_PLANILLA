@@ -10,6 +10,8 @@ import Entidades.ClsRetorno;
 import Logica.ClsLogicaDeduccionesPagos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,11 +40,22 @@ public class GuardarDeduccionesPagos extends HttpServlet {
             ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
             ClsRetorno vlo_Retorno;
             ClsDeduccionesPagos vlo_DeduccionesPagos = new ClsDeduccionesPagos();
+            String vlc_Mensaje = "";
 
             //Inicio
             try {
-
+                vlo_DeduccionesPagos.setVgc_DeduccionGeneral(request.getParameter("txtconcepto"));
+                vlo_DeduccionesPagos.setVgc_DeduccionDetallada(request.getParameter("txtcategoria"));
+                vlo_DeduccionesPagos.setVgc_EsDeduccion(Boolean.valueOf(request.getParameter("cmbtipoconcepto")));
+                vlo_DeduccionesPagos.setVgc_tipo(request.getParameter("cmbtipomonto"));
+                vlo_DeduccionesPagos.setVgn_idDeduccionPago(Integer.parseInt(request.getParameter("txtidDediccionPago")));
+                vlo_DeduccionesPagos.setVgn_Monto(Double.parseDouble(request.getParameter("txtmonto")));
+                vlo_Retorno = vlo_LogicaDeduccionesPagos.GuardarDeduccionesPagos(vlo_DeduccionesPagos);
+                vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                response.sendRedirect("FrmDeduccionesPagos.jsp?idDeduccionPago=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlc_Mensaje);
             } catch (Exception e) {
+                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
+                response.sendRedirect("FrmDeduccionesPagos.jsp?msj=" + vlc_Mensaje);
             }
         }
     }
