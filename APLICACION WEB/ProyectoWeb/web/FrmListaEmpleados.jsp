@@ -4,6 +4,7 @@
     Author     : tomas
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="Logica.ClsLogicaEmpleado"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.net.URLDecoder"%>
@@ -120,6 +121,7 @@
                     </tr>
                     <%}
                         } catch (Exception e) {
+                            vlc_msj = URLEncoder.encode(e.getMessage() + " Error al trartar de cargar la lista de empleados.", "ISO-8859-1");
                         }
                     %>
                 </table>
@@ -154,7 +156,7 @@
                     <div class="modal-body">
                         <%
                             //Variables
-                            String vlc_Mensaje = "";
+                            String vlc_Mensaje = vlc_msj;
 
                             //Inicio
                             vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
