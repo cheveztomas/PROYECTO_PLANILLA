@@ -4,6 +4,9 @@
     Author     : tomas
 --%>
 
+<%@page import="Logica.ClsLogicaEmpleado"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -48,6 +51,80 @@
                 </div>
             </nav>
         </header>
+        <section>
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista empleados.
+            </h3>
+            <form action="FrmListaDeduccionesPagos.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>&nbsp;&nbsp;
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Nuevo</button>
+                </div>
+            </form>
+            <form action="FrmListaDeduccionesPagos.jsp" method="post">
+                <table class="container table-bordered tab-content">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                    <%
+                        //Varaibles
+                        ResultSet vlo_RS;
+                        String vlc_Condicion = "", vlc_msj = "";
+                        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+
+                        //Inicio
+                        try {
+                            if (request.getParameter("txtBuscar") != null) {
+                                vlc_Condicion = request.getParameter("txtBuscar");
+                            }
+                            vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
+                            while (vlo_RS.next()) {%>                                
+                    <tr>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(3));
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(2));
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(4));
+                            %>
+                        </td>
+                        <td>
+                            <%
+                                out.print(vlo_RS.getString(5));
+                            %>
+                        </td>
+                        <td>
+                            <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                <img src="image/editar.png" alt=""/>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="EliminarEmpleado?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                <img src="image/basura.png" alt=""/>
+                            </a>
+                        </td>
+                    </tr>
+                    <%}
+                        } catch (Exception e) {
+                        }
+                    %>
+                </table>
+            </form>
+        </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
             <!-- Copyright -->
@@ -75,7 +152,14 @@
 
                     </div>
                     <div class="modal-body">
-                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
+                        <%
+                            //Variables
+                            String vlc_Mensaje = "";
+
+                            //Inicio
+                            vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
+                            out.print(vlc_Mensaje);
+                        %>
                     </div>
                 </div>
             </div>
