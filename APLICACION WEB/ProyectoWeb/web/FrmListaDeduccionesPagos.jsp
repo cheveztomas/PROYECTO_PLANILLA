@@ -121,9 +121,9 @@
                         <td>
                             <%
                                 if (vlo_RS.getString(5).equals("POR")) {
-                                    out.print("%");
+                                    out.print("Porcentaje");
                                 } else {
-                                    out.print("?");
+                                    out.print("Colones");
                                 }
                                 //out.print(obj);
                             %>
