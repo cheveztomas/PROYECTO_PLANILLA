@@ -87,9 +87,29 @@
                     <%
                     } else {
                     %>
+
                     <select name="cmbtipoconcepto" id="cmbtipoconcepto" class="form-control" required>
                         <option value="false">Pago</option>
                         <option value="true" >Deducción</option>
+                    </select>
+                    <%
+                        }
+                    %>
+                    <label for="Concepto">Tipo de monto</label>
+                    <%
+                        if (vlo_DeduccionesPagos.getVgc_tipo().equals("POR")) {
+                    %>
+                    <select name="cmbtipomonto" id="cmbtipoconcepto" class="form-control" required>
+                        <option value="POR" >Porcentaje</option>
+                        <option value="DEC">Fijo</option>
+                    </select>
+                    <%
+                    } else {
+                    %>
+
+                    <select name="cmbtipomonto" id="cmbtipoconcepto" class="form-control" required>
+                        <option value="DEC">Fijo</option>
+                        <option value="POR" >Porcentaje</option>
                     </select>
                     <%
                         }
