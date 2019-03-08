@@ -123,6 +123,7 @@
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmDeduccionesPagos.jsp'">Limpiar</button>
+                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmListaDeduccionesPagos.jsp'">Lista</button>
             </form>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
