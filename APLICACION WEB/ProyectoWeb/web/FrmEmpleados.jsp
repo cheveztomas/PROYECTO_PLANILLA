@@ -4,6 +4,7 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Entidades.ClsEmpleados"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -65,6 +66,16 @@
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                             <form action="FrmEmpleado.jsp" method="post" class="container table-bordered" style="padding: 20px">
+                                <%
+                                    //Variables
+                                    ClsEmpleados vlo_Empleados;
+
+                                    //Inicio
+                                    if (request.getParameter("idEmpleado") != null) {
+                                        
+                                    } else {
+                                    }
+                                %>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">...</label>
                                     <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
