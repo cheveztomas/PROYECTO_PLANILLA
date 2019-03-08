@@ -8,6 +8,7 @@ package AccesoDatos;
 import java.sql.Connection;
 import Configuracion.ClsConexion;
 import Entidades.ClsEmpleados;
+import Entidades.ClsRetorno;
 import java.sql.*;
 import java.text.ParseException;
 
@@ -30,11 +31,12 @@ public class ClsADEmpleados {
         }
     }
 
-    public String GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
+    public ClsRetorno GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
         //Variables
         String vlc_Mensaje = "";
         //Se declara un llamado a la base de datos
         CallableStatement vlo_CS;
+        ClsRetorno vlo_Retorno = new ClsRetorno();
 
         try {
 
@@ -55,19 +57,20 @@ public class ClsADEmpleados {
 
             //Se establece si un valor es de salida.
             vlo_CS.registerOutParameter(10, Types.VARCHAR);
-            //vlo_CS.registerOutParameter(1, Types.INTEGER);
+            vlo_CS.registerOutParameter(1, Types.INTEGER);
 
             //Se ejecuta la sentencia con los parametros ingresados
             vlo_CS.executeUpdate();
 
             //Se retorna el valor del mensaje devuelto por la base de datos.
-            vlc_Mensaje = vlo_CS.getString(10);
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(10));
+            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
         } catch (Exception e) {
             throw e;
         } finally {
             vgo_Connection = null;
         }
-        return vlc_Mensaje;
+        return vlo_Retorno;
     }
 
     public ResultSet ListaEmpledos(String pvc_ValorFiltrado) throws Exception {

@@ -4,6 +4,8 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="java.net.URLEncoder"%>
+<%@page import="Logica.ClsLogicaEmpleado"%>
 <%@page import="Entidades.ClsEmpleados"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -65,21 +67,43 @@
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            <form action="FrmEmpleado.jsp" method="post" class="container table-bordered" style="padding: 20px">
+                            <form action="GuardarEmpleado" method="post" class="container table-bordered" style="padding: 20px">
                                 <%
                                     //Variables
-                                    ClsEmpleados vlo_Empleados;
+                                    ClsEmpleados vlo_Empleados = new ClsEmpleados();
+                                    ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+                                    String vlc_msj = "";
 
                                     //Inicio
                                     if (request.getParameter("idEmpleado") != null) {
-                                        
+                                        try {
+                                            vlo_Empleados = vlo_LogicaEmpleado.ObtenerEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
+                                        } catch (Exception e) {
+                                            vlc_msj = URLEncoder.encode("Error al trar de cargar al empleado seleccioando.", "ISO-8859-1");
+                                            response.sendRedirect("FrmEmpleado.jsp?msj=" + vlc_msj);
+                                        }
                                     } else {
+                                        vlo_Empleados = new ClsEmpleados();
                                     }
                                 %>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">...</label>
-                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
-                                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                                    <label for="Empleado">Nombre</label>
+                                    <input type="text" class="form-control" id="txtnombre" name="txtnombre" value="<%=vlo_Empleados.getVgc_nombre()%>" maxlength="50" required>
+                                    <label for="">Primer Apellido</label>
+                                    <input type="text" class="form-control" id="txtapellido1" name="txtapellido1" value="<%=vlo_Empleados.getVgc_primerApellido()%>" maxlength="50" required>
+                                    <label for="">Segundo Apellido</label>
+                                    <input type="text" class="form-control" id="txtapellido2" name="txtapellido2" value="<%=vlo_Empleados.getVgc_segundoApellido()%>" maxlength="50" required>
+                                    <label for="">Cédula</label>
+                                    <input type="text" class="form-control" id="txtcedula" name="txtcedula" value="<%=vlo_Empleados.getVgc_cedula()%>" maxlength="20" required>
+                                    <label for="">Teléfono</label>
+                                    <input type="number" class="form-control" id="txttelefono" name="txttelefono" value="<%=vlo_Empleados.getVgc_telefono()%>" maxlength="20" required>
+                                    <label for="">Correo</label>
+                                    <input type="text" class="form-control" id="txtcorreo" name="txtcorreo" value="<%=vlo_Empleados.getVgc_correo()%>" maxlength="50" required>
+                                    <label for="">Número de Cuenta</label>
+                                    <input type="text" class="form-control" id="txtcuenta" name="txtcuenta" value="<%=vlo_Empleados.getVgc_numeroCuenta()%>" maxlength="50" required>
+                                    <label for="">Fecha contratación</label>
+                                    <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" maxlength="50" required>
+                                    <input type="hidden" id="txtidEmpleado" name="txtidEempleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Limpiar</button>
@@ -91,7 +115,7 @@
                     <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Información academica del empleado.
+                                Información académica del empleado.
                             </button>
                         </h5>
                     </div>
@@ -159,5 +183,16 @@
         <%
             }
         %>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({
+                    showOn: "button",
+                    buttonImage: "image/calendario.png",
+                    buttonImageOnly: true,
+                    dateFormat: "yy-mm-dd",
+                    buttonText: "Seleccione una fecha"
+                });
+            });
+        </script>
     </body>
 </html>

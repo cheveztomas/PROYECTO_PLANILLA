@@ -7,6 +7,7 @@ package Logica;
 
 import AccesoDatos.ClsADEmpleados;
 import Entidades.ClsEmpleados;
+import Entidades.ClsRetorno;
 import java.sql.ResultSet;
 
 /**
@@ -15,19 +16,20 @@ import java.sql.ResultSet;
  */
 public class ClsLogicaEmpleado {
 
-    public String GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
+    public ClsRetorno GuardarEmpleado(ClsEmpleados pvo_Empleado) throws Exception {
         //Variables
         String vlc_Mensaje = "";
+        ClsRetorno vlo_Retorno;
         ClsADEmpleados vlo_LogicaEmpleado;
 
         //Inicio
         try {
             vlo_LogicaEmpleado = new ClsADEmpleados();
-            vlc_Mensaje = vlo_LogicaEmpleado.GuardarEmpleado(pvo_Empleado);
+            vlo_Retorno = vlo_LogicaEmpleado.GuardarEmpleado(pvo_Empleado);
         } catch (Exception e) {
             throw e;
         }
-        return vlc_Mensaje;
+        return vlo_Retorno;
     }
 
     public ResultSet ListaEmpleados(String pvc_ValorFiltrado) throws Exception {
