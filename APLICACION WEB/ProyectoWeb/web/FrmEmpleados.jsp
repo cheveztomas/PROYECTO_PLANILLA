@@ -64,7 +64,15 @@
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <form action="FrmEmpleado.jsp" method="post" class="container table-bordered" style="padding: 20px">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">...</label>
+                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
+                                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                                </div>
+                                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Limpiar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
