@@ -237,12 +237,9 @@
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>'">Limpiar</button>
+                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=2'">Limpiar</button>
 
                             </form>
-                            <%
-                                }
-                            %>
                             <h3 style="margin-top: 20px" class="container text-center">
                                 Lista Información Académica
                             </h3>
@@ -253,7 +250,7 @@
                                     <button type="submit" id="btn_BuscarIA" class="btn btn-primary">Buscar</button>
                                 </div>
                             </form>
-                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>" method="post">
+                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=2" method="post">
                                 <table class="table-bordered container">
                                     <tr>
                                         <th>Especialidad</th>
@@ -263,7 +260,6 @@
                                     </tr>
                                     <%
                                         //Variables
-                                        ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
                                         ResultSet vlo_RSIA;
                                         String vlc_CondicionInf = "";
 
@@ -293,12 +289,11 @@
                                         }
                                     %>
                                 </table>
-                                <script type="text/javascript">
-                                    $('#collapseTwo').collapse({
-                                        toggle: true
-                                    });
-                                </script>
+
                             </form>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -371,5 +366,24 @@
                 });
             });
         </script>
+        <%
+            if (request.getParameter("form") != null) {
+                if (request.getParameter("form").equals("2")) {%>
+        <script type="text/javascript">
+            $('#collapseTwo').collapse({
+                toggle: true
+            });
+        </script>
+        <%} else {
+            if (request.getParameter("form").equals("3")) {%>
+        <script type="text/javascript">
+            $('#collapseThree').collapse({
+                toggle: true
+            });
+        </script>
+        <%}
+                }
+            }
+        %>
     </body>
 </html>
