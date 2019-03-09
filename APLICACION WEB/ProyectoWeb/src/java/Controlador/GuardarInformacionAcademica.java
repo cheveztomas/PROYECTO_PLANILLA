@@ -10,6 +10,7 @@ import Entidades.ClsRetorno;
 import Logica.ClsLogicaInformacionAcademica;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +49,11 @@ public class GuardarInformacionAcademica extends HttpServlet {
                 vlo_InformacionAcademica.setVgn_idInformacionA(Integer.parseInt(request.getParameter("idInfA")));
                 vlo_InformacionAcademica.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
                 vlo_Retorno = vlo_LogicaInformacionAcademica.GuardarInformacionAcademica(vlo_InformacionAcademica);
+                vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&idInfA=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlo_Retorno.getVgc_Mensaje());
             } catch (Exception e) {
+                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción", "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&msj=" + vlc_Mensaje);
             }
         }
     }

@@ -48,20 +48,21 @@ public class ClsADInformacionAcademica {
             //Se setean los valores al procedimiento.
             vlo_CS.setInt(1, pvo_inInformacionAcademica.getVgn_idInformacionA());
             vlo_CS.setInt(2, pvo_inInformacionAcademica.getVgn_idEmpleado());
-            vlo_CS.setString(3, pvo_inInformacionAcademica.getVgc_especialidad());
-            vlo_CS.setString(4, pvo_inInformacionAcademica.getVgc_informacion());
-            vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
+            vlo_CS.setString(3, pvo_inInformacionAcademica.getVgc_Grado());
+            vlo_CS.setString(4, pvo_inInformacionAcademica.getVgc_especialidad());
+            vlo_CS.setString(5, pvo_inInformacionAcademica.getVgc_informacion());
+            vlo_CS.setString(6, vlo_Retorno.getVgc_Mensaje());
 
             //Se establecen los valroes de salida.
             vlo_CS.registerOutParameter(1, Types.INTEGER);
-            vlo_CS.registerOutParameter(5, Types.VARCHAR);
+            vlo_CS.registerOutParameter(6, Types.VARCHAR);
 
             //Se ejecuta el procedimiento alamacenado
             vlo_CS.executeUpdate();
 
             //Leer los parametros de salida.
             vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
-            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
+            vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(6));
         } catch (Exception e) {
             throw e;
         } finally {
