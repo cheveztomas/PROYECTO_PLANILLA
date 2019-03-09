@@ -88,10 +88,8 @@ public class ClsADInformacionAcademica {
             vlo_CS.registerOutParameter(2, Types.VARCHAR);
 
             //Se invoca el procedimiento almacenado de eliminar información academica
-            vlo_CS.executeUpdate();
-
             //Se guardan los valores de retorno en el objeto de retorno.
-            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
+            vlo_Retorno.setVgc_ID(vlo_CS.executeUpdate());
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
         } catch (Exception e) {
             throw e;
