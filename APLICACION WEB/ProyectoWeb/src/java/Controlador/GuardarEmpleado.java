@@ -10,6 +10,7 @@ import Entidades.ClsRetorno;
 import Logica.ClsLogicaEmpleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,19 +43,25 @@ public class GuardarEmpleado extends HttpServlet {
             ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
             ClsRetorno vlo_Retorno;
             ClsEmpleados vlo_Empleado = new ClsEmpleados();
+            String vlc_Mensaje = "";
 
             //Inicio
             try {
                 vlo_Empleado.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
+                vlo_Empleado.setVgc_nombre(request.getParameter("txtnombre"));
                 vlo_Empleado.setVgc_primerApellido(request.getParameter("txtapellido1"));
                 vlo_Empleado.setVgc_segundoApellido(request.getParameter("txtapellido2"));
                 vlo_Empleado.setVgc_cedula(request.getParameter("txtcedula"));
                 vlo_Empleado.setVgc_telefono(request.getParameter("txttelefono"));
                 vlo_Empleado.setVgc_correo(request.getParameter("txtcorreo"));
                 vlo_Empleado.setVgc_numeroCuenta(request.getParameter("txtcuenta"));
-                vlo_Empleado.setVgf_fechaContratacion(new java.sql.Date(Date.parse(request.getParameter("txtfecha"))));
+                vlo_Empleado.setVgf_fechaContratacion(new java.sql.Date(java.sql.Date.valueOf(request.getParameter("txtfecha")).getTime()));
                 vlo_Retorno = vlo_LogicaEmpleado.GuardarEmpleado(vlo_Empleado);
+                vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlo_Retorno.getVgc_Mensaje() + "&idEmpleado=" + vlo_Retorno.getVgc_ID());
             } catch (Exception e) {
+                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_Mensaje);
             }
         }
     }

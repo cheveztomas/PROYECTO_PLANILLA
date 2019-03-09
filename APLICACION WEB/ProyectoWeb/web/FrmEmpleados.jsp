@@ -103,7 +103,7 @@
                                     <input type="text" class="form-control" id="txtcuenta" name="txtcuenta" value="<%=vlo_Empleados.getVgc_numeroCuenta()%>" maxlength="50" required>
                                     <label for="">Fecha contratación</label>
                                     <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" maxlength="50" required>
-                                    <input type="hidden" id="txtidEmpleado" name="txtidEempleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
+                                    <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Limpiar</button>
@@ -121,7 +121,29 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <%
+                                if (request.getParameter("idEmpleado") == null) {%>
+                            <div class="alert alert-warning">
+                                <strong>¡Atención!</strong> Se debe ingresar primero un empleado o seleccionar uno existente para poder gestionar la información académica.
+                            </div>
+                            <%} else {%>
+                            <form action="" method="post" class="container table-bordered" style="padding: 20px">
+                                <div class="form-group">
+                                    <label for="Especialidad">Especialidad</label>
+                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="100" required>
+                                    <label for="Grado">Grado</label>
+                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
+                                    <label for="Información">Información</label>
+                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="500" required>
+                                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                                    <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
+                                </div>
+                                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+
+                            </form>
+                            <%}
+                            %>
                         </div>
                     </div>
                 </div>
