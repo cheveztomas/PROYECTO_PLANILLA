@@ -4,6 +4,8 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Entidades.ClsInformacionAcademica"%>
+<%@page import="Logica.ClsLogicaInformacionAcademica"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="Logica.ClsLogicaEmpleado"%>
 <%@page import="Entidades.ClsEmpleados"%>
@@ -129,16 +131,101 @@
                             <%} else {%>
                             <%
                                 //Variables
-                                
+                                ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+                                ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
+
+                                //Inicio
+                                if (request.getParameter("idInformacionAcademica") != null) {
+                                    try {
+                                        vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt("idInformacionAcademica"));
+                                    } catch (Exception e) {
+                                        throw e;
+                                    }
+
+                                }
                             %>
                             <form action="GuardarInformacionAcademica" method="post" class="container table-bordered" style="padding: 20px">
                                 <div class="form-group">
                                     <label for="Especialidad">Especialidad</label>
-                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="100" required>
+                                    <input type="text" class="form-control" id="txtespecialidad" name="txtespecialidad" value="<%=%>" maxlength="100" required>
                                     <label for="Grado">Grado</label>
-                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
+                                    <input type="text" class="form-control" id="txtgrado" name="txtgrado" value="<%=%>" maxlength="50" required>
                                     <label for="Información">Información</label>
-                                    <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="500" required>
+                                    <%
+                                        if (vlo_InformacionAcademica.getVgc_Grado().equals("OTRO")) {
+                                    %>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" >Bachiller</option>
+                                        <option value="LICENCIADO">Licenciatura</option>
+                                        <option value="MAESTRIA">Maestría</option>
+                                        <option value="DOCTORADO">Doctorado</option>
+                                        <option value="TECNICO">Técnico</option>
+                                        <option value="OTRO" selected="true">Otro</option>
+                                    </select>
+                                    <%} else {
+                                        if (vlo_InformacionAcademica.getVgc_Grado().equals("TECNICO")) {
+                                    %>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" >Bachiller</option>
+                                        <option value="LICENCIADO">Licenciatura</option>
+                                        <option value="MAESTRIA">Maestría</option>
+                                        <option value="DOCTORADO">Doctorado</option>
+                                        <option value="TECNICO" selected="true">Técnico</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                    <%
+                                    } else {
+                                        if (vlo_InformacionAcademica.getVgc_Grado().equals("DOCTORADO")) {
+                                    %>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" >Bachiller</option>
+                                        <option value="LICENCIADO">Licenciatura</option>
+                                        <option value="MAESTRIA">Maestría</option>
+                                        <option value="DOCTORADO" selected="true">Doctorado</option>
+                                        <option value="TECNICO">Técnico</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                    <%
+                                    } else {
+                                        if (vlo_InformacionAcademica.getVgc_Grado().equals("MAESTRIA")) {
+                                    %>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" >Bachiller</option>
+                                        <option value="LICENCIADO">Licenciatura</option>
+                                        <option value="MAESTRIA" selected="true">Maestría</option>
+                                        <option value="DOCTORADO">Doctorado</option>
+                                        <option value="TECNICO">Técnico</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                    <%
+                                    } else {
+                                        if (vlo_InformacionAcademica.getVgc_Grado().equals("LICENCIADO")) {
+                                    %>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" >Bachiller</option>
+                                        <option value="LICENCIADO" selected="true">Licenciatura</option>
+                                        <option value="MAESTRIA">Maestría</option>
+                                        <option value="DOCTORADO">Doctorado</option>
+                                        <option value="TECNICO">Técnico</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                    <%
+                                    } else {%>
+                                    <select name="txtinformacion" id="txtinformacion" class="form-control" required>
+                                        <option value="BACHILLER" selected="true">Bachiller</option>
+                                        <option value="LICENCIADO">Licenciatura</option>
+                                        <option value="MAESTRIA">Maestría</option>
+                                        <option value="DOCTORADO">Doctorado</option>
+                                        <option value="TECNICO">Técnico</option>
+                                        <option value="OTRO">Otro</option>
+                                    </select>
+                                    <%}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    %>
                                     <input type="hidden" id="idInfA" name="idInfA" value="<%=%>">
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
@@ -176,7 +263,9 @@
             <!-- Copyright -->
 
         </footer>
-        <%            if (request.getParameter("msj") != null) {
+        <%            if (request.getParameter (
+                     
+                "msj") != null) {
         %>
         <script type="text/javascript">
             $(document).ready(function () {
