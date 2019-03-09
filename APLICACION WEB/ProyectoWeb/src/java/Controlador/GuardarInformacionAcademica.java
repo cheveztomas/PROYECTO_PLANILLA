@@ -7,6 +7,7 @@ package Controlador;
 
 import Entidades.ClsInformacionAcademica;
 import Entidades.ClsRetorno;
+import Logica.ClsLogicaInformacionAcademica;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -36,9 +37,19 @@ public class GuardarInformacionAcademica extends HttpServlet {
             //Variables
             ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
             ClsRetorno vlo_Retorno;
-            
+            ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+            String vlc_Mensaje = "";
 
             //Inicio
+            try {
+                vlo_InformacionAcademica.setVgc_especialidad(request.getParameter("txtespecialidad"));
+                vlo_InformacionAcademica.setVgc_Grado(request.getParameter("txtgrado"));
+                vlo_InformacionAcademica.setVgc_informacion(request.getParameter("txtinformacion"));
+                vlo_InformacionAcademica.setVgn_idInformacionA(Integer.parseInt(request.getParameter("idInfA")));
+                vlo_InformacionAcademica.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
+                vlo_Retorno = vlo_LogicaInformacionAcademica.GuardarInformacionAcademica(vlo_InformacionAcademica);
+            } catch (Exception e) {
+            }
         }
     }
 
