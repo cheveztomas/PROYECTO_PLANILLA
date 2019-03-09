@@ -24,6 +24,10 @@
         <servlet-name>GuardarEmpleado</servlet-name>
         <servlet-class>Controlador.GuardarEmpleado</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarInformacionAcademica</servlet-name>
+        <servlet-class>Controlador.GuardarInformacionAcademica</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EliminarPuesto</servlet-name>
         <url-pattern>/EliminarPuesto</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>GuardarEmpleado</servlet-name>
         <url-pattern>/GuardarEmpleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarInformacionAcademica</servlet-name>
+        <url-pattern>/GuardarInformacionAcademica</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
