@@ -69,6 +69,9 @@
 
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
+                            <h3 style="margin-top: 10px" class="container text-center">
+                                Empleados
+                            </h3>
                             <form action="GuardarEmpleado" method="post" class="container table-bordered" style="padding: 20px">
                                 <%
                                     //Variables
@@ -135,15 +138,18 @@
                                 ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
 
                                 //Inicio
-                                if (request.getParameter("idInformacionAcademica") != null) {
+                                if (request.getParameter("idInfA") != null) {
                                     try {
-                                        vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt("idInformacionAcademica"));
+                                        vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt(request.getParameter("idInfA")));
                                     } catch (Exception e) {
                                         throw e;
                                     }
 
                                 }
                             %>
+                            <h3 style="margin-top: 10px" class="container text-center">
+                                Información Académica
+                            </h3>
                             <form action="GuardarInformacionAcademica" method="post" class="container table-bordered" style="padding: 20px">
                                 <div class="form-group">
                                     <label for="Especialidad">Especialidad</label>
@@ -236,6 +242,34 @@
                             <%
                                 }
                             %>
+                            <h3 style="margin-top: 20px" class="container text-center">
+                                Lista Información Académica
+                            </h3>
+                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=request.getParameter("idInfA")%>" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                                    <input type="text" class="form-control" id="txtBuscarIA" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                                    <button type="submit" id="btn_BuscarIA" class="btn btn-primary">Buscar</button>
+                                </div>
+                            </form>
+                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=request.getParameter("idInfA")%>" method="post">
+                                <table class="table-bordered container">
+                                    <tr>
+                                        <th>Especialidad</th>
+                                        <th>Grado</th>
+                                        <th>Editar</th
+                                        <th>Eliminar</th>
+                                    </tr>
+                                    <tr>
+                                        <%
+                                            //Variables
+                                            ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+                                            
+                                            //Inicio
+                                        %>
+                                    </tr>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -264,8 +298,7 @@
             <!-- Copyright -->
 
         </footer>
-        <%
-            if (request.getParameter("msj") != null) {
+        <%            if (request.getParameter("msj") != null) {
         %>
         <script type="text/javascript">
             $(document).ready(function () {
