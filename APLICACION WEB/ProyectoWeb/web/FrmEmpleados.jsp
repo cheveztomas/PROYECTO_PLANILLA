@@ -274,18 +274,19 @@
                                         <td><%=vlo_RSIA.getString(4)%></td>
                                         <td><%=vlo_RSIA.getString(3)%></td>
                                         <td>
-                                            <a href="">
+                                            <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>&form=2">
                                                 <img src="image/editar.png" alt=""/>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="">
+                                            <a href="EliminarInformacionAcademica?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>">
                                                 <img src="image/basura.png" alt=""/>
                                             </a>
                                         </td>
                                     </tr>
                                     <%}
                                         } catch (Exception e) {
+                                            throw e;
                                         }
                                     %>
                                 </table>
