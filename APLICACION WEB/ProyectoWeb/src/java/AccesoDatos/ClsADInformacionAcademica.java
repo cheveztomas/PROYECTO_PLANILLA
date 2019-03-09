@@ -100,11 +100,11 @@ public class ClsADInformacionAcademica {
         return vlo_Retorno;
     }
 
-    public ResultSet ListaInformacionAcademica(String pvc_Condicion) throws Exception {
+    public ResultSet ListaInformacionAcademica(String pvc_Condicion, int pvn_idInformacionAcademica) throws Exception {
         //Variables
         ResultSet vlo_RS;
         Statement vlo_Statement;
-        String vlc_Sentencia = "SELECT ID_INFORMACION_A,ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION FROM INFORMACION_ACADEMICA WHERE ESPECIALIDAD LIKE '%" + pvc_Condicion + "%'";
+        String vlc_Sentencia = "SELECT ID_INFORMACION_A,ID_EMPLEADO,GRADO,ESPECIALIDAD,INFORMACION FROM INFORMACION_ACADEMICA WHERE ESPECIALIDAD LIKE '%" + pvc_Condicion + "%' AND ID_EMPLEADO='" + pvn_idInformacionAcademica + "'";
 
         //Inicio
         try {

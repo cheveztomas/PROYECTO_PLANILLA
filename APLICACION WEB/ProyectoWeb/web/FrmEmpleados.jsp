@@ -127,7 +127,11 @@
                                 <strong>¡Atención!</strong> Se debe ingresar primero un empleado o seleccionar uno existente para poder gestionar la información académica.
                             </div>
                             <%} else {%>
-                            <form action="" method="post" class="container table-bordered" style="padding: 20px">
+                            <%
+                                //Variables
+                                
+                            %>
+                            <form action="GuardarInformacionAcademica" method="post" class="container table-bordered" style="padding: 20px">
                                 <div class="form-group">
                                     <label for="Especialidad">Especialidad</label>
                                     <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="100" required>
@@ -135,7 +139,7 @@
                                     <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="50" required>
                                     <label for="Información">Información</label>
                                     <input type="text" class="form-control" id="" name="" value="<%=%>" maxlength="500" required>
-                                    <input type="hidden" id="txt_idDirector" name="txt_idDirector" value="<%=%>">
+                                    <input type="hidden" id="idInfA" name="idInfA" value="<%=%>">
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
