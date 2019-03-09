@@ -50,7 +50,7 @@ public class GuardarInformacionAcademica extends HttpServlet {
                 vlo_InformacionAcademica.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
                 vlo_Retorno = vlo_LogicaInformacionAcademica.GuardarInformacionAcademica(vlo_InformacionAcademica);
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
-                response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&idInfA=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlo_Retorno.getVgc_Mensaje());
+                response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&idInfA=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlo_Retorno.getVgc_Mensaje()+"&form=2");
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción", "ISO-8859-1");
                 response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&msj=" + vlc_Mensaje);

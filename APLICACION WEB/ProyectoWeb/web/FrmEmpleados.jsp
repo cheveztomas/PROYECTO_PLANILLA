@@ -4,6 +4,7 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="java.sql.ResultSet"%>
 <%@page import="Entidades.ClsInformacionAcademica"%>
 <%@page import="Logica.ClsLogicaInformacionAcademica"%>
 <%@page import="java.net.URLEncoder"%>
@@ -245,30 +246,58 @@
                             <h3 style="margin-top: 20px" class="container text-center">
                                 Lista Información Académica
                             </h3>
-                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=request.getParameter("idInfA")%>" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=2" method="post" class="container table-bordered form-inline" style="padding: 20px">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Buscar:</label>&nbsp;
-                                    <input type="text" class="form-control" id="txtBuscarIA" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control" id="txtBuscarIA" name="txtBuscarIA" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
                                     <button type="submit" id="btn_BuscarIA" class="btn btn-primary">Buscar</button>
                                 </div>
                             </form>
-                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=request.getParameter("idInfA")%>" method="post">
+                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>" method="post">
                                 <table class="table-bordered container">
                                     <tr>
                                         <th>Especialidad</th>
                                         <th>Grado</th>
-                                        <th>Editar</th
+                                        <th>Editar</th>
                                         <th>Eliminar</th>
                                     </tr>
+                                    <%
+                                        //Variables
+                                        ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+                                        ResultSet vlo_RSIA;
+                                        String vlc_CondicionInf = "";
+
+                                        //Inicio
+                                        if (request.getParameter("txtBuscarIA") != null) {
+                                            vlc_CondicionInf = request.getParameter("txtBuscarIA");
+                                        }
+                                        try {
+                                            vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
+                                            while (vlo_RSIA.next()) {%>                                                
                                     <tr>
-                                        <%
-                                            //Variables
-                                            ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
-                                            
-                                            //Inicio
-                                        %>
+                                        <td><%=vlo_RSIA.getString(4)%></td>
+                                        <td><%=vlo_RSIA.getString(3)%></td>
+                                        <td>
+                                            <a href="">
+                                                <img src="image/editar.png" alt=""/>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="">
+                                                <img src="image/basura.png" alt=""/>
+                                            </a>
+                                        </td>
                                     </tr>
+                                    <%}
+                                        } catch (Exception e) {
+                                        }
+                                    %>
                                 </table>
+                                <script type="text/javascript">
+                                    $('#collapseTwo').collapse({
+                                        toggle: true
+                                    });
+                                </script>
                             </form>
                         </div>
                     </div>
