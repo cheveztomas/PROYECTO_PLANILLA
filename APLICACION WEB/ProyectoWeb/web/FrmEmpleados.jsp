@@ -59,7 +59,7 @@
         </header>
         <section>
             <%
-                ResultSet vlo_RSIAP = null;
+                ResultSet vgo_RSIAP = null;
             %>
             <div id="accordion">
                 <div class="card">
@@ -272,9 +272,8 @@
                                         }
                                         try {
                                             vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
-                                            while (vlo_RSIA.next()) {
-                                                vlo_RSIAP = vlo_RSIA;
-                                    %>                                                
+                                            vgo_RSIAP = vlo_RSIA;
+                                            while (vlo_RSIA.next()) {%>                                                
                                     <tr>
                                         <td><%=vlo_RSIA.getString(4)%></td>
                                         <td><%=vlo_RSIA.getString(3)%></td>
@@ -289,20 +288,20 @@
                                             </a>
                                         </td>
                                     </tr>
-
                                     <%}
                                         } catch (Exception e) {
                                             throw e;
                                         }
-
                                     %>
                                 </table>
+
                             </form>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
-                <%                    }
-                %>
                 <div class="card">
                     <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
@@ -314,12 +313,18 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <%
-                                if (vlo_RSIAP == null) {
-                            %>
+                                if (vgo_RSIAP == null) {%>
                             <div class="alert alert-warning">
-                                <strong>¡Atención!</strong> El empleado debe tener al menos una especialidad para que pueda tener un puesto.
+                                <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
                             </div>
-                            <%
+                            <%} else {
+                                if (vgo_RSIAP.next() == false) {%>
+                            <div class="alert alert-warning">
+                                <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
+                            </div>  
+                            <%} else {
+                                    
+                                    }
                                 }
                             %>
                         </div>
