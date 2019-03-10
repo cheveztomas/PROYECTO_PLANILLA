@@ -363,8 +363,12 @@
                                     <%}
                                     %>
                                 </div>
+                                <%
+                                    if (request.getParameter("idInfAP") != null) {%>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Esceger especialidad</button>
+                                <%}
+                                %>
+                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Esceger especialidad</button>
                             </form>
 
                             <%            if (request.getParameter("modalIA") != null) {
@@ -382,12 +386,19 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
-
                                         </div>
                                         <div class="modal-body">
-                                            <%
-
-                                            %>
+                                            <table class="container table-bordered">
+                                                <th>
+                                                    Especialidad
+                                                </th>
+                                                <th>
+                                                    Grado
+                                                </th>
+                                                <th>
+                                                    Seleccionar
+                                                </th>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
