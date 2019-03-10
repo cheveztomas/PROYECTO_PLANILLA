@@ -83,16 +83,21 @@
                                     String vlc_msj = "";
 
                                     //Inicio
+                                    //Se verifica si en seición existe un valor de empleado.
                                     if (request.getParameter("idEmpleado") != null) {
                                         try {
+                                            //Si existe se carga el empleado que viene por sesión
                                             vlo_Empleados = vlo_LogicaEmpleado.ObtenerEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
                                         } catch (Exception e) {
                                             vlc_msj = URLEncoder.encode("Error al trar de cargar al empleado seleccioando.", "ISO-8859-1");
                                             response.sendRedirect("FrmEmpleado.jsp?msj=" + vlc_msj);
                                         }
                                     } else {
+                                        //En caso contrario se intancia el empleado para incializar variables.
                                         vlo_Empleados = new ClsEmpleados();
                                     }
+
+                                    //Se cargan los valores de la instancia o de la entidad emppleado en el formulario web.
                                 %>
                                 <div class="form-group">
                                     <label for="Empleado">Nombre</label>
@@ -110,7 +115,7 @@
                                     <label for="">Número de Cuenta</label>
                                     <input type="text" class="form-control" id="txtcuenta" name="txtcuenta" value="<%=vlo_Empleados.getVgc_numeroCuenta()%>" maxlength="50" required>
                                     <label for="">Fecha contratación</label>
-                                    <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" maxlength="50" required>
+                                    <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" readonly maxlength="50" required>
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
@@ -130,25 +135,31 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
                             <%
+                                //Se verifica si la variable por sesión del id empleado tiene un valor.
+                                //En caso de que sea nulo se muestra un mensaje al usuario para indicar que debe ingresar o seleccionar empleado.
                                 if (request.getParameter("idEmpleado") == null) {%>
                             <div class="alert alert-warning">
                                 <strong>¡Atención!</strong> Se debe ingresar primero un empleado o seleccionar uno existente para poder gestionar la información académica.
                             </div>
                             <%} else {%>
                             <%
+                                //En caso contrario se carga la lista de información academica y se muestra un formulario al usuario si desea modificar o agragar información académica al empleado.
                                 //Variables
                                 ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
                                 ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
 
                                 //Inicio
+                                //Se verifica si por sesión existe en valor con el identificador de la especialidad académica.
                                 if (request.getParameter("idInfA") != null) {
                                     try {
+                                        //Si es distinta de nula se carga la información académica.
                                         vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt(request.getParameter("idInfA")));
                                     } catch (Exception e) {
                                         throw e;
                                     }
 
                                 }
+                                //Se le muestra al usuario ya sea la enitidad instanciada inicializada o la entidad cargada de la base de datos.
                             %>
                             <h3 style="margin-top: 10px" class="container text-center">
                                 Información Académica
@@ -267,10 +278,12 @@
                                             String vlc_CondicionInf = "";
 
                                             //Inicio
+                                            //Se verifica si existe un marametro de busqueda para filtrar la información
                                             if (request.getParameter("txtBuscarIA") != null) {
                                                 vlc_CondicionInf = request.getParameter("txtBuscarIA");
                                             }
                                             try {
+                                                //Se carga la información de la base de datos en la pantalla del usuario.
                                                 vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
                                                 while (vlo_RSIA.next()) {%>                                                
                                         <tr>
@@ -318,10 +331,12 @@
 
                                 //Inicio
                                 try {
+                                    //Se carga la información acádemica del usuario para que seleccione cual va ser la especialidad por la cual está siendo contratrado.
                                     vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", vlo_Empleados.getVgn_idEmpleado());
                                 } catch (Exception e) {
                                     throw e;
                                 }
+                                //Se verifica si el resultado del resultset es nulo y se le muestra un mensaje al usuario o se abre el acordeón con el formulario de puestos-
                                 if (vlo_RSIAP == null) {%>
                             <div class="alert alert-warning">
                                 <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
@@ -336,6 +351,7 @@
                                 Puesto Empleado
                             </h3>
                             <%
+                                //En caso de que la lista sea distinta de vacía.
                                 //Variables
                                 ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
                                 ClsPuestos vlo_Puesto = new ClsPuestos();
@@ -343,18 +359,23 @@
 
                                 //Inicio
                                 try {
+                                    //Se caraga el puesto del usuario.
                                     vlo_Puesto = vlo_LogicaPuestos.ObtenerPuestosIdEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
                                 } catch (Exception e) {
                                 }
 
                                 if (request.getParameter("idInfAP") != null) {
                                     try {
+                                        //Se carga la información académica del usuario.
                                         vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt(request.getParameter("idInfAP")));
                                     } catch (Exception e) {
                                         throw e;
                                     }
                                 }
+                                
+                                //Se verifica si el puesto cargado tiene o no información
                                 if (vlo_Puesto.getVgc_NombrePuesto().equals("")) {
+                                    //En caso de que no tenga se carga un puesto si el id del puesto es distinto de vacío.
                                     if (request.getParameter("idPuesto") != null) {
                                         vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                                     }
@@ -371,6 +392,7 @@
                                     <input type="hidden" id="txtidpuesto" name="txtidpuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>" required>
                                     <br>
                                     <button type="button" id="btn_AgregarPuesto" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalPE=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3<%
+                                        //Se verifica si el ha seleccionado una información academica para agregar la avraible a la sesión.
                                         if (request.getParameter("idInfAP") != null) {
 
                                             out.print("&idInfAP=" + request.getParameter("idInfAP"));
@@ -378,12 +400,14 @@
                                             %>'">Seleccione un puesto</button>
                                     <br>
                                     <%
+                                        //Se verifica si en sesión tranto el puesto está vacio para ocultar o mostrar controles.
                                         if (vlo_Puesto.getVgc_NombrePuesto().equals("") || request.getParameter("idPuesto") != null) {%>
                                     <br>
                                     <label for="exampleInputEmail1">Especialidad</label>
                                     <input type="text" class="form-control" id="txtespecialidadAP" name="txtespecialidadAP" value="<%=vlo_InformacionAcademica.getVgc_especialidad()%>" maxlength="50" readonly required>
                                     <br>
                                     <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3<%
+                                        //Se verifica si el puesto se encuentra vacio para agregar o elimianar de la sesión el valor del puesto.
                                         if (request.getParameter("idPuesto") != null) {
                                             out.print("&idPuesto=" + request.getParameter("idPuesto"));
                                         }
@@ -408,7 +432,9 @@
                                 %>
                             </form>
 
-                            <%            if (request.getParameter("modalIA") != null) {
+                            <%            
+                                //Se verifica si la variable se encuentra vacía para cargar modal de información académica.
+                                if (request.getParameter("modalIA") != null) {
                             %>
                             <script type="text/javascript">
                                 $(document).ready(function () {
@@ -439,6 +465,7 @@
                                                 </tr>
                                                 <%
                                                     try {
+                                                        //Se carga en el modal al lista de especialidades.
                                                         vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", Integer.parseInt(request.getParameter("idEmpleado")));
                                                     } catch (Exception e) {
                                                         throw e;
