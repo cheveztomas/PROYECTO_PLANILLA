@@ -52,7 +52,37 @@
             </nav>
         </header>
         <section>
-            
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista Planillas
+            </h3>
+            <form class="form-inline container table-bordered" style="padding: 20px">
+                <div class="form-group mb-2">
+                    <select name="txtMes" class="form-control" id="txtMes">
+                        <option value="">Seleccionar Mes</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="txtAnio" placeholder="Año" minlength="4" maxlength="4">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+            </form>
+            <div class='container' style='height: 550px; overflow: auto;'>
+                <table class="container table-bordered">
+                    
+                </table>
+            </div>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
