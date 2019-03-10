@@ -43,13 +43,17 @@
                             <a class="nav-link" href="FrmListaEmpleados.jsp">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="FrmInfromacionAcademicasEmpleados.jsp">Información Académica</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="FrmListaDeduccionesPagos.jsp">Deducciones y Pagos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="FrmListaPLanilas.jsp">Planilla</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Deducciones y Pagos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="FrmListaDeduccionesPagos.jsp">Generales</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="FrmPensionPrestamoLista.jsp">Personales</a>
+                            </div>
                         </li>
                     </ul>
                 </div>

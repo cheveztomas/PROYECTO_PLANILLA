@@ -36,52 +36,57 @@
                             <a class="nav-link" href="FrmListaEmpleados.jsp">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="FrmInfromacionAcademicasEmpleados.jsp">Información Académica</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="FrmListaDeduccionesPagos.jsp">Deducciones y Pagos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="FrmListaPLanilas.jsp">Planilla</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Deducciones y Pagos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="FrmListaDeduccionesPagos.jsp">Generales</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="FrmPensionPrestamoLista.jsp">Personales</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </nav>
-        </header>
-        <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
+        </nav>
+    </header>
+    <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
-            </div>
-            <!-- Copyright -->
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a class="text-light nav-link" href="https://tomaschevez.com" target="_blank"> Tomás Chévez Elizondo</a>
+        </div>
+        <!-- Copyright -->
 
-        </footer>
-        <%            if (request.getParameter("msj") != null) {
-        %>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#miModal').modal('toggle')
-            });
-        </script>
-        <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Información</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    </footer>
+    <%            if (request.getParameter("msj") != null) {
+    %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#miModal').modal('toggle')
+        });
+    </script>
+    <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Información</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
-                    </div>
-                    <div class="modal-body">
-                        <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
-                    </div>
+                </div>
+                <div class="modal-body">
+                    <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
                 </div>
             </div>
         </div>
-        <%
-            }
-        %>
-    </body>
+    </div>
+    <%
+        }
+    %>
+</body>
 </html>

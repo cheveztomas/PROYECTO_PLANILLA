@@ -47,13 +47,17 @@
                             <a class="nav-link" href="FrmListaEmpleados.jsp">Empleados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="FrmInfromacionAcademicasEmpleados.jsp">Información Académica</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="FrmListaDeduccionesPagos.jsp">Deducciones y Pagos</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="FrmListaPLanilas.jsp">Planilla</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Deducciones y Pagos
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="FrmListaDeduccionesPagos.jsp">Generales</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="FrmPensionPrestamoLista.jsp">Personales</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -98,7 +102,7 @@
                                     }
 
                                     //Se cargan los valores de la instancia o de la entidad emppleado en el formulario web.
-                                %>
+%>
                                 <div class="form-group">
                                     <label for="Empleado">Nombre</label>
                                     <input type="text" class="form-control" id="txtnombre" name="txtnombre" value="<%=vlo_Empleados.getVgc_nombre()%>" maxlength="50" required>
@@ -160,7 +164,7 @@
 
                                 }
                                 //Se le muestra al usuario ya sea la enitidad instanciada inicializada o la entidad cargada de la base de datos.
-                            %>
+%>
                             <h3 style="margin-top: 10px" class="container text-center">
                                 Información Académica
                             </h3>
