@@ -75,4 +75,19 @@ public class ClsLogicaPuestos {
         }
         return vlo_Puestos;
     }
+
+    public ClsPuestos ObtenerPuestosIdEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsPuestos vlo_Puesto;
+        ClsADPuestos vlo_ADPuestos;
+
+        //Inicio
+        try {
+            vlo_ADPuestos = new ClsADPuestos();
+            vlo_Puesto = vlo_ADPuestos.ObtenerPuestoIdEmpleado(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Puesto;
+    }
 }

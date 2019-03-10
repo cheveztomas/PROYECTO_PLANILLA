@@ -136,4 +136,27 @@ public class ClsADPuestos {
         }
         return vlo_Retorno;
     }
+    
+    public ClsPuestos ObtenerPuestoIdEmpleado(int pvn_idEmpleado) throws Exception {
+        //Variables
+        ClsPuestos vlo_Puestos = new ClsPuestos();
+        Statement vlo_Statement;
+        String vlc_Sentencia = "  SELECT PUESTOS.ID_PUESTO,NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE FROM EMPLEADOS_PUESTOS INNER JOIN PUESTOS ON EMPLEADOS_PUESTOS.ID_PUESTO = PUESTOS.ID_PUESTO WHERE EMPLEADOS_PUESTOS.ID_EMPLEADO='" + pvn_idEmpleado + "'";
+        ResultSet vlo_RS;
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+            if (vlo_RS.next()) {
+                vlo_Puestos.setVgn_iPuesto(vlo_RS.getInt(1));
+                vlo_Puestos.setVgc_NombrePuesto(vlo_RS.getString(2));
+                vlo_Puestos.setVgn_CategoriaPuesto(vlo_RS.getInt(3));
+                vlo_Puestos.setVgn_SalarioBase(vlo_RS.getDouble(4));
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_Puestos;
+    }
 }
