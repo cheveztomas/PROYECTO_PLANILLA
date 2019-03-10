@@ -4,6 +4,8 @@
     Author     : tomas
 --%>
 
+<%@page import="Logica.ClsLogicaPlanilla"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -55,7 +57,7 @@
             <h3 style="margin-top: 50px" class="container text-center">
                 Lista Planillas
             </h3>
-            <form class="form-inline container table-bordered" style="padding: 20px">
+            <form action="FrmListaPLanilas.jsp" method="post" class="form-inline container table-bordered" style="padding: 20px">
                 <div class="form-group mb-2">
                     <select name="txtMes" class="form-control" id="txtMes">
                         <option value="">Seleccionar Mes</option>
@@ -74,13 +76,38 @@
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control" id="txtAnio" placeholder="Año" minlength="4" maxlength="4">
+                    <input type="text" class="form-control" name="txtAnio" id="txtAnio" placeholder="Año" minlength="4" maxlength="4">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Buscar</button>
             </form>
             <div class='container' style='height: 550px; overflow: auto;'>
                 <table class="container table-bordered">
-                    
+                    <tr>
+                        <th>
+                            Fecha
+                        </th>
+                        <th>
+                            Ver más
+                        </th>
+                    </tr>
+                    <%
+                        //Variables
+                        ResultSet vlo_RS;
+                        ClsLogicaPlanilla vlo_LogicaPlanilla = new ClsLogicaPlanilla();
+                        String vlc_Mes = "", vlc_Anio = "";
+
+                        //Inicio
+                        if (request.getParameter("txtAnio") != null) {
+                            vlc_Anio = request.getParameter("txtAnio");
+                        }
+                        if (request.getParameter("txtMes") != null) {
+                            vlc_Mes = request.getParameter("txtMes");
+                        }
+                        try {
+                            vlo_RS = vlo_LogicaPlanilla.ListaPlanilla(vlc_Mes, vlc_Anio);
+                        } catch (Exception e) {
+                        }
+                    %>
                 </table>
             </div>
         </section>
