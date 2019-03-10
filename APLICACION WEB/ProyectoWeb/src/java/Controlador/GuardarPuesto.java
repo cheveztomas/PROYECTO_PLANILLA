@@ -36,7 +36,7 @@ public class GuardarPuesto extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             //Variables
-            ClsRetorno vlo_Retorno;
+            ClsRetorno vlo_Retorno = null;
             ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
             ClsPuestos vlo_Puesto = new ClsPuestos();
             String vlc_Mensaje = "";
@@ -52,7 +52,11 @@ public class GuardarPuesto extends HttpServlet {
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
             } finally {
-                response.sendRedirect("FrmPuestos.jsp?msj=" + vlc_Mensaje);
+                if (request.getParameter("idEmpleado") != null) {
+                    response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + request.getParameter("idEmpleado") + "&idPuesto=" + vlo_Retorno.getVgc_ID() + "&form=3");
+                } else {
+                    response.sendRedirect("FrmPuestos.jsp?msj=" + vlc_Mensaje);
+                }
             }
         }
     }

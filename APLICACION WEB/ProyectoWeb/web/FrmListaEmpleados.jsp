@@ -65,66 +65,68 @@
                 </div>
             </form>
             <form action="FrmListaDeduccionesPagos.jsp" method="post">
-                <table class="container table-bordered tab-content">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Cédula</th>
-                        <th>Teléfono</th>
-                        <th>Correo</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
-                    </tr>
-                    <%
-                        //Varaibles
-                        ResultSet vlo_RS;
-                        String vlc_Condicion = "", vlc_msj = "";
-                        ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+                <div class='container' style='height: 550px; overflow: auto;'>
+                    <table class="container table-bordered tab-content">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                        <%
+                            //Varaibles
+                            ResultSet vlo_RS;
+                            String vlc_Condicion = "", vlc_msj = "";
+                            ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
 
-                        //Inicio
-                        try {
-                            if (request.getParameter("txtBuscar") != null) {
-                                vlc_Condicion = request.getParameter("txtBuscar");
+                            //Inicio
+                            try {
+                                if (request.getParameter("txtBuscar") != null) {
+                                    vlc_Condicion = request.getParameter("txtBuscar");
+                                }
+                                vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
+                                while (vlo_RS.next()) {%>                                
+                        <tr>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(3));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(2));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(4));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(5));
+                                %>
+                            </td>
+                            <td>
+                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                    <img src="image/editar.png" alt=""/>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="EliminarEmpleado?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                    <img src="image/basura.png" alt=""/>
+                                </a>
+                            </td>
+                        </tr>
+                        <%}
+                            } catch (Exception e) {
+                                vlc_msj = URLEncoder.encode(e.getMessage() + " Error al trartar de cargar la lista de empleados.", "ISO-8859-1");
                             }
-                            vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
-                            while (vlo_RS.next()) {%>                                
-                    <tr>
-                        <td>
-                            <%
-                                out.print(vlo_RS.getString(3));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(vlo_RS.getString(2));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(vlo_RS.getString(4));
-                            %>
-                        </td>
-                        <td>
-                            <%
-                                out.print(vlo_RS.getString(5));
-                            %>
-                        </td>
-                        <td>
-                            <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
-                                <img src="image/editar.png" alt=""/>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="EliminarEmpleado?idEmpleado=<%=vlo_RS.getString(1)%>">
-                                <img src="image/basura.png" alt=""/>
-                            </a>
-                        </td>
-                    </tr>
-                    <%}
-                        } catch (Exception e) {
-                            vlc_msj = URLEncoder.encode(e.getMessage() + " Error al trartar de cargar la lista de empleados.", "ISO-8859-1");
-                        }
-                    %>
-                </table>
+                        %>
+                    </table>
+                </div>
             </form>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">

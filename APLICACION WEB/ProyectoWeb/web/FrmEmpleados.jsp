@@ -253,46 +253,47 @@
                                 </div>
                             </form>
                             <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=2" method="post">
-                                <table class="table-bordered container">
-                                    <tr>
-                                        <th>Especialidad</th>
-                                        <th>Grado</th>
-                                        <th>Editar</th>
-                                        <th>Eliminar</th>
-                                    </tr>
-                                    <%
-                                        //Variables
-                                        ResultSet vlo_RSIA;
-                                        String vlc_CondicionInf = "";
+                                <div class='container' style='height: 200px; overflow: auto;'>
+                                    <table class="table-bordered container">
+                                        <tr>
+                                            <th>Especialidad</th>
+                                            <th>Grado</th>
+                                            <th>Editar</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                        <%
+                                            //Variables
+                                            ResultSet vlo_RSIA;
+                                            String vlc_CondicionInf = "";
 
-                                        //Inicio
-                                        if (request.getParameter("txtBuscarIA") != null) {
-                                            vlc_CondicionInf = request.getParameter("txtBuscarIA");
-                                        }
-                                        try {
-                                            vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
-                                            while (vlo_RSIA.next()) {%>                                                
-                                    <tr>
-                                        <td><%=vlo_RSIA.getString(4)%></td>
-                                        <td><%=vlo_RSIA.getString(3)%></td>
-                                        <td>
-                                            <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>&form=2">
-                                                <img src="image/editar.png" alt=""/>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="EliminarInformacionAcademica?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>">
-                                                <img src="image/basura.png" alt=""/>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <%}
-                                        } catch (Exception e) {
-                                            throw e;
-                                        }
-                                    %>
-                                </table>
-
+                                            //Inicio
+                                            if (request.getParameter("txtBuscarIA") != null) {
+                                                vlc_CondicionInf = request.getParameter("txtBuscarIA");
+                                            }
+                                            try {
+                                                vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
+                                                while (vlo_RSIA.next()) {%>                                                
+                                        <tr>
+                                            <td><%=vlo_RSIA.getString(4)%></td>
+                                            <td><%=vlo_RSIA.getString(3)%></td>
+                                            <td>
+                                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>&form=2">
+                                                    <img src="image/editar.png" alt=""/>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="EliminarInformacionAcademica?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfA=<%=vlo_RSIA.getInt(1)%>">
+                                                    <img src="image/basura.png" alt=""/>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <%}
+                                            } catch (Exception e) {
+                                                throw e;
+                                            }
+                                        %>
+                                    </table>
+                                </div>
                             </form>
                             <%
                                 }
@@ -352,28 +353,54 @@
                                     } catch (Exception e) {
                                         throw e;
                                     }
-
+                                }
+                                if (vlo_Puesto.getVgc_NombrePuesto().equals("")) {
+                                    if (request.getParameter("idPuesto") != null) {
+                                        vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
+                                    }
                                 }
                             %>
                             <form action="GuardarEmpleadoPuesto?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>" method="post" class="container table-bordered" style="padding: 20px">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Puesto empleado</label>
-                                    <input type="text" class="form-control" id="txtpuesto" name="txtpuesto" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
-                                    <input type="hidden" id="txtidpuesto" name="txtidpuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
+                                    <input type="text" class="form-control" id="txtpuesto" name="txtpuesto" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" readonly required>
+                                    <input type="hidden" id="txtidpuesto" name="txtidpuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>" required>
+                                    <br>
+                                    <button type="button" id="btn_AgregarPuesto" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalPE=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3<%
+                                        if (request.getParameter("idInfAP") != null) {
+                                            out.print("&idInfAP=" + request.getParameter("idInfAP"));
+                                        }
+                                            %>'">Seleccione un puesto</button>
+                                    <br>
+                                    <%
+                                        if (vlo_Puesto.getVgc_NombrePuesto().equals("") || request.getParameter("idPuesto") != null) {%>
+                                    <br>
+                                    <label for="exampleInputEmail1">Especialidad</label>
+                                    <input type="text" class="form-control" id="txtespecialidadAP" name="txtespecialidadAP" value="<%=vlo_InformacionAcademica.getVgc_especialidad()%>" maxlength="50" readonly required>
+                                    <br>
+                                    <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3<%
+                                        if (request.getParameter("idPuesto") != null) {
+                                            out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                        }
+                                            %>'">Seleccione una especialidad</button>
                                     <%
                                         if (request.getParameter("idInfAP") != null) {%>
                                     <input type="hidden" id="txtidInfAP" name="txtidInfAP" value="<%=request.getParameter("idInfP")%>" required>
-                                    <label for="exampleInputEmail1">Especialidad</label>
-                                    <input type="text" class="form-control" id="txtespecialidadAP" name="txtespecialidadAP" value="<%=vlo_InformacionAcademica.getVgc_especialidad()%>" maxlength="50" required>
+                                    <br>
+                                    <%}
+                                    %>
                                     <%}
                                     %>
                                 </div>
                                 <%
-                                    if (request.getParameter("idInfAP") != null) {%>
+                                    if (request.getParameter("idInfAP") != null && request.getParameter("idPuesto") != null) {%>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                                <%} else {%>
+                                <div class="alert alert-danger">
+                                    <strong>¡Atención!</strong> Solo se puede guardar un puesto cuando: seleccione el puesto que desea asignar al empleado, y la especialidad por la que está siendo contratado.
+                                </div>
                                 <%}
                                 %>
-                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Escoger especialidad</button>
                             </form>
 
                             <%            if (request.getParameter("modalIA") != null) {
@@ -416,7 +443,11 @@
                                                     <td><%=vlo_RSIAP.getString(4)%></td>
                                                     <td><%=vlo_RSIAP.getString(3)%></td>
                                                     <td>
-                                                        <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfAP=<%=vlo_RSIAP.getInt(1)%>&form=3">
+                                                        <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfAP=<%=vlo_RSIAP.getInt(1)%>&form=3<%
+                                                            if (request.getParameter("idPuesto") != null) {
+                                                                out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                            }
+                                                           %>">
                                                             <img src="image/comprobado.png" alt=""/>
                                                         </a>
                                                     </td>
@@ -429,6 +460,66 @@
                                 </div>
                             </div>
                             <%                                }
+                            %>
+                            <%            if (request.getParameter("modalPE") != null) {
+                            %>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('#ModalPuestoEmpleado').modal('toggle')
+                                });
+                            </script>
+                            <div class="modal fade" id="ModalPuestoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Información</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <%
+                                                //Variables
+                                                String vlc_Mensaje = "";
+
+                                                if (request.getParameter("idPuesto") != null) {
+                                                    vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
+                                                } else {
+                                                    vlo_Puesto = new ClsPuestos();
+
+                                                }
+                                            %>
+                                            <h3 style="margin-top: 50px" class="container text-center">
+                                                Lista de Puestos
+                                            </h3>
+                                            <form action="GuardarPuesto?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
+                                                if (request.getParameter("idPuesto") != null) {
+                                                    out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                }
+                                                  %>" method="post" class="container table-bordered" style="padding: 20px">
+                                                <div class="form-group">
+                                                    <label for="Puesto">Puesto</label>
+                                                    <input type="text" class="form-control" id="txtpuesto" name="txtpuesto" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
+                                                    <label for="Puesto">Categoría</label>
+                                                    <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_Puesto.getVgn_CategoriaPuesto()%>" maxlength="50" required>
+                                                    <label for="Puesto">Salario Base</label>
+                                                    <input type="number" class="form-control" id="txtsalario" name="txtsalario" value="<%=vlo_Puesto.getVgn_SalarioBase()%>" maxlength="50" required>
+                                                    <input type="hidden" id="txtidPuesto" name="txtidPuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
+                                                </div>
+                                                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
+                                                    if (request.getParameter("idPuesto") != null) {
+                                                        out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                    }
+                                                        %>&modalPE=1&form=3'">Limpiar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%
+                                }
                             %>
                             <%}
                                 }

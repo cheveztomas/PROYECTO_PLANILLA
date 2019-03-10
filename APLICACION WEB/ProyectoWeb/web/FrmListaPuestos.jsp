@@ -68,66 +68,68 @@
                 </div>
             </form>
             <form action="FrmListaPuestos.jsp" method="post">
-                <table class="container table-bordered">
-                    <tr>
-                        <th>
-                            Puesto
-                        </th>
-                        <th>
-                            Categoría
-                        </th>
-                        <th>
-                            Salario Base
-                        </th>
-                        <th>
-                            Editar
-                        </th>
-                        <th>
-                            Eliminar
-                        </th>
-                    </tr>
-                    <%
-                        //Variables
-                        ResultSet vlo_RS;
-                        ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
-                        String vlo_Condicion = "";
-                        String vlc_Mensaje = "";
+                <div class="container" style='height: 550px; overflow: auto;'>
+                    <table class="container table-bordered">
+                        <tr>
+                            <th>
+                                Puesto
+                            </th>
+                            <th>
+                                Categoría
+                            </th>
+                            <th>
+                                Salario Base
+                            </th>
+                            <th>
+                                Editar
+                            </th>
+                            <th>
+                                Eliminar
+                            </th>
+                        </tr>
+                        <%
+                            //Variables
+                            ResultSet vlo_RS;
+                            ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+                            String vlo_Condicion = "";
+                            String vlc_Mensaje = "";
 
-                        //Inicio
-                        try {
-                            if (request.getParameter("txtBuscar") != null) {
-                                vlo_Condicion = request.getParameter("txtBuscar");
+                            //Inicio
+                            try {
+                                if (request.getParameter("txtBuscar") != null) {
+                                    vlo_Condicion = request.getParameter("txtBuscar");
+                                }
+                                vlo_RS = vlo_LogicaPuestos.ListaPuestos(vlo_Condicion);
+                                while (vlo_RS.next()) {%>
+                        <tr>
+                            <td>
+                                <%=vlo_RS.getString(2)%>
+                            </td>
+                            <td>
+                                <%=vlo_RS.getInt(3)%>
+                            </td>
+                            <td>
+                                <%=vlo_RS.getDouble(4)%>
+                            </td>
+                            <td>
+                                <a href="FrmPuestos.jsp?idPuesto=<%=vlo_RS.getInt(1)%>">
+                                    <img src="image/editar.png" alt=""/>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="EliminarPuesto?idPuesto=<%=vlo_RS.getInt(1)%>">
+                                    <img src="image/basura.png" alt=""/>
+                                </a>
+                            </td>
+                        </tr>
+                        <%}
+                            } catch (Exception e) {
+                                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al cargar la lista de registros.", "ISO-8859-1");
+                                response.sendRedirect("FrmListaPuestos.jsp?msj=" + vlc_Mensaje);
                             }
-                            vlo_RS = vlo_LogicaPuestos.ListaPuestos(vlo_Condicion);
-                            while (vlo_RS.next()) {%>
-                    <tr>
-                        <td>
-                            <%=vlo_RS.getString(2)%>
-                        </td>
-                        <td>
-                            <%=vlo_RS.getInt(3)%>
-                        </td>
-                        <td>
-                            <%=vlo_RS.getDouble(4)%>
-                        </td>
-                        <td>
-                            <a href="FrmPuestos.jsp?idPuesto=<%=vlo_RS.getInt(1)%>">
-                                <img src="image/editar.png" alt=""/>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="EliminarPuesto?idPuesto=<%=vlo_RS.getInt(1)%>">
-                                <img src="image/basura.png" alt=""/>
-                            </a>
-                        </td>
-                    </tr>
-                    <%}
-                        } catch (Exception e) {
-                            vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al cargar la lista de registros.", "ISO-8859-1");
-                            response.sendRedirect("FrmListaPuestos.jsp?msj=" + vlc_Mensaje);
-                        }
-                    %>
-                </table>
+                        %>
+                    </table>
+                </div>
             </form>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
