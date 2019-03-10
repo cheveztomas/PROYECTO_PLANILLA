@@ -105,6 +105,13 @@
                         }
                         try {
                             vlo_RS = vlo_LogicaPlanilla.ListaPlanilla(vlc_Mes, vlc_Anio);
+                            while (vlo_RS.next()) {%>                                
+                    <tr>
+                        <td>
+                            <%=vlo_RS.getDate(2)%>
+                        </td>
+                    </tr>
+                    <%}
                         } catch (Exception e) {
                         }
                     %>
