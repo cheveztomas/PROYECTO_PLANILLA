@@ -44,4 +44,20 @@ public class ClsLogicaPlanilla {
         }
         return vlo_RS;
     }
+
+    public ResultSet ListaPlanilla(String pvc_Mes, String pvc_Anio) throws Exception {
+        //Varisables
+        ResultSet vlo_RS;
+        ClsADPlanilla vlo_ADPlanilla;
+
+        //Inicio
+        try {
+            vlo_ADPlanilla = new ClsADPlanilla();
+            vlo_RS = vlo_ADPlanilla.ListaPlanillas(pvc_Mes, pvc_Anio);
+
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
+    }
 }

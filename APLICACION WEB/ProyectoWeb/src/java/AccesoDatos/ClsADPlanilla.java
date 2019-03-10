@@ -71,7 +71,7 @@ public class ClsADPlanilla {
             vlo_CS.executeUpdate();
             vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
             //vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(2));
-            
+
             if (vlo_Retorno.getVgc_ID() > 0) {
                 //Se estable la sentencia sql
                 vlc_SentenciaSQL = "SELECT EMPLEADOS.ID_EMPLEADO,SALARIO_BASE,PRESTAMO,PENSION,CATEGORIA_PUESTO FROM EMPLEADOS INNER JOIN EMPLEADOS_PUESTOS ON EMPLEADOS.ID_EMPLEADO = EMPLEADOS_PUESTOS.ID_EMPLEADO INNER JOIN PUESTOS ON EMPLEADOS_PUESTOS.ID_PUESTO=PUESTOS.ID_PUESTO WHERE EMPLEADOS.BORRADO_LOGICO=0";
@@ -334,8 +334,7 @@ public class ClsADPlanilla {
                     vlo_RetornoDP.setVgc_Mensaje(vlo_CS.getString(8));
                 }
                 vgo_Connection.commit();
-            }
-            else{
+            } else {
                 vgo_Connection.rollback();
                 vlo_Retorno.setVgc_Mensaje("La planilla solo se puede calcular una vez al mes.");
             }
@@ -357,6 +356,22 @@ public class ClsADPlanilla {
         try {
             vlo_Statement = vgo_Connection.createStatement();
             vlo_RS = vlo_Statement.executeQuery(vlo_Senetncia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
+    }
+
+    public ResultSet ListaPlanillas(String pvc_Mes, String pvc_Anio) throws Exception {
+        //Varaibles
+        ResultSet vlo_RS;
+        Statement vlo_Statement;
+        String vlc_Condicion = "SELECT ID_PLANILLA,FECHA FROM PLANILLAS WHERE MONTH(FECHA) like '%" + pvc_Mes + "%' AND YEAR(FECHA) like '%" + pvc_Anio + "%' AND BORRADO_LOGICO=0";
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Connection.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Condicion);
         } catch (Exception e) {
             throw e;
         }
