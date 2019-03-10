@@ -48,14 +48,12 @@ public class ClsADAsignarPuestoEmpleado {
             vlo_CS.setInt(3, pvo_AsignarPuestoEmpleado.getVgn_idPuesto());
             vlo_CS.setInt(4, pvo_AsignarPuestoEmpleado.getVgn_idInformacion());
             vlo_CS.setString(5, vlo_Retorno.getVgc_Mensaje());
-            vlo_CS.registerOutParameter(1, Types.INTEGER);
             vlo_CS.registerOutParameter(5, Types.VARCHAR);
             
             //Se ejecuta el procedimiento almacenado.
             vlo_CS.executeUpdate();
             
             //Se almacena en el objeto la información necesaria.
-            vlo_Retorno.setVgc_ID(vlo_CS.getInt(1));
             vlo_Retorno.setVgc_Mensaje(vlo_CS.getString(5));
         } catch (Exception e) {
             throw e;

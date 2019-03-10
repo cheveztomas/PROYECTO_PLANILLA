@@ -5,8 +5,12 @@
  */
 package Controlador;
 
+import Entidades.ClsAsignarPuestoEmpleado;
+import Entidades.ClsRetorno;
+import Logica.ClsLogicaAsignarPuestoEmpleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +35,25 @@ public class GuardarEmpleadoPuesto extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GuardarEmpleadoPuesto</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GuardarEmpleadoPuesto at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            //Variables
+            ClsLogicaAsignarPuestoEmpleado vlo_LogicaAsignarPuestoEmpleado = new ClsLogicaAsignarPuestoEmpleado();
+            ClsRetorno vlo_Retorno;
+            ClsAsignarPuestoEmpleado vlo_AsignarPuestoEmpleado = new ClsAsignarPuestoEmpleado();
+            String vlc_mensaje = "";
+
+            //Inicio
+            try {
+                vlo_AsignarPuestoEmpleado.setVgn_idEmpleadoPuesto(-1);
+                vlo_AsignarPuestoEmpleado.setVgn_idEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
+                vlo_AsignarPuestoEmpleado.setVgn_idInformacion(Integer.parseInt(request.getParameter("txtidInfAP")));
+                vlo_AsignarPuestoEmpleado.setVgn_idPuesto(Integer.parseInt(request.getParameter("txtidpuesto")));
+                vlo_Retorno = vlo_LogicaAsignarPuestoEmpleado.AsignarPuestoEmpleado(vlo_AsignarPuestoEmpleado);
+                vlc_mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&from=3");
+            } catch (Exception e) {
+                vlc_mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&from=3");
+            }
         }
     }
 

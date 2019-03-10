@@ -629,15 +629,14 @@ BEGIN TRY
 		END
 
 	ELSE
-		BEGIN 
+		BEGIN
+			DELETE EMPLEADOS_PUESTOS WHERE ID_EMPLEADO=@id_empleado
 			IF(EXISTS(SELECT 1 FROM PUESTOS WHERE ID_PUESTO=@id_puesto AND CATEGORIA_PUESTO=2))
 				BEGIN
 					IF(EXISTS(SELECT 1 FROM INFORMACION_ACADEMICA WHERE ID_INFORMACION_A=@id_informacion_a AND NOT(GRADO='OTRO') AND NOT(GRADO='TECNICO')))
 						BEGIN
-							UPDATE EMPLEADOS_PUESTOS
-							SET ID_EMPLEADO=@id_empleado,
-								ID_PUESTO=@id_puesto
-								WHERE ID_EMPLEADO_PUESTO=@id_emplado_puesto
+							INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
+							VALUES (@id_empleado,@id_puesto)
 							set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 						END
 					ELSE
@@ -647,11 +646,9 @@ BEGIN TRY
 				END
 			ELSE
 				BEGIN
-						UPDATE EMPLEADOS_PUESTOS
-						SET ID_EMPLEADO=@id_empleado,
-							ID_PUESTO=@id_puesto
-							WHERE ID_EMPLEADO_PUESTO=@id_emplado_puesto
-						set @msj='Se ha asignado de forma correcta el puesto al empleado.'
+					INSERT INTO EMPLEADOS_PUESTOS(ID_EMPLEADO,ID_PUESTO)
+					VALUES (@id_empleado,@id_puesto)
+					set @msj='Se ha asignado de forma correcta el puesto al empleado.'
 				END
 		END
 END TRY
