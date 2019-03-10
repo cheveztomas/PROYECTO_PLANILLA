@@ -364,10 +364,10 @@
                                     %>
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Esceger especialidad</button>
                             </form>
 
-                            <%            if (request.getParameter("msj") != null) {
+                            <%            if (request.getParameter("modalIA") != null) {
                             %>
                             <script type="text/javascript">
                                 $(document).ready(function () {
@@ -386,14 +386,13 @@
                                         </div>
                                         <div class="modal-body">
                                             <%
-                                                
+
                                             %>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <%
-                                }
+                            <%                                }
                             %>
                             <%}
                                 }
