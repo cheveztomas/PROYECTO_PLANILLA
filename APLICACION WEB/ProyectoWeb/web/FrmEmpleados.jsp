@@ -525,7 +525,11 @@
                                                     <button type="submit" id="btn_BuscarPuesto" class="btn btn-primary">Buscar</button>
                                                 </div>
                                             </form>
-                                            <form action="FrmListaPuestos.jsp" method="post">
+                                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
+                                                if (request.getParameter("idInfAP") != null) {
+                                                    out.print("&idInfAP=" + request.getParameter("idInfAP"));
+                                                }
+                                                  %>&form=3" method="post">
                                                 <div class="container" style='height: 200px; overflow: auto;'>
                                                     <table class="container table-bordered">
                                                         <tr>
