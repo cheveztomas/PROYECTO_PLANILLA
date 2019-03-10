@@ -4,6 +4,8 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Entidades.ClsPuestos"%>
+<%@page import="Logica.ClsLogicaPuestos"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Entidades.ClsInformacionAcademica"%>
 <%@page import="Logica.ClsLogicaInformacionAcademica"%>
@@ -318,13 +320,82 @@
                                 <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
                             </div>
                             <%} else {
-                                if (vgo_RSIAP.next() == false) {%>
+                                if (vgo_RSIAP.next()) {%>
                             <div class="alert alert-warning">
                                 <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
                             </div>  
-                            <%} else {
-                                    
+                            <%} else {%>
+                            <h3 style="margin-top: 20px" class="container text-center">
+                                Puesto Empleado
+                            </h3>
+                            <%
+                                //Variables
+                                ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
+                                ClsPuestos vlo_Puesto = new ClsPuestos();
+                                ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+                                ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
+
+                                //Inicio
+                                try {
+                                    vlo_Puesto = vlo_LogicaPuestos.ObtenerPuestosIdEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
+                                } catch (Exception e) {
+                                }
+
+                                if (request.getParameter("idInfAP") != null) {
+                                    try {
+                                        vlo_InformacionAcademica = vlo_LogicaInformacionAcademica.ObtenerInformacionAcademica(Integer.parseInt(request.getParameter("idInfAP")));
+                                    } catch (Exception e) {
+                                        throw e;
                                     }
+
+                                }
+                            %>
+                            <form action="GuardarEmpleadoPuesto?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>" method="post" class="container table-bordered" style="padding: 20px">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Puesto empleado</label>
+                                    <input type="text" class="form-control" id="txtpuesto" name="txtpuesto" value="<%=vlo_Puesto.getVgc_NombrePuesto()%>" maxlength="50" required>
+                                    <input type="hidden" id="txtidpuesto" name="txtidpuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
+                                    <%
+                                        if (request.getParameter("idInfAP") != null) {%>
+                                    <input type="hidden" id="txtidInfAP" name="txtidInfAP" value="<%=request.getParameter("idInfP")%>" required>
+                                    <label for="exampleInputEmail1">Especialidad</label>
+                                    <input type="text" class="form-control" id="txtespecialidadAP" name="txtespecialidadAP" value="<%=vlo_InformacionAcademica.getVgc_especialidad()%>" maxlength="50" required>
+                                    <%}
+                                    %>
+                                </div>
+                                <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
+                                <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+                            </form>
+
+                            <%            if (request.getParameter("msj") != null) {
+                            %>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('#ModalInformacionAcademica').modal('toggle')
+                                });
+                            </script>
+                            <div class="modal fade" id="ModalInformacionAcademica" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="myModalLabel">Información</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <%
+                                                
+                                            %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%
+                                }
+                            %>
+                            <%}
                                 }
                             %>
                         </div>
