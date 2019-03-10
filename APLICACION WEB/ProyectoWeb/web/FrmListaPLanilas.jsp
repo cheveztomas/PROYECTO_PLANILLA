@@ -71,6 +71,9 @@
                     <div class="modal-body">
                         <%= new String(request.getParameter("msj").getBytes("ISO-8859-1"), "UTF-8")%>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>

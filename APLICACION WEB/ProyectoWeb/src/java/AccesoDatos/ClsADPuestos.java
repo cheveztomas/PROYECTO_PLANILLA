@@ -70,7 +70,7 @@ public class ClsADPuestos {
         //Varaibles
         ResultSet vlo_RS;
         Statement vlo_CS;
-        String vlc_Sentencia = "SELECT ID_PUESTO,NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE FROM PUESTOS WHERE NOMBRE_PUESTO LIKE '%" + pvc_Condicion + "%'";
+        String vlc_Sentencia = "SELECT ID_PUESTO,NOMBRE_PUESTO,CATEGORIA_PUESTO,SALARIO_BASE FROM PUESTOS WHERE NOMBRE_PUESTO LIKE '%" + pvc_Condicion + "%' AND BORRADO_LOGICO=0";
 
         //Inicio
         try {
