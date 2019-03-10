@@ -389,15 +389,17 @@
                                         </div>
                                         <div class="modal-body">
                                             <table class="container table-bordered">
-                                                <th>
-                                                    Especialidad
-                                                </th>
-                                                <th>
-                                                    Grado
-                                                </th>
-                                                <th>
-                                                    Seleccionar
-                                                </th>
+                                                <tr>
+                                                    <th>
+                                                        Especialidad
+                                                    </th>
+                                                    <th>
+                                                        Grado
+                                                    </th>
+                                                    <th>
+                                                        Seleccionar
+                                                    </th>
+                                                </tr>
                                             </table>
                                         </div>
                                     </div>
