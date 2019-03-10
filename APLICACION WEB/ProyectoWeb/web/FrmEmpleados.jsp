@@ -60,9 +60,6 @@
             </nav>
         </header>
         <section>
-            <%
-                ResultSet vgo_RSIAP = null;
-            %>
             <div id="accordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
@@ -274,7 +271,6 @@
                                         }
                                         try {
                                             vlo_RSIA = vlo_LogicaInformacionAcademica.ListaInformacionAcademica(vlc_CondicionInf, Integer.parseInt(request.getParameter("idEmpleado")));
-                                            vgo_RSIAP = vlo_RSIA;
                                             while (vlo_RSIA.next()) {%>                                                
                                     <tr>
                                         <td><%=vlo_RSIA.getString(4)%></td>
@@ -315,12 +311,22 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <%
-                                if (vgo_RSIAP == null) {%>
+                                //Variables
+                                ResultSet vlo_RSIAP = null;
+                                ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
+
+                                //Inicio
+                                try {
+                                    vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", vlo_Empleados.getVgn_idEmpleado());
+                                } catch (Exception e) {
+                                    throw e;
+                                }
+                                if (vlo_RSIAP == null) {%>
                             <div class="alert alert-warning">
                                 <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
                             </div>
                             <%} else {
-                                if (vgo_RSIAP.next()) {%>
+                                if (!vlo_RSIAP.next()) {%>
                             <div class="alert alert-warning">
                                 <strong>¡Atención!</strong> No se puede tener un puesto si no existe una especialidad académica.
                             </div>  
@@ -332,7 +338,6 @@
                                 //Variables
                                 ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
                                 ClsPuestos vlo_Puesto = new ClsPuestos();
-                                ClsLogicaInformacionAcademica vlo_LogicaInformacionAcademica = new ClsLogicaInformacionAcademica();
                                 ClsInformacionAcademica vlo_InformacionAcademica = new ClsInformacionAcademica();
 
                                 //Inicio
@@ -368,7 +373,7 @@
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                                 <%}
                                 %>
-                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Esceger especialidad</button>
+                                <button type="button" id="btn_SelIA" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalIA=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3'">Escoger especialidad</button>
                             </form>
 
                             <%            if (request.getParameter("modalIA") != null) {
@@ -382,7 +387,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Información</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Lista de especialidades</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -400,6 +405,24 @@
                                                         Seleccionar
                                                     </th>
                                                 </tr>
+                                                <%
+                                                    try {
+                                                        vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", Integer.parseInt(request.getParameter("idEmpleado")));
+                                                    } catch (Exception e) {
+                                                        throw e;
+                                                    }
+                                                    while (vlo_RSIAP.next()) {%>                                                            
+                                                <tr>
+                                                    <td><%=vlo_RSIAP.getString(4)%></td>
+                                                    <td><%=vlo_RSIAP.getString(3)%></td>
+                                                    <td>
+                                                        <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfAP=<%=vlo_RSIAP.getInt(1)%>&form=3">
+                                                            <img src="image/comprobado.png" alt=""/>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <%}
+                                                %>
                                             </table>
                                         </div>
                                     </div>
