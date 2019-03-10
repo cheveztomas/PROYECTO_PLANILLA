@@ -53,7 +53,12 @@ public class GuardarPuesto extends HttpServlet {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
             } finally {
                 if (request.getParameter("idEmpleado") != null) {
-                    response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + request.getParameter("idEmpleado") + "&idPuesto=" + vlo_Retorno.getVgc_ID() + "&form=3");
+                    if (request.getParameter("idInfAP") != null) {
+                        response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + request.getParameter("idEmpleado") + "&idPuesto=" + vlo_Retorno.getVgc_ID() + "&form=3" + "&idInfAP=" + request.getParameter("idInfAP"));
+                    }
+                    else{
+                        response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + request.getParameter("idEmpleado") + "&idPuesto=" + vlo_Retorno.getVgc_ID() + "&form=3");
+                    }
                 } else {
                     response.sendRedirect("FrmPuestos.jsp?msj=" + vlc_Mensaje);
                 }

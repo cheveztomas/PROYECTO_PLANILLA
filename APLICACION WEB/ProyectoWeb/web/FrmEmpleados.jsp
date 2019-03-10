@@ -469,7 +469,7 @@
                                 });
                             </script>
                             <div class="modal fade" id="ModalPuestoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title" id="myModalLabel">Información</h4>
@@ -494,8 +494,8 @@
                                                 Lista de Puestos
                                             </h3>
                                             <form action="GuardarPuesto?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
-                                                if (request.getParameter("idPuesto") != null) {
-                                                    out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                if (request.getParameter("idInfAP") != null) {
+                                                    out.print("&idInfAP=" + request.getParameter("idInfAP"));
                                                 }
                                                   %>" method="post" class="container table-bordered" style="padding: 20px">
                                                 <div class="form-group">
@@ -509,11 +509,83 @@
                                                 </div>
                                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                                                 <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
-                                                    if (request.getParameter("idPuesto") != null) {
-                                                        out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                    if (request.getParameter("idInfAP") != null) {
+                                                        out.print("&idInfAP=" + request.getParameter("idInfAP"));
                                                     }
                                                         %>&modalPE=1&form=3'">Limpiar</button>
                                             </form>
+                                            <form action="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
+                                                if (request.getParameter("idInfAP") != null) {
+                                                    out.print("&idInfAP=" + request.getParameter("idInfAP"));
+                                                }
+                                                  %>&modalPE=1&form=3" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                                                    <input type="text" class="form-control" id="txtBuscarPuesto" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                                                    <button type="submit" id="btn_BuscarPuesto" class="btn btn-primary">Buscar</button>
+                                                </div>
+                                            </form>
+                                            <form action="FrmListaPuestos.jsp" method="post">
+                                                <div class="container" style='height: 200px; overflow: auto;'>
+                                                    <table class="container table-bordered">
+                                                        <tr>
+                                                            <th>
+                                                                Puesto
+                                                            </th>
+                                                            <th>
+                                                                Categoría
+                                                            </th>
+                                                            <th>
+                                                                Salario Base
+                                                            </th>
+                                                            <th>
+                                                                Seleccionar
+                                                            </th>
+                                                        </tr>
+                                                        <%
+                                                            //Variables
+                                                            ResultSet vlo_RS;
+                                                            String vlo_Condicion = "";
+
+                                                            //Inicio
+                                                            try {
+                                                                if (request.getParameter("txtBuscar") != null) {
+                                                                    vlo_Condicion = request.getParameter("txtBuscar");
+                                                                }
+                                                                vlo_RS = vlo_LogicaPuestos.ListaPuestos(vlo_Condicion);
+                                                                while (vlo_RS.next()) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=vlo_RS.getString(2)%>
+                                                            </td>
+                                                            <td>
+                                                                <%=vlo_RS.getInt(3)%>
+                                                            </td>
+                                                            <td>
+                                                                <%=vlo_RS.getDouble(4)%>
+                                                            </td>
+                                                            <td>
+                                                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%><%
+                                                                    if (request.getParameter("idInfAP") != null) {
+                                                                        out.print("&idInfAP=" + request.getParameter("idInfAP"));
+                                                                    }
+                                                                   %>&form=3&idPuesto=<%=vlo_RS.getInt(1)%>">
+                                                                    <img src="image/comprobado.png" alt=""/>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <%}
+                                                            } catch (Exception e) {
+                                                                vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al cargar la lista de registros.", "ISO-8859-1");
+                                                                response.sendRedirect("FrmListaPuestos.jsp?msj=" + vlc_Mensaje);
+                                                            }
+                                                        %>
+                                                    </table>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
