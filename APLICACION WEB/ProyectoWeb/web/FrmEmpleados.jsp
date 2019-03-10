@@ -372,7 +372,7 @@
                                         throw e;
                                     }
                                 }
-                                
+
                                 //Se verifica si el puesto cargado tiene o no información
                                 if (vlo_Puesto.getVgc_NombrePuesto().equals("")) {
                                     //En caso de que no tenga se carga un puesto si el id del puesto es distinto de vacío.
@@ -432,7 +432,7 @@
                                 %>
                             </form>
 
-                            <%            
+                            <%
                                 //Se verifica si la variable se encuentra vacía para cargar modal de información académica.
                                 if (request.getParameter("modalIA") != null) {
                             %>
@@ -451,42 +451,50 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <table class="container table-bordered">
-                                                <tr>
-                                                    <th>
-                                                        Especialidad
-                                                    </th>
-                                                    <th>
-                                                        Grado
-                                                    </th>
-                                                    <th>
-                                                        Seleccionar
-                                                    </th>
-                                                </tr>
-                                                <%
-                                                    try {
-                                                        //Se carga en el modal al lista de especialidades.
-                                                        vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", Integer.parseInt(request.getParameter("idEmpleado")));
-                                                    } catch (Exception e) {
-                                                        throw e;
-                                                    }
-                                                    while (vlo_RSIAP.next()) {%>                                                            
-                                                <tr>
-                                                    <td><%=vlo_RSIAP.getString(4)%></td>
-                                                    <td><%=vlo_RSIAP.getString(3)%></td>
-                                                    <td>
-                                                        <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfAP=<%=vlo_RSIAP.getInt(1)%>&form=3<%
-                                                            if (request.getParameter("idPuesto") != null) {
-                                                                out.print("&idPuesto=" + request.getParameter("idPuesto"));
+
+                                            <div class='container' style='height: 200px; overflow: auto;'>
+                                                <div class='container' style='height: 300px; overflow: auto;'>
+                                                    <table class="container table-bordered">
+                                                        <tr>
+                                                            <th>
+                                                                Especialidad
+                                                            </th>
+                                                            <th>
+                                                                Grado
+                                                            </th>
+                                                            <th>
+                                                                Seleccionar
+                                                            </th>
+                                                        </tr>
+                                                        <%
+                                                            try {
+                                                                //Se carga en el modal al lista de especialidades.
+                                                                vlo_RSIAP = vlo_LogicaInformacionAcademica.ListaInformacionAcademica("", Integer.parseInt(request.getParameter("idEmpleado")));
+                                                            } catch (Exception e) {
+                                                                throw e;
                                                             }
-                                                           %>">
-                                                            <img src="image/comprobado.png" alt=""/>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <%}
-                                                %>
-                                            </table>
+                                                            while (vlo_RSIAP.next()) {%>                                                            
+                                                        <tr>
+                                                            <td><%=vlo_RSIAP.getString(4)%></td>
+                                                            <td><%=vlo_RSIAP.getString(3)%></td>
+                                                            <td>
+                                                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&idInfAP=<%=vlo_RSIAP.getInt(1)%>&form=3<%
+                                                                    if (request.getParameter("idPuesto") != null) {
+                                                                        out.print("&idPuesto=" + request.getParameter("idPuesto"));
+                                                                    }
+                                                                   %>">
+                                                                    <img src="image/comprobado.png" alt=""/>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        <%}
+                                                        %>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -672,6 +680,9 @@
                             vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
                             out.print(vlc_Mensaje);
                         %>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
