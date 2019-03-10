@@ -49,10 +49,10 @@ public class GuardarEmpleadoPuesto extends HttpServlet {
                 vlo_AsignarPuestoEmpleado.setVgn_idPuesto(Integer.parseInt(request.getParameter("txtidpuesto")));
                 vlo_Retorno = vlo_LogicaAsignarPuestoEmpleado.AsignarPuestoEmpleado(vlo_AsignarPuestoEmpleado);
                 vlc_mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
-                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&from=3");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&form=3");
             } catch (Exception e) {
                 vlc_mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
-                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&from=3");
+                response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&form=3");
             }
         }
     }

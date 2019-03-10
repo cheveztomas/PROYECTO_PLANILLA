@@ -358,6 +358,10 @@
                                     if (request.getParameter("idPuesto") != null) {
                                         vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                                     }
+                                } else {
+                                    if (request.getParameter("idPuesto") != null) {
+                                        vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
+                                    }
                                 }
                             %>
                             <form action="GuardarEmpleadoPuesto?idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>" method="post" class="container table-bordered" style="padding: 20px">
@@ -368,6 +372,7 @@
                                     <br>
                                     <button type="button" id="btn_AgregarPuesto" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp?modalPE=1&idEmpleado=<%=vlo_Empleados.getVgn_idEmpleado()%>&form=3<%
                                         if (request.getParameter("idInfAP") != null) {
+
                                             out.print("&idInfAP=" + request.getParameter("idInfAP"));
                                         }
                                             %>'">Seleccione un puesto</button>
@@ -385,7 +390,7 @@
                                             %>'">Seleccione una especialidad</button>
                                     <%
                                         if (request.getParameter("idInfAP") != null) {%>
-                                    <input type="hidden" id="txtidInfAP" name="txtidInfAP" value="<%=request.getParameter("idInfP")%>" required>
+                                    <input type="hidden" id="txtidInfAP" name="txtidInfAP" value="<%=vlo_InformacionAcademica.getVgn_idInformacionA()%>" required>
                                     <br>
                                     <%}
                                     %>
