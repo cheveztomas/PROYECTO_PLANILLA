@@ -167,7 +167,7 @@ public class ClsADDeducionesPagos {
 
         //Inicio
         try {
-            vlo_CS = vgo_Conexion.prepareCall("{call SP_AGREGAR_PENSION(?,?,?)}");
+            vlo_CS = vgo_Conexion.prepareCall("{call SP_AGREGAR_PRESTAMO(?,?,?)}");
             vlo_CS.setInt(1, vlo_Prestamo.getVgn_idEmpleado());
             vlo_CS.setDouble(2, vlo_Prestamo.getVgn_monto());
             vlo_CS.setString(3, vlc_Mensaje);

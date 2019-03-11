@@ -76,8 +76,8 @@
                         if (vlo_RS.next()) {
                             vlo_Pension.setVgn_idEmpleado(vlo_RS.getInt(1));
                             vlo_Prestamo.setVgn_idEmpleado(vlo_RS.getInt(1));
-                            vlo_Pension.setVgn_monto(vlo_RS.getDouble(3));
-                            vlo_Prestamo.setVgn_monto(vlo_RS.getDouble(4));
+                            vlo_Pension.setVgn_monto(vlo_RS.getDouble(4));
+                            vlo_Prestamo.setVgn_monto(vlo_RS.getDouble(3));
                             vlc_Nombre = vlo_RS.getString(2);
                         }
                     } catch (Exception e) {
