@@ -332,6 +332,7 @@ public class ClsADPlanilla {
 
                     vlo_RetornoDP.setVgc_ID(vlo_CS.getInt(1));
                     vlo_RetornoDP.setVgc_Mensaje(vlo_CS.getString(8));
+                    vlo_Retorno.setVgc_Mensaje("Se generó la planilla de forma correcta.");
                 }
                 vgo_Connection.commit();
             } else {
@@ -342,7 +343,6 @@ public class ClsADPlanilla {
             vgo_Connection.rollback();
             throw e;
         }
-        vlo_Retorno.setVgc_Mensaje("Se generó la planilla de forma correcta.");
         return vlo_Retorno;
     }
 

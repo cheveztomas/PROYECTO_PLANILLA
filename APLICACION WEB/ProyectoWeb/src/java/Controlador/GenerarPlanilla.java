@@ -50,7 +50,12 @@ public class GenerarPlanilla extends HttpServlet {
                 vlo_Planilla.setVgf_Fecha(new java.sql.Date(java.sql.Date.valueOf(request.getParameter("txtfecha")).getTime()));
                 vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
-                response.sendRedirect("FrmPlanilla.jsp?idPlanilla=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlc_Mensaje);
+
+                if (vlo_Retorno.getVgc_ID() < 0) {
+                    response.sendRedirect("FrmPlanilla.jsp?msj=" + vlc_Mensaje);
+                } else {
+                    response.sendRedirect("FrmPlanilla.jsp?idPlanilla=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlc_Mensaje);
+                }
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
                 response.sendRedirect("FrmPlanilla.jsp?msj=" + vlc_Mensaje);
