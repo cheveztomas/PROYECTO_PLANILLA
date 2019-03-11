@@ -8,6 +8,7 @@ package Logica;
 import AccesoDatos.ClsADDeducionesPagos;
 import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsPension;
+import Entidades.ClsPrestamo;
 import Entidades.ClsRetorno;
 import java.sql.ResultSet;
 
@@ -77,7 +78,7 @@ public class ClsLogicaDeduccionesPagos {
         return vlo_DeduccionesPagos;
     }
 
-    public String AgregarPensionPrestamo(ClsPension vlo_Pension) throws Exception {
+    public String AgregarPension(ClsPension vlo_Pension) throws Exception {
         //Variables
         String vlc_Mensaje = "";
         ClsADDeducionesPagos vlo_ADDeducionesPagos;
@@ -86,6 +87,21 @@ public class ClsLogicaDeduccionesPagos {
         try {
             vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
             vlc_Mensaje = vlo_ADDeducionesPagos.AgregarPension(vlo_Pension);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlc_Mensaje;
+    }
+    
+    public String AgregarPrestamo(ClsPrestamo vlo_Pension) throws Exception {
+        //Variables
+        String vlc_Mensaje = "";
+        ClsADDeducionesPagos vlo_ADDeducionesPagos;
+
+        //Inicio
+        try {
+            vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+            vlc_Mensaje = vlo_ADDeducionesPagos.AgregarPrestamo(vlo_Pension);
         } catch (Exception e) {
             throw e;
         }

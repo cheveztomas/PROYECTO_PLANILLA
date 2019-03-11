@@ -9,6 +9,7 @@ import Entidades.ClsPrestamo;
 import Logica.ClsLogicaDeduccionesPagos;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,14 @@ public class GuardarPrestamo extends HttpServlet {
             ClsPrestamo vlo_Prestamo = new ClsPrestamo();
 
             //Inicio
-            
+            try {
+                vlo_Prestamo.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidempleado")));
+                vlo_Prestamo.setVgn_monto(Double.parseDouble(request.getParameter("txtmontoprestamo")));
+                vlc_Mensaje = vlo_LogicaDeduccionesPagos.AgregarPrestamo(vlo_Prestamo);
+                vlc_Mensaje = URLEncoder.encode(vlc_Mensaje, "ISO-8859-1");
+                response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "");
+            } catch (Exception e) {
+            }
         }
     }
 
