@@ -78,7 +78,8 @@
                 <div class="form-group mx-sm-3 mb-2">
                     <input type="text" class="form-control" name="txtAnio" id="txtAnio" placeholder="Año" minlength="4" maxlength="4">
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                <button type="submit" class="btn btn-primary mb-2">Buscar</button>&nbsp;&nbsp;
+                <button type="button" id="btn_Nuevo" class="btn btn-primary mb-2" onclick="location.href = 'FrmPlanilla.jsp'">Nuevo</button>
             </form>
             <div class='container' style='height: 550px; overflow: auto;'>
                 <table class="container table-bordered">
@@ -113,7 +114,7 @@
                         <td>
                             <a href="FrmPlanilla.jsp?idPlanilla=<%
                                 out.print(vlo_RS.getInt(1));
-                               %>">
+                               %>&fecha=<%=vlo_RS.getDate(2)%>">
                                 <img src="image/mas.png" alt=""/>
                             </a>
                         </td>

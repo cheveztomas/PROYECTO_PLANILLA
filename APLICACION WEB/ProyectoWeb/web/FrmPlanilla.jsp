@@ -4,6 +4,9 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Logica.ClsLogicaPlanilla"%>
+<%@page import="Entidades.ClsPlanilla"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -56,15 +59,44 @@
                 <h3 style="margin-top: 50px" class="container text-center">
                     Planillas
                 </h3>
+                <%
+                    //Variables
+                    ResultSet vlo_RS;
+                    ClsLogicaPlanilla vlo_LogicaPlanilla = new ClsLogicaPlanilla();
+
+                    //Inicio
+                    if (request.getParameter("idPlanilla") != null) {
+                        try {
+                            vlo_RS = vlo_LogicaPlanilla.ListaDetallesPLanilla(Integer.parseInt(request.getParameter("idPlanilla")));
+                        } catch (Exception e) {
+                        }
+                    }
+                %>
                 <form action="" method="post" class="container table-bordered" style="padding: 20px">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Seleccione la fecha</label>
-                        <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=%>" readonly maxlength="50" required>
-                        <input type="hidden" id="" name="" value="<%=%>">
+                        <%
+                            if (request.getParameter("idPlanilla") != null) {%>
+                        <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=request.getParameter("fecha")%>" readonly maxlength="50" required>
+                        <input type="hidden" id="" name="" value="<%=request.getParameter("idPlanilla")%>">
+                        <%} else {%>
+                        <input type="text" class="form-control" id="datepicker" name="txtfecha" value="" readonly maxlength="50" required>
+                        <input type="hidden" id="" name="" value="-1">
+                        <%}
+                        %>
                     </div>
                     <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
-                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = ''">Limpiar</button>
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPlanilla.jsp'">Limpiar</button>
                 </form>
+                <div class='container' style='height: 200px; overflow: auto;'>
+                    <table class="container table-bordered">
+                        <tr>
+                            <th>
+                                
+                            </th>
+                        </tr>
+                    </table>
+                </div>
             </section>
             <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
