@@ -91,4 +91,11 @@ public class ClsLogicaDeduccionesPagos {
         }
         return vlc_Mensaje;
     }
+    
+    public ResultSet ObtenerPretamoPension(int pvn_idEmpleado){
+        //Variables
+        ResultSet vlo_RS;
+        
+        //Inicio
+    }
 }
