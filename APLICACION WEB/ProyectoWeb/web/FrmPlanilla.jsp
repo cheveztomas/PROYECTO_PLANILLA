@@ -72,7 +72,7 @@
                         }
                     }
                 %>
-                <form action="" method="post" class="container table-bordered" style="padding: 20px">
+                <form action="GenerarPlanilla" method="post" class="container table-bordered" style="padding: 20px">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Seleccione la fecha</label>
                         <%
