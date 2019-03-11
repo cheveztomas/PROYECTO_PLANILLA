@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Entidades.ClsPrestamo;
 import Logica.ClsLogicaDeduccionesPagos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,9 +36,10 @@ public class GuardarPrestamo extends HttpServlet {
             //Variables
             String vlc_Mensaje = "";
             ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
-            
-            
+            ClsPrestamo vlo_Prestamo = new ClsPrestamo();
+
             //Inicio
+            
         }
     }
 

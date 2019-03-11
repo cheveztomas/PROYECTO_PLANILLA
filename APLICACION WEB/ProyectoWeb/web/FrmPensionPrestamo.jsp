@@ -120,7 +120,7 @@
                     <div class="card-body">
                         <form action="" method="post" class="container table-bordered" style="padding: 20px">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Monto préstamo</label>
+                                <label for="exampleInputEmail1">Monto préstamo mensual</label>
                                 <input type="number" class="form-control" id="txtmontoprestamo" name="txtmontoprestamo" value="<%=vlo_Prestamo.getVgn_monto()%>" maxlength="50" required>
                                 <input type="hidden" id="txtidempleado" name="txtidempleado" value="<%=vlo_Prestamo.getVgn_idEmpleado()%>">
                             </div>
