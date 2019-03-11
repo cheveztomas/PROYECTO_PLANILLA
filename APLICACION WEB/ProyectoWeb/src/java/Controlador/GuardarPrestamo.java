@@ -45,8 +45,10 @@ public class GuardarPrestamo extends HttpServlet {
                 vlo_Prestamo.setVgn_monto(Double.parseDouble(request.getParameter("txtmontoprestamo")));
                 vlc_Mensaje = vlo_LogicaDeduccionesPagos.AgregarPrestamo(vlo_Prestamo);
                 vlc_Mensaje = URLEncoder.encode(vlc_Mensaje, "ISO-8859-1");
-                response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "");
+                response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "&idEmpleado=" + vlo_Prestamo.getVgn_idEmpleado());
             } catch (Exception e) {
+                vlc_Mensaje = URLEncoder.encode(e.getMessage(), "ISO-8859-1");
+                response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "&idEmpleado=" + vlo_Prestamo.getVgn_idEmpleado());
             }
         }
     }
