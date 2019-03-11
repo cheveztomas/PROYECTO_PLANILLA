@@ -91,11 +91,18 @@ public class ClsLogicaDeduccionesPagos {
         }
         return vlc_Mensaje;
     }
-    
-    public ResultSet ObtenerPretamoPension(int pvn_idEmpleado){
+
+    public ResultSet ObtenerPretamoPension(int pvn_idEmpleado) throws Exception {
         //Variables
         ResultSet vlo_RS;
-        
+        ClsADDeducionesPagos vlo_ADDeducionesPagos;
         //Inicio
+        try {
+            vlo_ADDeducionesPagos = new ClsADDeducionesPagos();
+            vlo_RS=vlo_ADDeducionesPagos.ObtenerPrestamoPension(pvn_idEmpleado);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
