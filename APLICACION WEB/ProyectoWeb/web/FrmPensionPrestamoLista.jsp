@@ -67,7 +67,7 @@
                     <label for="exampleInputEmail1">Buscar:</label>&nbsp;
                     <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
                     <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>&nbsp;&nbsp;
-                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Nuevo</button>
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPensionPrestamo.jsp'">Agregar pensión o pretamo.</button>
                 </div>
             </form>
             <form action="FrmPensionPrestamoLista.jsp" method="post">
