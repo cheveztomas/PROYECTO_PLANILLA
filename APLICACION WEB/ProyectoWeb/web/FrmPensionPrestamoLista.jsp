@@ -115,7 +115,7 @@
                                 %>
                             </td>
                             <td>
-                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                <a href="FrmPensionPrestamo.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
                                     <img src="image/mas.png" alt=""/>
                                 </a>
                             </td>
