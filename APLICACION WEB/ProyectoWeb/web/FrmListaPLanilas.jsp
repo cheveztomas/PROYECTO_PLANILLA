@@ -110,6 +110,13 @@
                         <td>
                             <%=vlo_RS.getDate(2)%>
                         </td>
+                        <td>
+                            <a href="FrmPlanilla.jsp?idPlanilla=<%
+                                out.print(vlo_RS.getInt(1));
+                               %>">
+                                <img src="image/mas.png" alt=""/>
+                            </a>
+                        </td>
                     </tr>
                     <%}
                         } catch (Exception e) {
