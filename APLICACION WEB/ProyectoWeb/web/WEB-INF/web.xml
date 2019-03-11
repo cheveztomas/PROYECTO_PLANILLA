@@ -44,6 +44,10 @@
         <servlet-name>GuardarPrestamo</servlet-name>
         <servlet-class>Controlador.GuardarPrestamo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarPension</servlet-name>
+        <servlet-class>Controlador.GuardarPension</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EliminarPuesto</servlet-name>
         <url-pattern>/EliminarPuesto</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>GuardarPrestamo</servlet-name>
         <url-pattern>/GuardarPrestamo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarPension</servlet-name>
+        <url-pattern>/GuardarPension</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
