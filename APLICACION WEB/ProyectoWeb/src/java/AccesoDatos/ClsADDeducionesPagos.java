@@ -159,8 +159,8 @@ public class ClsADDeducionesPagos {
         }
         return vlc_Mensaje;
     }
-    
-    public String AgregarPrestamo(ClsPrestamo vlo_Prestamo) throws Exception{
+
+    public String AgregarPrestamo(ClsPrestamo vlo_Prestamo) throws Exception {
         //Variables
         String vlc_Mensaje = "";
         CallableStatement vlo_CS;
@@ -178,5 +178,21 @@ public class ClsADDeducionesPagos {
             throw e;
         }
         return vlc_Mensaje;
+    }
+
+    public ResultSet ObtenerPrestamoPension(int pvn_idEmpleado) throws Exception {
+        //Variables
+        Statement vlo_Statement;
+        String vlc_Sentencia = "SELECT ID_EMPLEADO,CONCAT(NOMBRE,' ',PRIMER_APELLIDO,' ',SEGUNDO_APELLIDO) AS NOMBRE,PRESTAMO,PENSION FROM EMPLEADOS WHERE ID_EMPLEADO='" + pvn_idEmpleado + "'";
+        ResultSet vlo_RS;
+
+        //Inicio
+        try {
+            vlo_Statement = vgo_Conexion.createStatement();
+            vlo_RS = vlo_Statement.executeQuery(vlc_Sentencia);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlo_RS;
     }
 }
