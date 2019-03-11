@@ -4,6 +4,9 @@
     Author     : Thomas Chevez
 --%>
 
+<%@page import="Logica.ClsLogicaEmpleado"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -56,7 +59,75 @@
             </nav>
         </header>
         <section>
-            
+            <h3 style="margin-top: 50px" class="container text-center">
+                Lista empleados.
+            </h3>
+            <form action="FrmPensionPrestamoLista.jsp" method="post" class="container table-bordered form-inline" style="padding: 20px">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Buscar:</label>&nbsp;
+                    <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="" maxlength="50">&nbsp;&nbsp;&nbsp;
+                    <button type="submit" id="btn_Buscar" class="btn btn-primary">Buscar</button>&nbsp;&nbsp;
+                    <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmEmpleados.jsp'">Nuevo</button>
+                </div>
+            </form>
+            <form action="FrmPensionPrestamoLista.jsp" method="post">
+                <div class='container' style='height: 550px; overflow: auto;'>
+                    <table class="container table-bordered tab-content">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Seleccionar</th>
+                        </tr>
+                        <%
+                            //Varaibles
+                            ResultSet vlo_RS;
+                            String vlc_Condicion = "", vlc_msj = "";
+                            ClsLogicaEmpleado vlo_LogicaEmpleado = new ClsLogicaEmpleado();
+
+                            //Inicio
+                            try {
+                                if (request.getParameter("txtBuscar") != null) {
+                                    vlc_Condicion = request.getParameter("txtBuscar");
+                                }
+                                vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
+                                while (vlo_RS.next()) {%>                                
+                        <tr>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(3));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(2));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(4));
+                                %>
+                            </td>
+                            <td>
+                                <%
+                                    out.print(vlo_RS.getString(5));
+                                %>
+                            </td>
+                            <td>
+                                <a href="FrmEmpleados.jsp?idEmpleado=<%=vlo_RS.getString(1)%>">
+                                    <img src="image/mas.png" alt=""/>
+                                </a>
+                            </td>
+                        </tr>
+                        <%}
+                            } catch (Exception e) {
+                                vlc_msj = URLEncoder.encode(e.getMessage() + " Error al trartar de cargar la lista de empleados.", "ISO-8859-1");
+                            }
+                        %>
+                    </table>
+                </div>
+            </form>
         </section>
         <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
@@ -85,9 +156,9 @@
 
                     </div>
                     <div class="modal-body">
-                        <%
+                         <%
                             //Variables
-                            String vlc_Mensaje = "";
+                            String vlc_Mensaje = vlc_msj;
 
                             //Inicio
                             vlc_Mensaje = URLDecoder.decode(request.getParameter("msj"), "ISO-8859-1");
@@ -102,6 +173,6 @@
         </div>
         <%
             }
-        %>F
+        %>
     </body>
 </html>
