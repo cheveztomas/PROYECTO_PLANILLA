@@ -87,6 +87,11 @@
                     </div>
                     <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                     <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPlanilla.jsp'">Limpiar</button>
+                    <br>
+                    <br>
+                    <div class="alert alert-warning">
+                        <strong>¡Atención!</strong> Si el empleado no tiene un puesto asignado la planilla de este no será calculada.
+                    </div>
                 </form>
                 <%
                     if (request.getParameter("idPlanilla") != null) {%>
