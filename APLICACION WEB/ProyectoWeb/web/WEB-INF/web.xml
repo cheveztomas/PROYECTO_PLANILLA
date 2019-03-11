@@ -40,6 +40,10 @@
         <servlet-name>GenerarPlanilla</servlet-name>
         <servlet-class>Controlador.GenerarPlanilla</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarPrestamo</servlet-name>
+        <servlet-class>Controlador.GuardarPrestamo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EliminarPuesto</servlet-name>
         <url-pattern>/EliminarPuesto</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>GenerarPlanilla</servlet-name>
         <url-pattern>/GenerarPlanilla</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarPrestamo</servlet-name>
+        <url-pattern>/GuardarPrestamo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

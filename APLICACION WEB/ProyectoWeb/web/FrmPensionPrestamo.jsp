@@ -190,5 +190,24 @@
     <%
         }
     %>
+    <%
+         if (request.getParameter("form") != null) {
+             if (request.getParameter("form").equals("2")) {%>
+    <script type="text/javascript">
+        $('#collapseTwo').collapse({
+            toggle: true
+        });
+    </script>
+    <%} else {
+            if (request.getParameter("form").equals("3")) {%>
+    <script type="text/javascript">
+        $('#collapseThree').collapse({
+            toggle: true
+        });
+    </script>
+    <%}
+            }
+        }
+    %>
 </body>
 </html>
