@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author Thomas Chevez
  */
-public class ClsPrestamo {
+public class ClsPrestamo extends ClsDeduccionesPersonales{
 
     //Constructores
     public ClsPrestamo() {

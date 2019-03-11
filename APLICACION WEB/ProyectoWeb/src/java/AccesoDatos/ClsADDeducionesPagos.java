@@ -8,6 +8,7 @@ package AccesoDatos;
 import Configuracion.ClsConexion;
 import Entidades.ClsDeduccionesPagos;
 import Entidades.ClsPension;
+import Entidades.ClsPrestamo;
 import Entidades.ClsRetorno;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -140,7 +141,7 @@ public class ClsADDeducionesPagos {
     }
 
     public String AgregarPension(ClsPension vlo_Pension) throws Exception {
-        //Varaibles
+        //Variables
         String vlc_Mensaje = "";
         CallableStatement vlo_CS;
 
@@ -149,6 +150,26 @@ public class ClsADDeducionesPagos {
             vlo_CS = vgo_Conexion.prepareCall("{call SP_AGREGAR_PENSION(?,?,?)}");
             vlo_CS.setInt(1, vlo_Pension.getVgn_idEmpleado());
             vlo_CS.setDouble(2, vlo_Pension.getVgn_monto());
+            vlo_CS.setString(3, vlc_Mensaje);
+            vlo_CS.registerOutParameter(3, Types.VARCHAR);
+            vlo_CS.executeUpdate();
+            vlc_Mensaje = vlo_CS.getString(3);
+        } catch (Exception e) {
+            throw e;
+        }
+        return vlc_Mensaje;
+    }
+    
+    public String AgregarPrestamo(ClsPrestamo vlo_Prestamo) throws Exception{
+        //Variables
+        String vlc_Mensaje = "";
+        CallableStatement vlo_CS;
+
+        //Inicio
+        try {
+            vlo_CS = vgo_Conexion.prepareCall("{call SP_AGREGAR_PENSION(?,?,?)}");
+            vlo_CS.setInt(1, vlo_Prestamo.getVgn_idEmpleado());
+            vlo_CS.setDouble(2, vlo_Prestamo.getVgn_monto());
             vlo_CS.setString(3, vlc_Mensaje);
             vlo_CS.registerOutParameter(3, Types.VARCHAR);
             vlo_CS.executeUpdate();
