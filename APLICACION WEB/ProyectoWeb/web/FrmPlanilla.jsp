@@ -61,7 +61,7 @@
                 </h3>
                 <%
                     //Variables
-                    ResultSet vlo_RS;
+                    ResultSet vlo_RS = null;
                     ClsLogicaPlanilla vlo_LogicaPlanilla = new ClsLogicaPlanilla();
 
                     //Inicio
@@ -78,25 +78,62 @@
                         <%
                             if (request.getParameter("idPlanilla") != null) {%>
                         <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=request.getParameter("fecha")%>" readonly maxlength="50" required>
-                        <input type="hidden" id="" name="" value="<%=request.getParameter("idPlanilla")%>">
+                        <input type="hidden" id="txtidPlanilla" name="txtidPlanilla" value="<%=request.getParameter("idPlanilla")%>">
                         <%} else {%>
                         <input type="text" class="form-control" id="datepicker" name="txtfecha" value="" readonly maxlength="50" required>
-                        <input type="hidden" id="" name="" value="-1">
+                        <input type="hidden" id="txtidPlanilla" name="txtidPlanilla" value="-1">
                         <%}
                         %>
                     </div>
                     <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
                     <button type="button" id="btn_Nuevo" class="btn btn-primary" onclick="location.href = 'FrmPlanilla.jsp'">Limpiar</button>
                 </form>
-                <div class='container' style='height: 200px; overflow: auto;'>
+                <%
+                    if (request.getParameter("idPlanilla") != null) {%>
+                <div class='container' style='height: 550px; overflow: auto;'>
                     <table class="container table-bordered">
                         <tr>
                             <th>
-                                
+                                Nombre
+                            </th>
+                            <th>
+                                Salario Neto
+                            </th>
+                            <th>
+                                Salario Bruto
+                            </th>
+                            <th>
+                                Primer Adelanto
+                            </th>
+                            <th>
+                                Pago Final
                             </th>
                         </tr>
+                        <%
+                            while (vlo_RS.next()) {%>
+                        <tr>
+                            <td><%
+                                out.print(vlo_RS.getString(2));
+                                %></td>
+                            <td><%
+                                out.print(vlo_RS.getDouble(3));
+                                %></td>
+                            <td><%
+                                out.print(vlo_RS.getDouble(4));
+                                %></td>
+                            <td><%
+                                out.print(vlo_RS.getDouble(5));
+                                %></td>
+                            <td><%
+                                out.print(vlo_RS.getDouble(6));
+                                %></td>
+                        </tr>
+                        <%}
+                        %>
                     </table>
                 </div>
+                <%}
+                %>
             </section>
             <footer class="page-footer font-small bg-secondary" style="margin-top: 50px">
 
