@@ -22,11 +22,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <link href="css/jquery-ui.theme.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
-        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+
         <link rel="icon" type="image/png" href="image/analitica (2).png" />
     </head>
     <body>
@@ -102,7 +104,7 @@
                                     }
 
                                     //Se cargan los valores de la instancia o de la entidad emppleado en el formulario web.
-%>
+                                %>
                                 <div class="form-group">
                                     <label for="Empleado">Nombre</label>
                                     <input type="text" class="form-control" id="txtnombre" name="txtnombre" value="<%=vlo_Empleados.getVgc_nombre()%>" maxlength="50" required>
@@ -119,7 +121,8 @@
                                     <label for="">Número de Cuenta</label>
                                     <input type="text" class="form-control" id="txtcuenta" name="txtcuenta" value="<%=vlo_Empleados.getVgc_numeroCuenta()%>" maxlength="50" required>
                                     <label for="">Fecha contratación</label>
-                                    <input type="text" class="form-control" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" readonly maxlength="50" required>
+                                    <br><br>
+                                    <input type="text" class="form-control-sm" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" readonly maxlength="50" required>
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>
                                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
@@ -164,7 +167,7 @@
 
                                 }
                                 //Se le muestra al usuario ya sea la enitidad instanciada inicializada o la entidad cargada de la base de datos.
-%>
+                            %>
                             <h3 style="margin-top: 10px" class="container text-center">
                                 Información Académica
                             </h3>
@@ -701,7 +704,9 @@
                     buttonImage: "image/calendario.png",
                     buttonImageOnly: true,
                     dateFormat: "yy-mm-dd",
-                    buttonText: "Seleccione una fecha"
+                    buttonText: "Seleccione una fecha",
+                    minDate: '-6M',
+                    maxDate: '+1M'
                 });
             });
         </script>
