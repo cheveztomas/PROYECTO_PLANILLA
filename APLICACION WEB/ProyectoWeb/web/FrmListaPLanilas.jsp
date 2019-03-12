@@ -98,6 +98,7 @@
                         String vlc_Mes = "", vlc_Anio = "";
 
                         //Inicio
+                        //Según la selección del usuario al seleccionar el año y el mes se carga la lista.
                         if (request.getParameter("txtAnio") != null) {
                             vlc_Anio = request.getParameter("txtAnio");
                         }
@@ -106,7 +107,9 @@
                         }
                         try {
                             vlo_RS = vlo_LogicaPlanilla.ListaPlanilla(vlc_Mes, vlc_Anio);
-                            while (vlo_RS.next()) {%>                                
+                            while (vlo_RS.next()) {
+                    //Se le muestra al usuario la lista de planilla.
+                    %>                                
                     <tr>
                         <td>
                             <%=vlo_RS.getDate(2)%>

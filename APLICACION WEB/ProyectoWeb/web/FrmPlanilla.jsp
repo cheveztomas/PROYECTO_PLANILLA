@@ -65,8 +65,10 @@
                     ClsLogicaPlanilla vlo_LogicaPlanilla = new ClsLogicaPlanilla();
 
                     //Inicio
+                    //Se verifica si existe un valor en la sesión para cargar la los dedalles de la planilla.
                     if (request.getParameter("idPlanilla") != null) {
                         try {
+                            //Se carga la lista de datalles según la condición.
                             vlo_RS = vlo_LogicaPlanilla.ListaDetallesPLanilla(Integer.parseInt(request.getParameter("idPlanilla")));
                         } catch (Exception e) {
                         }

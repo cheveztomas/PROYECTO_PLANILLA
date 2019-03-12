@@ -74,6 +74,7 @@
                     try {
                         vlo_RS = vlo_LogicaDeduccionesPagos.ObtenerPretamoPension(Integer.parseInt(request.getParameter("idEmpleado")));
                         if (vlo_RS.next()) {
+                            //Se carga la información en las entidades para ser mostradas al usuario.
                             vlo_Pension.setVgn_idEmpleado(vlo_RS.getInt(1));
                             vlo_Prestamo.setVgn_idEmpleado(vlo_RS.getInt(1));
                             vlo_Pension.setVgn_monto(vlo_RS.getDouble(4));

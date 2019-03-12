@@ -63,13 +63,17 @@
                 String vlc_Mensaje = "";
                 ClsPuestos vlo_Puesto;
                 ClsLogicaPuestos vlo_LogicaPuestos = new ClsLogicaPuestos();
-
+                
+                //Se verifica si la variable por sesión existe.
                 if (request.getParameter("idPuesto") != null) {
+                    //Se carga el puesto.
                     vlo_Puesto = vlo_LogicaPuestos.ObtenerPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                 } else {
+                    //En caso contrario se instancia le puesto.
                     vlo_Puesto = new ClsPuestos();
 
                 }
+                //Se le mustra al usuario el formulario con los datos.
             %>
             <h3 style="margin-top: 50px" class="container text-center">
                 Lista de Puestos

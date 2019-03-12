@@ -65,14 +65,18 @@
                 ClsLogicaDeduccionesPagos vlo_LogicaDeduccionesPagos = new ClsLogicaDeduccionesPagos();
 
                 //inicio
+                //Se verifica si existe el valor en la sesaión.
                 if (request.getParameter("idDeduccionPago") != null) {
+                    //En caso de exista la sesión se carga los datos de la deduccion o el pago.
                     vlo_DeduccionesPagos = vlo_LogicaDeduccionesPagos.ObteDeduccionesPagos(Integer.parseInt(request.getParameter("idDeduccionPago")));
                 } else {
+                    //En caso contrario se crea una nueva intancia de el objeto y se inicializa el código en -1.
                     vlo_DeduccionesPagos = new ClsDeduccionesPagos();
                     vlo_DeduccionesPagos.setVgc_DeduccionDetallada("0");
                 }
                 vlo_DeduccionesPagos.getVgc_tipo();
-
+                
+                    //Se le mustra al usario en el formulario la información caragada de la base de datos.
             %>
             <form action="GuardarDeduccionesPagos" method="post" class="container table-bordered" style="padding: 20px">
                 <div class="form-group">

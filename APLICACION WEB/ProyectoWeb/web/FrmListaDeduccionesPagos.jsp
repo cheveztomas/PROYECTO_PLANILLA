@@ -100,8 +100,12 @@
 
                         //Inicio
                         try {
+                            //Se carga la lista de deducciones y pagos.
                             vlo_RS = vlo_LogicaDeduccionesPagos.ListaPagosDeducciones(vlc_Condicion);
-                            while (vlo_RS.next()) {%>                                
+                            while (vlo_RS.next()) {
+                    //Este ccilo recorre la lista de deducciones y pagos y le mustra la lista al usuario.
+                    %>   
+                            
                     <tr>
                         <td>
                             <%

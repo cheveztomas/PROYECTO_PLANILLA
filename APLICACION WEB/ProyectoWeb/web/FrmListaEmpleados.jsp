@@ -87,11 +87,15 @@
 
                             //Inicio
                             try {
+                                //Se caraga la lista de emplados de la base de datos según la condición que el usuario haya ingresado.
                                 if (request.getParameter("txtBuscar") != null) {
                                     vlc_Condicion = request.getParameter("txtBuscar");
                                 }
                                 vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
-                                while (vlo_RS.next()) {%>                                
+                                while (vlo_RS.next()) {
+                        
+                            //Se muestra la lista de emplados al usuario. 
+                        %>                                
                         <tr>
                             <td>
                                 <%

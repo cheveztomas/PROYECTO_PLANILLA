@@ -100,11 +100,15 @@
 
                             //Inicio
                             try {
+                                //Se verifica si existe la condición de busqueda.
                                 if (request.getParameter("txtBuscar") != null) {
                                     vlo_Condicion = request.getParameter("txtBuscar");
                                 }
+                                //Con la condión de busqueda se caraga la lista de puestos.
                                 vlo_RS = vlo_LogicaPuestos.ListaPuestos(vlo_Condicion);
-                                while (vlo_RS.next()) {%>
+                                while (vlo_RS.next()) {
+                        //Se le mustra al usuario la lista de puestos.
+                        %>
                         <tr>
                             <td>
                                 <%=vlo_RS.getString(2)%>

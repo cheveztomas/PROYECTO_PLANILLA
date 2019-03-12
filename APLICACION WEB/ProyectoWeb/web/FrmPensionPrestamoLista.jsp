@@ -88,10 +88,14 @@
 
                             //Inicio
                             try {
+                                //Se verifica si existe una condión de busqueda.
                                 if (request.getParameter("txtBuscar") != null) {
                                     vlc_Condicion = request.getParameter("txtBuscar");
                                 }
+                                //Se carag la lista emplados con la condión que haya seleccionado el usuario.
                                 vlo_RS = vlo_LogicaEmpleado.ListaEmpleados(vlc_Condicion);
+                                
+                                //Se muestra al usario la lista de emplados.
                                 while (vlo_RS.next()) {%>                                
                         <tr>
                             <td>
