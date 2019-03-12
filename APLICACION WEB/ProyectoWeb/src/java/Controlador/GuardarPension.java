@@ -42,10 +42,15 @@ public class GuardarPension extends HttpServlet {
 
             //Inicio
             try {
+                //See caraga la entidad con los datos de sesión.
                 vlo_Pension.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidempleado")));
                 vlo_Pension.setVgn_monto(Double.parseDouble(request.getParameter("txtmontopension")));
+                
+                //Se invoca el metodo que guarda la pensión.
                 vlc_Mensaje = vlo_LogicaDeduccionesPagos.AgregarPension(vlo_Pension);
                 vlc_Mensaje = URLEncoder.encode(vlc_Mensaje, "ISO-8859-1");
+                
+                //Se redirige a la página de origen con el mensaje de la base de datos.
                 response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "&idEmpleado=" + vlo_Pension.getVgn_idEmpleado()+"&form=3");
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage(), "ISO-8859-1");

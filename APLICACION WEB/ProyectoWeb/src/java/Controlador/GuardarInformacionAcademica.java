@@ -43,11 +43,14 @@ public class GuardarInformacionAcademica extends HttpServlet {
 
             //Inicio
             try {
+                //Se carga en la entida de información academica los valroes de sesión.
                 vlo_InformacionAcademica.setVgc_especialidad(request.getParameter("txtespecialidad"));
                 vlo_InformacionAcademica.setVgc_Grado(request.getParameter("txtgrado"));
                 vlo_InformacionAcademica.setVgc_informacion(request.getParameter("txtinformacion"));
                 vlo_InformacionAcademica.setVgn_idInformacionA(Integer.parseInt(request.getParameter("idInfA")));
                 vlo_InformacionAcademica.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
+                
+                //Se invoca la función que guarda con la entiddad de infromación academica. 
                 vlo_Retorno = vlo_LogicaInformacionAcademica.GuardarInformacionAcademica(vlo_InformacionAcademica);
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
                 response.sendRedirect("FrmEmpleados.jsp?idEmpleado=" + vlo_InformacionAcademica.getVgn_idEmpleado() + "&idInfA=" + vlo_Retorno.getVgc_ID() + "&msj=" + vlo_Retorno.getVgc_Mensaje()+"&form=2");

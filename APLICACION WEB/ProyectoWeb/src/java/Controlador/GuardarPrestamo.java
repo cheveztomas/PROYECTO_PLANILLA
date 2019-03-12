@@ -41,10 +41,15 @@ public class GuardarPrestamo extends HttpServlet {
 
             //Inicio
             try {
+                //Se caraga la entodad con la información que viene por sesión
                 vlo_Prestamo.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidempleado")));
                 vlo_Prestamo.setVgn_monto(Double.parseDouble(request.getParameter("txtmontoprestamo")));
+                
+                //Se invoca el metodo qu guarda un prestamo.
                 vlc_Mensaje = vlo_LogicaDeduccionesPagos.AgregarPrestamo(vlo_Prestamo);
                 vlc_Mensaje = URLEncoder.encode(vlc_Mensaje, "ISO-8859-1");
+                
+                //se redirige a al página de origen con el mensaje.
                 response.sendRedirect("FrmPensionPrestamo.jsp?msj=" + vlc_Mensaje + "&idEmpleado=" + vlo_Prestamo.getVgn_idEmpleado()+"&form=2");
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage(), "ISO-8859-1");
