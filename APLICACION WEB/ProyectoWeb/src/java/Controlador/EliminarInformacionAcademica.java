@@ -41,8 +41,10 @@ public class EliminarInformacionAcademica extends HttpServlet {
 
             //Inicio
             try {
+                //Se invoca el metodo que elimina la información académica.
                 vlo_Retorno = vlo_LogicaInformacionAcademica.EliminarInformacionAcademica(Integer.parseInt(request.getParameter("idInfA")));
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                //Se redirige a la página de origen con el mensaje retornado de la base de datos.
                 response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_Mensaje + "&idEmpleado=" + request.getParameter("idEmpleado") + "&form=2");
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");

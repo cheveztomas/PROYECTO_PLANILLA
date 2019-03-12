@@ -46,11 +46,15 @@ public class GenerarPlanilla extends HttpServlet {
 
             //Inicio
             try {
+                //Se caragn un la entidad los datos que vienen por sesión del formulario que genera una planilla
                 vlo_Planilla.setVgn_idPlanilla(Integer.parseInt(request.getParameter("txtidPlanilla")));
                 vlo_Planilla.setVgf_Fecha(new java.sql.Date(java.sql.Date.valueOf(request.getParameter("txtfecha")).getTime()));
+                
+                //Se invova el metodo que genera una planilla como parametro la entidad de planilla.
                 vlo_Retorno = vlo_LogicaPlanilla.GenerarPlanilla(vlo_Planilla);
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
-
+                
+                //Se redirige a la página de origen con el mensaje del base de datos..
                 if (vlo_Retorno.getVgc_ID() < 0) {
                     response.sendRedirect("FrmPlanilla.jsp?msj=" + vlc_Mensaje);
                 } else {

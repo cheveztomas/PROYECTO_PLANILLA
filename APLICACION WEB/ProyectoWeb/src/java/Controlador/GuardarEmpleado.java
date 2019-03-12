@@ -47,6 +47,7 @@ public class GuardarEmpleado extends HttpServlet {
 
             //Inicio
             try {
+                //Se carga la entidad de empleado con los valores de la sesión
                 vlo_Empleado.setVgn_idEmpleado(Integer.parseInt(request.getParameter("txtidEmpleado")));
                 vlo_Empleado.setVgc_nombre(request.getParameter("txtnombre"));
                 vlo_Empleado.setVgc_primerApellido(request.getParameter("txtapellido1"));
@@ -56,8 +57,12 @@ public class GuardarEmpleado extends HttpServlet {
                 vlo_Empleado.setVgc_correo(request.getParameter("txtcorreo"));
                 vlo_Empleado.setVgc_numeroCuenta(request.getParameter("txtcuenta"));
                 vlo_Empleado.setVgf_fechaContratacion(new java.sql.Date(java.sql.Date.valueOf(request.getParameter("txtfecha")).getTime()));
+                
+                //Se invoca la función que guarda un empleado con la entidad de empleado.
                 vlo_Retorno = vlo_LogicaEmpleado.GuardarEmpleado(vlo_Empleado);
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                
+                //Se redirige a la página de origen con el mensaje retornado de la base datos.
                 response.sendRedirect("FrmEmpleados.jsp?msj=" + vlo_Retorno.getVgc_Mensaje() + "&idEmpleado=" + vlo_Retorno.getVgc_ID());
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");

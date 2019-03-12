@@ -41,8 +41,10 @@ public class EliminarDeduccionesPagos extends HttpServlet {
 
             //Inicio
             try {
+                //Se invoca el procedimiento que elimina una deducción o un pago obteniendo así un mensaje de la base de datos.
                 vlo_Retorno = vlo_LogicaDeduccionesPagos.EliminarDP(Integer.parseInt(request.getParameter("idDeduccionPago")));
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                //Una vez eliminado se redirige la página de origen y se mustra el mensaje que se pasa por sesión
                 response.sendRedirect("FrmListaDeduccionesPagos.jsp?msj=" + vlc_Mensaje);
             } catch (Exception e) {
             }

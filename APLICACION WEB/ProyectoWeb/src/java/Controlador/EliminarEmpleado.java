@@ -42,8 +42,11 @@ public class EliminarEmpleado extends HttpServlet {
 
             //Incio
             try {
+                //Se invoca el metodo que elimina en empleado.
                 vlo_Retorno.setVgc_Mensaje(vlo_LogicaEmpleado.EliminarEmpleado(Integer.parseInt(request.getParameter("idEmpleado"))));
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                
+                //Se redirige a la página de origen con el mensaje retornado de la base de datos.
                 response.sendRedirect("FrmListaEmpleados.jsp?msj=" + vlc_Mensaje);
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode("FrmListaEmpleados.jsp?msj=" + e.getMessage() + ". Error al tratar de realizar acción", "ISO-8859-1");

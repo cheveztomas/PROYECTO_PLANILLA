@@ -41,8 +41,10 @@ public class EliminarPuesto extends HttpServlet {
 
             //Inicio
             try {
+                //Se invoca a la función que elimina un puesto.
                 vlo_Retorno = vlo_LogicaPuestos.EliminarPuesto(Integer.parseInt(request.getParameter("idPuesto")));
                 vlc_Mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                //Se redirige al formulario de origen con el mensaje de la base de datos.
                 response.sendRedirect("FrmListaPuestos.jsp?msj=" + vlc_Mensaje);
             } catch (Exception e) {
                 vlc_Mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción", "ISO-8859-1");

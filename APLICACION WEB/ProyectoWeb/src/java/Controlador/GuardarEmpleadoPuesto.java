@@ -43,12 +43,17 @@ public class GuardarEmpleadoPuesto extends HttpServlet {
 
             //Inicio
             try {
+                //Se cargan los datos de la ventana que vienen por sesión.
                 vlo_AsignarPuestoEmpleado.setVgn_idEmpleadoPuesto(-1);
                 vlo_AsignarPuestoEmpleado.setVgn_idEmpleado(Integer.parseInt(request.getParameter("idEmpleado")));
                 vlo_AsignarPuestoEmpleado.setVgn_idInformacion(Integer.parseInt(request.getParameter("txtidInfAP")));
                 vlo_AsignarPuestoEmpleado.setVgn_idPuesto(Integer.parseInt(request.getParameter("txtidpuesto")));
+                
+                //Se invoca el metodo que un puesto en el empleado.
                 vlo_Retorno = vlo_LogicaAsignarPuestoEmpleado.AsignarPuestoEmpleado(vlo_AsignarPuestoEmpleado);
                 vlc_mensaje = URLEncoder.encode(vlo_Retorno.getVgc_Mensaje(), "ISO-8859-1");
+                
+                //Se redirige 
                 response.sendRedirect("FrmEmpleados.jsp?msj=" + vlc_mensaje + "&idEmpleado=" + vlo_AsignarPuestoEmpleado.getVgn_idEmpleado() + "&form=3");
             } catch (Exception e) {
                 vlc_mensaje = URLEncoder.encode(e.getMessage() + " Error al realizar acción.", "ISO-8859-1");
