@@ -121,7 +121,7 @@
                         <form action="GuardarPrestamo" method="post" class="container table-bordered" style="padding: 20px">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Monto préstamo mensual</label>
-                                <input type="number" class="form-control" id="txtmontoprestamo" name="txtmontoprestamo" value="<%=vlo_Prestamo.getVgn_monto()%>" maxlength="50" required>
+                                <input type="number" class="form-control" id="txtmontoprestamo" name="txtmontoprestamo" value="<%=vlo_Prestamo.getVgn_monto()%>" maxlength="50" min="0" required>
                                 <input type="hidden" id="txtidempleado" name="txtidempleado" value="<%=vlo_Prestamo.getVgn_idEmpleado()%>">
                             </div>
                             <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
@@ -142,7 +142,7 @@
                         <form action="GuardarPension" method="post" class="container table-bordered" style="padding: 20px">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Monto pensión</label>
-                                <input type="number" class="form-control" id="txtmontopension" name="txtmontopension" value="<%=vlo_Pension.getVgn_monto()%>" maxlength="50" required>
+                                <input type="number" class="form-control" id="txtmontopension" name="txtmontopension" value="<%=vlo_Pension.getVgn_monto()%>" maxlength="50" min="0" required>
                                 <input type="hidden" id="txtidempleado" name="txtidempleado" value="<%=vlo_Pension.getVgn_idEmpleado()%>">
                             </div>
                             <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>

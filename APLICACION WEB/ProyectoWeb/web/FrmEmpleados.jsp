@@ -121,7 +121,7 @@
                                     <label for="">Número de Cuenta</label>
                                     <input type="text" class="form-control" id="txtcuenta" name="txtcuenta" value="<%=vlo_Empleados.getVgc_numeroCuenta()%>" maxlength="50" required>
                                     <label for="">Fecha contratación</label>
-                                    <br><br>
+                                    <br>
                                     <input type="text" class="form-control-sm" id="datepicker" name="txtfecha" value="<%=vlo_Empleados.getVgf_fechaContratacion()%>" readonly maxlength="50" required>
                                     <input type="hidden" id="txtidEmpleado" name="txtidEmpleado" value="<%=vlo_Empleados.getVgn_idEmpleado()%>">
                                 </div>

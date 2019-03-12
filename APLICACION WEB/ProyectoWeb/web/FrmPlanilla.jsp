@@ -185,7 +185,9 @@
                         buttonImage: "image/calendario.png",
                         buttonImageOnly: true,
                         dateFormat: "yy-mm-dd",
-                        buttonText: "Seleccione una fecha"
+                        buttonText: "Seleccione una fecha",
+                        minDate: '-1M',
+                        maxDate: '+1M'
                     });
                 });
             </script>
