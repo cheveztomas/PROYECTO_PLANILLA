@@ -81,7 +81,7 @@
                     <label for="Puesto">Categoría</label>
                     <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_Puesto.getVgn_CategoriaPuesto()%>" maxlength="50" required>
                     <label for="Puesto">Salario Base</label>
-                    <input type="number" class="form-control" id="txtsalario" name="txtsalario" value="<%=vlo_Puesto.getVgn_SalarioBase()%>" maxlength="50" required>
+                    <input type="number" class="form-control" id="txtsalario" name="txtsalario" value="<%=vlo_Puesto.getVgn_SalarioBase()%>" maxlength="10" min="0" required>
                     <input type="hidden" id="txtidPuesto" name="txtidPuesto" value="<%=vlo_Puesto.getVgn_iPuesto()%>">
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
