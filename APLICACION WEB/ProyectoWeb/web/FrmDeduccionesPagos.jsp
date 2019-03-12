@@ -79,7 +79,7 @@
                     <label for="Concepto">Concepto</label>
                     <input type="text" class="form-control" id="txtconcepto" name="txtconcepto" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionGeneral()%>" maxlength="50" required>
                     <label for="Concepto">Categoría</label>
-                    <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionDetallada()%>" maxlength="2" required>
+                    <input type="number" class="form-control" id="txtcategoria" name="txtcategoria" value="<%=vlo_DeduccionesPagos.getVgc_DeduccionDetallada()%>" maxlength="2" min="0" required>
                     <div class="alert alert-info">
                         <strong>Información!</strong> Si se ingresa categoría 0, a todos los empleados se le va calcular este concepto sin importar la categoría.
                     </div>
@@ -122,7 +122,7 @@
                         }
                     %>
                     <label for="Monto">Monto</label>
-                    <input type="number" class="form-control" id="txtmonto" name="txtmonto" value="<%=vlo_DeduccionesPagos.getVgn_Monto()%>" maxlength="10" required>
+                    <input type="number" class="form-control" id="txtmonto" name="txtmonto" value="<%=vlo_DeduccionesPagos.getVgn_Monto()%>" maxlength="10" min="0" required>
                     <input type="hidden" id="txtidDediccionPago" name="txtidDediccionPago" value="<%=vlo_DeduccionesPagos.getVgn_idDeduccionPago()%>">
                 </div>
                 <button type="submit" id="btn_Guardar" class="btn btn-primary">Guardar</button>
